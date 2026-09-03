@@ -53,11 +53,11 @@ export default function Home() {
       <Navbar />
 
       {/* Main Hero Section */}
-      <section className="relative flex-1 flex flex-col items-center justify-center text-center px-4 max-w-6xl mx-auto my-auto pt-36 sm:pt-44 pb-16 z-10">
+      <section className="relative flex-1 flex flex-col items-center justify-center text-center px-4 max-w-6xl mx-auto my-auto pt-32 sm:pt-44 pb-14 sm:pb-16 z-10 w-full overflow-hidden">
         {/* Strictly Two-Line High-Impact Display Headline */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[64px] xl:text-[70px] font-extrabold tracking-[-0.035em] text-white leading-[1.12] mb-6">
-          <span className="block whitespace-nowrap">The ultimate agent super app</span>
-          <span className="text-zinc-400 font-normal block mt-2 sm:mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-[46px] xl:text-[52px] tracking-[-0.02em]">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[64px] xl:text-[70px] font-extrabold tracking-[-0.035em] text-white leading-[1.14] sm:leading-[1.12] mb-6 max-w-4xl mx-auto">
+          <span className="block sm:whitespace-nowrap">The ultimate agent super app</span>
+          <span className="text-zinc-400 font-normal block mt-2 sm:mt-3 text-xl sm:text-3xl md:text-4xl lg:text-[46px] xl:text-[52px] tracking-[-0.02em]">
             Code, chat & automate
           </span>
         </h1>
@@ -359,7 +359,7 @@ export default function Home() {
       {/* SECTION: Pricing Section (Price First - Exactly same as Price Page) */}
       <section id="price" className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-32 scroll-mt-20">
         <div id="pricing" className="text-center max-w-4xl mx-auto mb-16 sm:mb-20">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-6xl font-extrabold tracking-[-0.03em] text-white leading-tight mb-6 whitespace-nowrap">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-6xl font-extrabold tracking-[-0.03em] text-white leading-tight mb-4 sm:mb-6 sm:whitespace-nowrap">
             Hiveory for Engineering Teams
           </h2>
           <p className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto">

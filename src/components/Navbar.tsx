@@ -47,14 +47,14 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 w-full flex justify-center pointer-events-none transition-[padding] duration-500 ease-out ${
-        isScrolled ? "pt-0 px-0" : "pt-3 px-4"
+        isScrolled ? "pt-0 px-0" : "pt-2 sm:pt-3 px-2 sm:px-4"
       }`}
     >
       <nav
         className={`w-full pointer-events-auto flex items-center justify-center backdrop-blur-xl transition-all duration-500 ease-out ${
           isScrolled
-            ? "max-w-full rounded-none px-6 py-3 bg-[#070709]/95 border-b border-white/[0.08] border-t-transparent border-x-transparent shadow-2xl"
-            : "max-w-[920px] rounded-2xl px-6 py-2.5 bg-[#121216]/80 border border-white/[0.1] shadow-2xl"
+            ? "max-w-full rounded-none px-3 sm:px-6 py-2.5 sm:py-3 bg-[#070709]/95 border-b border-white/[0.08] border-t-transparent border-x-transparent shadow-2xl"
+            : "max-w-[920px] rounded-2xl px-3 sm:px-6 py-2 sm:py-2.5 bg-[#121216]/80 border border-white/[0.1] shadow-2xl"
         }`}
       >
         {/* Inner content container: Minimal difference between floating (900px) and sticky (930px) */}
@@ -72,9 +72,9 @@ export default function Navbar() {
                 window.scrollTo({ top: 0, behavior: "instant" });
               }
             }}
-            className="flex items-center gap-2.5 cursor-pointer group"
+            className="flex items-center gap-2 sm:gap-2.5 cursor-pointer group shrink-0"
           >
-            <div className="relative w-7 h-7 rounded-lg overflow-hidden flex items-center justify-center p-0.5 shadow-[0_0_12px_rgba(255,255,255,0.15)] group-hover:scale-105 transition-transform duration-300">
+            <div className="relative w-6 h-6 sm:w-7 sm:h-7 rounded-lg overflow-hidden flex items-center justify-center p-0.5 shadow-[0_0_12px_rgba(255,255,255,0.15)] group-hover:scale-105 transition-transform duration-300">
               <Image
                 src="/hiveory-logo.png"
                 alt="Hiveory Logo"
@@ -84,7 +84,7 @@ export default function Navbar() {
                 priority
               />
             </div>
-            <span className="text-[15px] font-semibold tracking-tight text-white group-hover:text-zinc-200 transition-colors duration-300">
+            <span className="text-[14px] sm:text-[15px] font-semibold tracking-tight text-white group-hover:text-zinc-200 transition-colors duration-300">
               Hiveory
             </span>
           </Link>
@@ -120,13 +120,13 @@ export default function Navbar() {
           </div>
 
           {/* Right Action Cluster */}
-          <div className="flex items-center gap-2 sm:gap-2.5">
-            {/* Discord Button */}
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+            {/* Discord Button (Hidden on small mobile) */}
             <a
               href="https://discord.gg/sT8Maq6Cxs"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-white/[0.06] transition-colors"
+              className="hidden sm:inline-flex p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-white/[0.06] transition-colors"
               aria-label="Discord Community"
             >
               <svg
@@ -138,12 +138,12 @@ export default function Navbar() {
               </svg>
             </a>
 
-            {/* YouTube Button */}
+            {/* YouTube Button (Hidden on small mobile) */}
             <a
               href="https://www.youtube.com/@ttcislive"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-white/[0.06] transition-colors"
+              className="hidden sm:inline-flex p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-white/[0.06] transition-colors"
               aria-label="YouTube Channel"
             >
               <svg
@@ -155,15 +155,15 @@ export default function Navbar() {
               </svg>
             </a>
 
-            {/* Divider */}
-            <div className="h-4 w-px bg-white/10 mx-0.5" />
+            {/* Divider (Hidden on small mobile) */}
+            <div className="hidden sm:block h-4 w-px bg-white/10 mx-0.5" />
 
             {/* GitHub Stars Button */}
             <a
               href="https://github.com/raktim-yoddha/hiveory"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#141418] border border-white/10 hover:border-white/20 text-[12px] font-medium text-white transition-all shadow-sm group"
+              className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1.5 rounded-lg bg-[#141418] border border-white/10 hover:border-white/20 text-[11px] sm:text-[12px] font-medium text-white transition-all shadow-sm group"
             >
               <svg
                 className="w-3.5 h-3.5 fill-current text-zinc-300 group-hover:text-white"
@@ -177,12 +177,12 @@ export default function Navbar() {
             {/* Download Button */}
             <button
               onClick={() => triggerLatestDownload()}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white text-black text-[12px] font-semibold hover:bg-zinc-200 transition-all shadow-sm active:scale-95 cursor-pointer"
+              className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-white text-black text-[11px] sm:text-[12px] font-semibold hover:bg-zinc-200 transition-all shadow-sm active:scale-95 cursor-pointer shrink-0"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
+                width="13"
+                height="13"
                 fill="currentColor"
                 viewBox="0 0 256 256"
               >

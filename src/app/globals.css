@@ -16,21 +16,9 @@ html {
   --font-mono: var(--font-mono);
 }
 
-/* Dot grid background texture matching reference */
-.mesh-dot-grid {
+body {
   background-color: #060608;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.13) 1.1px, transparent 1.1px);
-  background-size: 28px 28px;
-}
-
-/* Subtle radial lighting for deep focus */
-.hero-radial-glow {
-  background: radial-gradient(
-    circle at 50% 35%,
-    rgba(255, 255, 255, 0.04) 0%,
-    rgba(255, 255, 255, 0.015) 30%,
-    transparent 70%
-  );
+  color: #f4f4f5;
 }
 
 /* Floating glass dock */
@@ -41,6 +29,23 @@ html {
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.7);
 }
+
+/* Gojiberry-style continuous flowing beam animation (Full 2072.48px cycle = dash 1036.24px + gap 1036.24px) */
+@keyframes gojiberry-flow-down {
+  0% {
+    stroke-dashoffset: 0px;
+  }
+  100% {
+    stroke-dashoffset: -2072.48px;
+  }
+}
+
+.animate-gojiberry-flow {
+  animation: gojiberry-flow-down 4s linear infinite;
+}
+
+
+
 
 /* Button glow effect */
 .btn-primary-glow {

@@ -1,6 +1,7 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
+import HeroFlowLines from "@/components/HeroFlowLines";
 import ProductCardStack from "@/components/ProductCardStack";
 import HoverFooter from "@/components/ui/hover-footer";
 import { triggerLatestDownload, getLatestRelease } from "@/lib/download";
@@ -16,8 +17,8 @@ export default function Home() {
   useEffect(() => {
     const handleScroll = () => {
       const y = window.scrollY;
-      // Scroll expansion progress: from 40px scroll to 480px scroll
-      const progress = Math.min(Math.max((y - 40) / 440, 0), 1);
+      // Scroll expansion progress: starts immediately as user scrolls (from 10px to 420px)
+      const progress = Math.min(Math.max((y - 10) / 410, 0), 1);
       setScrollProgress(progress);
     };
 
@@ -45,121 +46,128 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="mesh-dot-grid hero-radial-glow relative min-h-screen w-full flex flex-col justify-between overflow-x-clip selection:bg-white/20 selection:text-white">
+    <div className="bg-[#060608] relative min-h-screen w-full flex flex-col justify-between overflow-x-clip selection:bg-white/20 selection:text-white">
       {/* Subtle vignette border gradient overlay */}
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(6,6,8,0.5)_65%,#060608_100%)] z-0" />
 
       {/* Shared Unified Navbar */}
       <Navbar />
 
-      {/* Main Hero Section */}
-      <section className="relative flex-1 flex flex-col items-center justify-center text-center px-4 max-w-6xl mx-auto my-auto pt-32 sm:pt-44 pb-14 sm:pb-16 z-10 w-full overflow-hidden">
-        {/* Strictly Two-Line High-Impact Display Headline */}
-        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[64px] xl:text-[70px] font-extrabold tracking-[-0.035em] text-white leading-[1.14] sm:leading-[1.12] mb-6 max-w-4xl mx-auto">
-          <span className="block sm:whitespace-nowrap">The ultimate agent super app</span>
-          <span className="text-zinc-400 font-normal block mt-2 sm:mt-3 text-xl sm:text-3xl md:text-4xl lg:text-[46px] xl:text-[52px] tracking-[-0.02em]">
-            Code, chat & automate
-          </span>
-        </h1>
+      {/* Main Hero Section with Gojiberry Flowing Lines Animation in White Theme */}
+      <section className="relative flex-1 flex flex-col items-center justify-center text-center w-full pt-36 sm:pt-48 pb-12 sm:pb-16 z-10 overflow-visible">
+        {/* Background Flowing Lines & Isometric Geometry System spanning edge-to-edge */}
+        <HeroFlowLines />
 
-        {/* Crisp Narrative Subtitle */}
-        <p className="max-w-2xl mx-auto text-base sm:text-lg text-zinc-400/90 leading-relaxed font-normal mb-10">
-          Orchestrate agent swarms in a terminal-first ADE with plugin and skill
-          management, brainstorm across AI models with instant switching, and
-          delegate tasks to fully autonomous agents—all in one local-first
-          desktop workspace.
-        </p>
+        {/* Content Container (Keeps text centered and readable) */}
+        <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-5xl mx-auto px-4">
 
-        {/* Call to Action Buttons */}
-        <div className="flex flex-col items-center justify-center w-full sm:w-auto">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto">
-            {/* Primary Download for Windows Button */}
-            <button
-              onClick={() => triggerLatestDownload("windows")}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-white text-black px-6 py-3 text-[15px] font-semibold hover:bg-zinc-200 transition-all duration-200 shadow-md active:scale-95 cursor-pointer"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                fill="currentColor"
-                viewBox="0 0 256 256"
+          {/* Strictly Two-Line High-Impact Display Headline */}
+          <h1 className="relative z-10 text-3xl sm:text-5xl md:text-6xl lg:text-[64px] xl:text-[70px] font-extrabold tracking-[-0.035em] text-white leading-[1.14] sm:leading-[1.12] mb-6 max-w-4xl mx-auto">
+            <span className="block sm:whitespace-nowrap">The ultimate agent super app</span>
+            <span className="text-zinc-400 font-normal block mt-2 sm:mt-3 text-xl sm:text-3xl md:text-4xl lg:text-[46px] xl:text-[52px] tracking-[-0.02em]">
+              Code, chat & automate
+            </span>
+          </h1>
+
+          {/* Crisp Narrative Subtitle */}
+          <p className="relative z-10 max-w-2xl mx-auto text-base sm:text-lg text-zinc-400/90 leading-relaxed font-normal mb-10">
+            Orchestrate agent swarms in a terminal-first ADE with plugin and skill
+            management, brainstorm across AI models with instant switching, and
+            delegate tasks to fully autonomous agents—all in one local-first
+            desktop workspace.
+          </p>
+
+          {/* Call to Action Buttons */}
+          <div className="relative z-10 flex flex-col items-center justify-center w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto">
+              {/* Primary Download for Windows Button */}
+              <button
+                onClick={() => triggerLatestDownload("windows")}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-white text-black px-6 py-3 text-[15px] font-semibold hover:bg-zinc-200 transition-all duration-200 shadow-md active:scale-95 cursor-pointer"
               >
-                <path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34A8,8,0,0,0,82.34,109.66Z" />
-              </svg>
-              <span>Download for Windows</span>
-            </button>
-
-            {/* Give us a star Button */}
-            <a
-              href="https://github.com/raktim-yoddha/hiveory"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-xl bg-[#131317] border border-white/10 hover:border-white/20 hover:bg-[#1a1a20] px-6 py-3 text-[15px] font-medium text-white transition-all duration-200 shadow-sm active:scale-95 cursor-pointer group"
-            >
-              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-              </svg>
-              <span>Give us a star</span>
-              <span className="flex items-center gap-1 text-xs font-mono text-zinc-300 bg-white/[0.08] px-2 py-0.5 rounded-md border border-white/10 ml-0.5 group-hover:border-white/20 transition-colors">
-                <svg className="w-3 h-3 fill-white text-white" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  fill="currentColor"
+                  viewBox="0 0 256 256"
+                >
+                  <path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34A8,8,0,0,0,82.34,109.66Z" />
                 </svg>
-                <span>{starCount}</span>
-              </span>
-            </a>
-          </div>
+                <span>Download for Windows</span>
+              </button>
 
-          {/* Subtitle Caption */}
-          <button
-            onClick={() => triggerLatestDownload()}
-            className="text-[12px] text-zinc-500 mt-3 flex items-center gap-1 cursor-pointer hover:text-zinc-300 transition-colors"
-          >
-            <span>Also for Apple Silicon · Intel · Linux</span>
-            <svg
-              className="w-3 h-3 text-zinc-500"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
+              {/* Give us a star Button */}
+              <a
+                href="https://github.com/raktim-yoddha/hiveory"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-xl bg-[#131317] border border-white/10 hover:border-white/20 hover:bg-[#1a1a20] px-6 py-3 text-[15px] font-medium text-white transition-all duration-200 shadow-sm active:scale-95 cursor-pointer group"
+              >
+                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                </svg>
+                <span>Give us a star</span>
+                <span className="flex items-center gap-1 text-xs font-mono text-zinc-300 bg-white/[0.08] px-2 py-0.5 rounded-md border border-white/10 ml-0.5 group-hover:border-white/20 transition-colors">
+                  <svg className="w-3 h-3 fill-white text-white" viewBox="0 0 24 24">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                  </svg>
+                  <span>{starCount}</span>
+                </span>
+              </a>
+            </div>
+
+            {/* Subtitle Caption */}
+            <button
+              onClick={() => triggerLatestDownload()}
+              className="text-[12px] text-zinc-500 mt-3 flex items-center gap-1 cursor-pointer hover:text-zinc-300 transition-colors"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-              />
-            </svg>
-          </button>
+              <span>Also for Apple Silicon · Intel · Linux</span>
+              <svg
+                className="w-3 h-3 text-zinc-500"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </section>
 
-      {/* SECTION: Hiveory Desktop App Image (Subtle, smooth scroll expansion) */}
+      {/* SECTION: Hiveory Desktop App Image (Smooth scroll expansion from compact framed start to full screen) */}
       <section
         id="ade-preview"
-        className="relative w-full flex flex-col items-center justify-center px-4 sm:px-6 pt-2 pb-16 z-20"
+        className="relative w-full flex flex-col items-center justify-center px-4 sm:px-6 pt-6 sm:pt-10 pb-20 sm:pb-28 z-20 overflow-visible"
       >
         {/* Ambient back-glow that gently brightens */}
         <div
           className="pointer-events-none absolute -top-12 left-1/2 -translate-x-1/2 h-64 bg-blue-500/10 blur-[130px] rounded-full transition-all duration-500 ease-out"
           style={{
-            width: `${65 + scrollProgress * 20}%`,
-            opacity: 0.4 + scrollProgress * 0.5,
+            width: `${50 + scrollProgress * 40}%`,
+            opacity: 0.35 + scrollProgress * 0.55,
           }}
         />
 
-        {/* The Desktop Image container: Substantial starting size with subtle 4% expansion */}
+        {/* The Desktop Image container: Small starting size framed by flow lines, smoothly expands to fill screen */}
         <div
-          className="relative rounded-2xl overflow-hidden transition-all duration-500 ease-out will-change-transform flex items-center justify-center"
+          className="relative rounded-2xl overflow-hidden transition-[max-width,transform,box-shadow,border-color] duration-300 ease-out will-change-transform flex items-center justify-center"
           style={{
             width: "100%",
             maxHeight: "calc(100vh - 84px)",
-            maxWidth: `min(${1040 + scrollProgress * 180}px, calc((100vh - 84px) * (16 / 9)))`,
+            maxWidth: `min(${684 + scrollProgress * 556}px, calc((100vh - 84px) * (16 / 9)))`,
             aspectRatio: "16 / 9",
-            transform: `scale(${0.96 + scrollProgress * 0.04})`,
-            boxShadow: `0 ${20 + scrollProgress * 15}px ${
-              50 + scrollProgress * 30
-            }px -15px rgba(0,0,0,${0.85 + scrollProgress * 0.12})`,
-            borderColor: `rgba(255, 255, 255, ${0.1 + scrollProgress * 0.08})`,
+            transform: `scale(${0.94 + scrollProgress * 0.06})`,
+            boxShadow: `0 ${15 + scrollProgress * 25}px ${
+              40 + scrollProgress * 40
+            }px -15px rgba(0,0,0,${0.8 + scrollProgress * 0.18})`,
+            borderColor: `rgba(255, 255, 255, ${0.1 + scrollProgress * 0.1})`,
             borderWidth: "1px",
             borderStyle: "solid",
           }}

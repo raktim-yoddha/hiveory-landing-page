@@ -157,7 +157,7 @@ export default function Home() {
 
         {/* The Desktop Image container: Small starting size framed by flow lines, smoothly expands to fill screen */}
         <div
-          className="relative rounded-2xl overflow-hidden transition-[max-width,transform,box-shadow,border-color] duration-300 ease-out will-change-transform flex items-center justify-center"
+          className="relative rounded-none overflow-hidden transition-[max-width,transform,box-shadow,border-color] duration-300 ease-out will-change-transform flex items-center justify-center"
           style={{
             width: "100%",
             maxHeight: "calc(100vh - 84px)",
@@ -173,11 +173,11 @@ export default function Home() {
           }}
         >
           <Image
-            src="/hiveory-ade-preview.png"
+            src="/demo.png"
             alt="Hiveory Code Mode ADE running multiple CLIs side by side"
             width={1920}
             height={1080}
-            className="w-full h-full object-contain block rounded-2xl"
+            className="w-full h-full object-contain block rounded-none"
             priority
             quality={95}
           />

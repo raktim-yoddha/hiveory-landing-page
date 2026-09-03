@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
@@ -12,7 +13,7 @@ interface ModeCard {
   subtitle: string;
   description: string;
   bullets: string[];
-  vacancyLabel: string;
+  imageSrc: string;
   icon: React.ReactNode;
 }
 
@@ -31,7 +32,7 @@ const modesData: ModeCard[] = [
       "Background swarm delegation & reactive wakeups",
       "Continuous audit logs & execution telemetry",
     ],
-    vacancyLabel: "Agent Mode Workspace Preview",
+    imageSrc: "/agent-mode.png",
     icon: (
       <svg
         className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400"
@@ -62,7 +63,7 @@ const modesData: ModeCard[] = [
       "Native PTY terminal multiplexing with streaming ANSI",
       "Shared Nectar architecture & memory store over MCP",
     ],
-    vacancyLabel: "Code Mode ADE Multi-Pane Preview",
+    imageSrc: "/demo.png",
     icon: (
       <svg
         className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400"
@@ -93,7 +94,7 @@ const modesData: ModeCard[] = [
       "Sandboxed file attachments and markdown previews",
       "Local-first encrypted conversation archive",
     ],
-    vacancyLabel: "Chat Mode Session Preview",
+    imageSrc: "/chat-mode.png",
     icon: (
       <svg
         className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400"
@@ -114,7 +115,7 @@ const modesData: ModeCard[] = [
 
 export default function ProductCardStack() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [bottomOffset, setBottomOffset] = useState<number>(1000);
+  const [bottomOffset, setBottomOffset] = useState<number>(1200);
 
   useEffect(() => {
     const updateOffset = () => {
@@ -130,163 +131,126 @@ export default function ProductCardStack() {
     offset: ["start start", "end end"],
   });
 
-  // CARD 0 (Agent Mode): Stays in its place from the start (y: 0), scales down as Card 1 arrives
-  const scale0 = useTransform(scrollYProgress, [0.10, 0.35], [1, 0.94]);
+  // CARD 0 (Agent Mode): Stays at y: 0, full scale
+  // CARD 1 (Code Mode): Starts rising immediately as scroll starts from this position, completely overriding Card 0
+  const y1 = useTransform(scrollYProgress, [0.01, 0.44], [bottomOffset, 0]);
 
-  // CARD 1 (Code Mode): Appears from the very bottom, rises and stops over Card 0 at y: 20
-  const y1 = useTransform(scrollYProgress, [0.08, 0.35], [bottomOffset, 20]);
-  const scale1 = useTransform(scrollYProgress, [0.40, 0.65], [1, 0.97]);
-
-  // CARD 2 (Chat Mode): Appears from the very bottom, rises and stops over Card 1 at y: 40 (settles early by 0.65)
-  const y2 = useTransform(scrollYProgress, [0.38, 0.65], [bottomOffset, 40]);
-
-  // Get Details button: Only appears once Card 3 (Chat Mode) has fully settled at the top (after 0.65)
-  const buttonOpacity = useTransform(scrollYProgress, (pos) => {
-    if (pos >= 0.72) return 1;
-    if (pos <= 0.65) return 0;
-    return (pos - 0.65) / (0.72 - 0.65);
-  });
-  const buttonY = useTransform(scrollYProgress, (pos) => {
-    if (pos >= 0.72) return 0;
-    if (pos <= 0.65) return 16;
-    return Math.round(16 * (1 - (pos - 0.65) / (0.72 - 0.65)));
-  });
-  const buttonPointerEvents = useTransform(scrollYProgress, (pos) =>
-    pos >= 0.68 ? "auto" : "none"
-  );
+  // CARD 2 (Chat Mode): Rises up and lands at y: 0, completely overriding Card 1
+  const y2 = useTransform(scrollYProgress, [0.48, 0.88], [bottomOffset, 0]);
 
   return (
-    <section
-      id="product-modes"
-      ref={sectionRef}
-      className="relative w-full h-[420vh] z-20"
-    >
-      {/* Sticky Viewport Frame: Balanced top positioning */}
-      <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-start pt-20 sm:pt-22 md:pt-24 pb-6 px-4 sm:px-6 overflow-hidden pointer-events-none">
-        {/* Stuck Title and Description at the Top */}
-        <div className="max-w-3xl mx-auto text-center mb-5 sm:mb-6 shrink-0 pointer-events-auto">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-[-0.03em] text-white leading-tight mb-2">
-            One Super App. Three Modes.
-          </h2>
-          <p className="text-xs sm:text-sm text-zinc-400 max-w-xl mx-auto leading-relaxed">
-            Switch seamlessly between full autonomous task execution, multi-CLI
-            coding sessions, and multi-model brainstorming.
-          </p>
-        </div>
-
-        {/* Stacking Cards Area: Below the Title and Description */}
-        <div className="relative w-full max-w-5xl h-[420px] sm:h-[450px] md:h-[465px] pointer-events-auto">
-          {/* CARD 0: Agent Mode - Stays in place */}
-          <motion.div
-            style={{ y: 0, scale: scale0, zIndex: 10 }}
-            className="absolute inset-x-0 top-0 origin-top rounded-none border border-white/[0.15] bg-[#0c0c11]/95 backdrop-blur-2xl shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-5 sm:p-7 md:p-8"
-          >
-            {/* Outer Card Corner Brackets */}
-            <div className="absolute top-2 left-2 w-3.5 h-3.5 border-t-2 border-l-2 border-white/40 pointer-events-none" />
-            <div className="absolute top-2 right-2 w-3.5 h-3.5 border-t-2 border-r-2 border-white/40 pointer-events-none" />
-            <div className="absolute bottom-2 left-2 w-3.5 h-3.5 border-b-2 border-l-2 border-white/40 pointer-events-none" />
-            <div className="absolute bottom-2 right-2 w-3.5 h-3.5 border-b-2 border-r-2 border-white/40 pointer-events-none" />
-            <CardInnerContent card={modesData[0]} />
-          </motion.div>
-
-          {/* CARD 1: Code Mode */}
-          <motion.div
-            style={{ y: y1, scale: scale1, zIndex: 20 }}
-            className="absolute inset-x-0 top-0 origin-top rounded-none border border-white/[0.15] bg-[#0c0c11]/95 backdrop-blur-2xl shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-5 sm:p-7 md:p-8"
-          >
-            {/* Outer Card Corner Brackets */}
-            <div className="absolute top-2 left-2 w-3.5 h-3.5 border-t-2 border-l-2 border-white/40 pointer-events-none" />
-            <div className="absolute top-2 right-2 w-3.5 h-3.5 border-t-2 border-r-2 border-white/40 pointer-events-none" />
-            <div className="absolute bottom-2 left-2 w-3.5 h-3.5 border-b-2 border-l-2 border-white/40 pointer-events-none" />
-            <div className="absolute bottom-2 right-2 w-3.5 h-3.5 border-b-2 border-r-2 border-white/40 pointer-events-none" />
-            <CardInnerContent card={modesData[1]} />
-          </motion.div>
-
-          {/* CARD 2: Chat Mode */}
-          <motion.div
-            style={{ y: y2, zIndex: 30 }}
-            className="absolute inset-x-0 top-0 origin-top rounded-none border border-white/[0.15] bg-[#0c0c11]/95 backdrop-blur-2xl shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-5 sm:p-7 md:p-8"
-          >
-            {/* Outer Card Corner Brackets */}
-            <div className="absolute top-2 left-2 w-3.5 h-3.5 border-t-2 border-l-2 border-white/40 pointer-events-none" />
-            <div className="absolute top-2 right-2 w-3.5 h-3.5 border-t-2 border-r-2 border-white/40 pointer-events-none" />
-            <div className="absolute bottom-2 left-2 w-3.5 h-3.5 border-b-2 border-l-2 border-white/40 pointer-events-none" />
-            <div className="absolute bottom-2 right-2 w-3.5 h-3.5 border-b-2 border-r-2 border-white/40 pointer-events-none" />
-            <CardInnerContent card={modesData[2]} />
-          </motion.div>
-        </div>
-
-        {/* Get More Details Button - Persistently appears ONLY after 3rd card settles at the top */}
-        <motion.div
-          style={{
-            opacity: buttonOpacity,
-            y: buttonY,
-            pointerEvents: buttonPointerEvents,
-          }}
-          className="mt-2 sm:mt-3 z-40 flex items-center justify-center"
-        >
-          <Link
-            href="/product"
-            className="group relative inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-[#141418] hover:bg-white text-white hover:text-black border border-white/20 hover:border-white text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 shadow-[0_0_25px_rgba(255,255,255,0.06)] hover:shadow-[0_0_35px_rgba(255,255,255,0.25)]"
-          >
-            <span>Get More Details</span>
-            <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-          </Link>
-        </motion.div>
+    <div id="product-modes" className="relative w-full">
+      {/* Section Header (In normal document flow, NOT stuck in the overlapping animation) */}
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 pt-16 sm:pt-24 pb-8 sm:pb-12 text-center">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.03em] text-white leading-tight mb-4">
+          One Super App. Three Modes.
+        </h2>
+        <p className="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+          Switch seamlessly between full autonomous task execution, multi-CLI
+          coding sessions, and multi-model brainstorming inside one unified host.
+        </p>
       </div>
-    </section>
+
+      {/* Sticky Overlapping Cards Animation (Title is NOT shown in sticky viewport) */}
+      <section
+        ref={sectionRef}
+        className="relative w-full h-[320vh] z-20"
+      >
+        {/* Sticky Viewport Frame: Shifted down to stay centered overall in the viewport */}
+        <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center pt-8 pb-4 px-4 sm:px-6 lg:px-8 overflow-hidden pointer-events-none">
+          {/* Overriding Lowered-Length Cards Area */}
+          <div className="relative w-full max-w-6xl h-[430px] sm:h-[450px] md:h-[470px] lg:h-[480px] pointer-events-auto">
+            {/* CARD 0: Agent Mode - In place from start */}
+            <motion.div
+              style={{ y: 0, zIndex: 10 }}
+              className="absolute inset-0 rounded-none border border-white/[0.15] bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-5 sm:p-6 md:p-8 flex flex-col justify-center"
+            >
+              {/* Outer Card Corner Brackets */}
+              <div className="absolute top-2.5 left-2.5 w-4 h-4 border-t-2 border-l-2 border-white/40 pointer-events-none" />
+              <div className="absolute top-2.5 right-2.5 w-4 h-4 border-t-2 border-r-2 border-white/40 pointer-events-none" />
+              <div className="absolute bottom-2.5 left-2.5 w-4 h-4 border-b-2 border-l-2 border-white/40 pointer-events-none" />
+              <div className="absolute bottom-2.5 right-2.5 w-4 h-4 border-b-2 border-r-2 border-white/40 pointer-events-none" />
+              <CardInnerContent card={modesData[0]} index={0} />
+            </motion.div>
+
+            {/* CARD 1: Code Mode - Rises up and completely overrides Card 0 */}
+            <motion.div
+              style={{ y: y1, zIndex: 20 }}
+              className="absolute inset-0 rounded-none border border-white/[0.15] bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-5 sm:p-6 md:p-8 flex flex-col justify-center"
+            >
+              {/* Outer Card Corner Brackets */}
+              <div className="absolute top-2.5 left-2.5 w-4 h-4 border-t-2 border-l-2 border-white/40 pointer-events-none" />
+              <div className="absolute top-2.5 right-2.5 w-4 h-4 border-t-2 border-r-2 border-white/40 pointer-events-none" />
+              <div className="absolute bottom-2.5 left-2.5 w-4 h-4 border-b-2 border-l-2 border-white/40 pointer-events-none" />
+              <div className="absolute bottom-2.5 right-2.5 w-4 h-4 border-b-2 border-r-2 border-white/40 pointer-events-none" />
+              <CardInnerContent card={modesData[1]} index={1} />
+            </motion.div>
+
+            {/* CARD 2: Chat Mode - Rises up and completely overrides Card 1 */}
+            <motion.div
+              style={{ y: y2, zIndex: 30 }}
+              className="absolute inset-0 rounded-none border border-white/[0.15] bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-5 sm:p-6 md:p-8 flex flex-col justify-center"
+            >
+              {/* Outer Card Corner Brackets */}
+              <div className="absolute top-2.5 left-2.5 w-4 h-4 border-t-2 border-l-2 border-white/40 pointer-events-none" />
+              <div className="absolute top-2.5 right-2.5 w-4 h-4 border-t-2 border-r-2 border-white/40 pointer-events-none" />
+              <div className="absolute bottom-2.5 left-2.5 w-4 h-4 border-b-2 border-l-2 border-white/40 pointer-events-none" />
+              <div className="absolute bottom-2.5 right-2.5 w-4 h-4 border-b-2 border-r-2 border-white/40 pointer-events-none" />
+              <CardInnerContent card={modesData[2]} index={2} />
+            </motion.div>
+          </div>
+
+          {/* See More Details Button - Always visible, never disappears while scrolling down */}
+          <div className="mt-6 sm:mt-8 z-40 flex items-center justify-center pointer-events-auto">
+            <Link
+              href="/product"
+              className="group relative inline-flex items-center gap-2 px-6 py-2.5 rounded-none bg-[#141418] hover:bg-white text-white hover:text-black border border-white/20 hover:border-white text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 shadow-[0_0_25px_rgba(255,255,255,0.06)] hover:shadow-[0_0_35px_rgba(255,255,255,0.25)]"
+            >
+              <span>See More Details</span>
+              <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
 
-function CardInnerContent({ card }: { card: ModeCard }) {
+function CardInnerContent({ card, index }: { card: ModeCard; index: number }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-8 items-center">
-      {/* Left Side: Image Vacancy Container */}
-      <div className="md:col-span-6 w-full aspect-[16/10] max-h-[220px] sm:max-h-[280px] rounded-none border border-dashed border-white/20 bg-white/[0.02] flex flex-col items-center justify-center p-5 text-center group hover:border-white/35 transition-all duration-300 relative overflow-hidden shadow-inner">
-        {/* Subtle glass shimmer inside vacancy */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.06),transparent_70%)] pointer-events-none" />
-
-        <div className="relative w-11 h-11 sm:w-13 sm:h-13 rounded-none bg-white/[0.05] border border-white/10 flex items-center justify-center mb-2.5 shadow-inner group-hover:scale-105 transition-transform duration-300">
-          {card.icon}
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-8 items-center h-full">
+      {/* Left Side: Title & Description */}
+      <div className="lg:col-span-5 flex flex-col justify-center">
+        {/* Step pill tag */}
+        <div className="flex items-center gap-2 mb-2 sm:mb-2.5">
+          <span className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-none bg-white/[0.06] border border-white/15 text-[11px] font-mono text-zinc-300">
+            <span className="text-white font-bold">{index + 1}/3</span>
+            <span className="text-zinc-500">·</span>
+            <span>{card.tag}</span>
+          </span>
         </div>
 
-        <span className="relative text-xs sm:text-sm font-semibold text-zinc-200 tracking-tight mb-1">
-          {card.vacancyLabel}
-        </span>
-        <span className="relative text-[11px] sm:text-xs text-zinc-500 max-w-[200px]">
-          Ready for image asset injection
-        </span>
-
-        {/* Corner guide brackets */}
-        <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-white/30" />
-        <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-white/30" />
-        <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-white/30" />
-        <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-white/30" />
-      </div>
-
-      {/* Right Side: Title & Description */}
-      <div className="md:col-span-6 flex flex-col justify-center">
-        <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white tracking-tight mb-1">
+        <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight mb-1.5">
           {card.title}
         </h3>
 
-        <p className="text-xs sm:text-[13px] font-medium text-zinc-400 mb-3 leading-snug">
+        <p className="text-xs sm:text-[13px] font-medium text-zinc-300 mb-2 leading-snug">
           {card.subtitle}
         </p>
 
-        <p className="text-xs sm:text-sm text-zinc-400/90 leading-relaxed mb-4 hidden sm:block">
+        <p className="text-xs text-zinc-400 leading-relaxed mb-3 hidden sm:block">
           {card.description}
         </p>
 
         {/* Key Feature Bullets */}
-        <ul className="space-y-1.5 mb-4">
+        <ul className="space-y-1.5 mb-3 sm:mb-4">
           {card.bullets.map((bullet, i) => (
             <li
               key={i}
-              className="flex items-center gap-2 text-xs sm:text-[13px] text-zinc-300"
+              className="flex items-start gap-2 text-xs text-zinc-300"
             >
               <svg
-                className="w-3.5 h-3.5 text-emerald-400 shrink-0"
+                className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -307,13 +271,30 @@ function CardInnerContent({ card }: { card: ModeCard }) {
         <div>
           <Link
             href="/product"
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-white hover:text-zinc-300 transition-colors group"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-white hover:text-zinc-200 transition-colors group"
           >
             <span>Explore {card.title}</span>
             <span className="transition-transform group-hover:translate-x-1">
               →
             </span>
           </Link>
+        </div>
+      </div>
+
+      {/* Right Side: Mode Desktop Image (Complete unzoomed 16:9 screenshot) */}
+      <div className="lg:col-span-7 flex items-center justify-center w-full">
+        <div className="relative w-full aspect-[16/9] rounded-none border border-white/15 bg-[#08080c] overflow-hidden shadow-2xl group flex items-center justify-center">
+          <Image
+            src={card.imageSrc}
+            alt={`${card.title} desktop preview`}
+            fill
+            sizes="(max-width: 1024px) 100vw, 720px"
+            className="object-contain block rounded-none transition-transform duration-500 group-hover:scale-[1.01]"
+            priority={index === 0}
+            quality={100}
+          />
+          {/* Subtle glass reflection accent */}
+          <div className="absolute inset-0 pointer-events-none border border-white/10 rounded-none shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]" />
         </div>
       </div>
     </div>

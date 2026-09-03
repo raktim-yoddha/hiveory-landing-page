@@ -69,11 +69,6 @@ export default function CapabilitiesPage() {
       <main className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-36 sm:pt-44 pb-24 flex-1">
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-white/10 bg-white/[0.04] text-[12px] font-medium text-zinc-400 mb-6">
-            <span className="w-2 h-2 rounded-full bg-blue-400" />
-            <span>Under the Hood</span>
-          </div>
-
           <h1 className="text-4xl sm:text-6xl font-extrabold tracking-[-0.03em] text-white leading-tight mb-6">
             Built for multi-agent reliability
           </h1>
@@ -90,8 +85,14 @@ export default function CapabilitiesPage() {
           {capabilities.map((c, i) => (
             <div
               key={i}
-              className="rounded-2xl border border-white/[0.08] bg-[#0c0c10]/90 p-7 flex flex-col justify-between transition-all duration-300 hover:border-white/20 hover:bg-[#111116] shadow-xl"
+              className="relative rounded-none border border-white/[0.12] bg-[#0c0c10]/90 p-7 flex flex-col justify-between transition-all duration-300 hover:border-white/25 hover:bg-[#111116] shadow-xl"
             >
+              {/* Corner Brackets */}
+              <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-white/30 pointer-events-none" />
+              <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-white/30 pointer-events-none" />
+              <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-white/30 pointer-events-none" />
+              <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-white/30 pointer-events-none" />
+
               <div>
                 <div className="text-3xl mb-4">{c.icon}</div>
                 <h2 className="text-xl font-bold text-white mb-2 tracking-tight">
@@ -109,7 +110,13 @@ export default function CapabilitiesPage() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 text-center max-w-3xl mx-auto">
+        <div className="relative rounded-none border border-white/10 bg-white/[0.02] p-8 text-center max-w-3xl mx-auto shadow-xl">
+          {/* Corner Brackets */}
+          <div className="absolute top-2 left-2 w-3.5 h-3.5 border-t-2 border-l-2 border-white/30 pointer-events-none" />
+          <div className="absolute top-2 right-2 w-3.5 h-3.5 border-t-2 border-r-2 border-white/30 pointer-events-none" />
+          <div className="absolute bottom-2 left-2 w-3.5 h-3.5 border-b-2 border-l-2 border-white/30 pointer-events-none" />
+          <div className="absolute bottom-2 right-2 w-3.5 h-3.5 border-b-2 border-r-2 border-white/30 pointer-events-none" />
+
           <h2 className="text-xl font-semibold text-white mb-2">
             Want to inspect the complete architecture specification?
           </h2>
@@ -119,13 +126,13 @@ export default function CapabilitiesPage() {
           <div className="flex justify-center gap-4">
             <Link
               href="/docs"
-              className="px-5 py-2 rounded-xl bg-white text-black text-sm font-semibold hover:bg-zinc-200 transition-colors"
+              className="px-5 py-2 rounded-none border border-white/10 bg-white text-black text-sm font-semibold hover:bg-zinc-200 transition-colors"
             >
               Read Docs
             </Link>
             <Link
               href="/"
-              className="px-5 py-2 rounded-xl bg-white/[0.05] border border-white/10 text-white text-sm font-medium hover:bg-white/10 transition-colors"
+              className="px-5 py-2 rounded-none bg-white/[0.05] border border-white/10 text-white text-sm font-medium hover:bg-white/10 transition-colors"
             >
               Explore Home
             </Link>

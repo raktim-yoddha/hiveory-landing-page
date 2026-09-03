@@ -66,11 +66,6 @@ export default function ProductPage() {
       <main className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-36 sm:pt-44 pb-24 flex-1">
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-white/10 bg-white/[0.04] text-[12px] font-medium text-zinc-400 mb-6">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>One Super App · Three Isolated Modes</span>
-          </div>
-
           <h1 className="text-4xl sm:text-6xl font-extrabold tracking-[-0.03em] text-white leading-tight mb-6">
             Engineered for code, autonomy & brainstorming
           </h1>
@@ -87,11 +82,17 @@ export default function ProductPage() {
           {modes.map((m) => (
             <div
               key={m.id}
-              className="relative rounded-2xl border border-white/[0.08] bg-[#0c0c10]/90 p-7 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:border-white/20 hover:bg-[#111116] shadow-xl group"
+              className="relative rounded-none border border-white/[0.12] bg-[#0c0c10]/90 p-7 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:border-white/25 hover:bg-[#111116] shadow-xl group"
             >
+              {/* Corner Brackets */}
+              <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-white/30 pointer-events-none" />
+              <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-white/30 pointer-events-none" />
+              <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-white/30 pointer-events-none" />
+              <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-white/30 pointer-events-none" />
+
               <div>
                 <div className="flex items-center justify-between gap-2 mb-6">
-                  <span className="text-[11px] uppercase tracking-wider font-mono px-2.5 py-1 rounded-md bg-white/[0.06] text-zinc-300 border border-white/10">
+                  <span className="text-[11px] uppercase tracking-wider font-mono px-2.5 py-1 rounded-none bg-white/[0.06] text-zinc-300 border border-white/10">
                     {m.tag}
                   </span>
                   <span className="text-[11px] text-zinc-500 font-medium">
@@ -145,7 +146,13 @@ export default function ProductPage() {
         </div>
 
         {/* Bottom CTA Block */}
-        <div className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent p-8 sm:p-12 text-center max-w-4xl mx-auto shadow-2xl">
+        <div className="relative rounded-none border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent p-8 sm:p-12 text-center max-w-4xl mx-auto shadow-2xl">
+          {/* Corner Brackets */}
+          <div className="absolute top-2 left-2 w-3.5 h-3.5 border-t-2 border-l-2 border-white/30 pointer-events-none" />
+          <div className="absolute top-2 right-2 w-3.5 h-3.5 border-t-2 border-r-2 border-white/30 pointer-events-none" />
+          <div className="absolute bottom-2 left-2 w-3.5 h-3.5 border-b-2 border-l-2 border-white/30 pointer-events-none" />
+          <div className="absolute bottom-2 right-2 w-3.5 h-3.5 border-b-2 border-r-2 border-white/30 pointer-events-none" />
+
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
             Ready to experience concurrent agent development?
           </h2>

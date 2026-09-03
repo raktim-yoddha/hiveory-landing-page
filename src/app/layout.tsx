@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
+import { Saira, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const ibmPlexSans = IBM_Plex_Sans({
+const saira = Saira({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
   variable: "--font-sans",
 });
 
@@ -47,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${ibmPlexSans.variable} ${jetbrainsMono.variable} dark`}
+      className={`${saira.variable} ${jetbrainsMono.variable} dark`}
     >
       <body className="min-h-screen bg-[#070709] text-[#f4f4f5] antialiased selection:bg-white/20 selection:text-white font-sans">
         {children}

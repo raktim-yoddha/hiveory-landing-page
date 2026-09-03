@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Enterprise — Hiveory | Sovereign AI Engineering for Teams",
+  title: "Price — Hiveory | Sovereign AI Engineering for Teams",
   description:
     "Deploy Hiveory across your engineering organization with on-premise governance, team skill synchronization, and air-gapped security.",
 };
@@ -54,13 +54,8 @@ export default function EnterprisePage() {
 
       <main className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-36 sm:pt-44 pb-24 flex-1">
         {/* Page Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-white/10 bg-white/[0.04] text-[12px] font-medium text-zinc-400 mb-6">
-            <span className="w-2 h-2 rounded-full bg-amber-400" />
-            <span>Sovereign AI Infrastructure</span>
-          </div>
-
-          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-[-0.03em] text-white leading-tight mb-6">
+        <div className="text-center max-w-4xl mx-auto mb-20">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-6xl font-extrabold tracking-[-0.03em] text-white leading-tight mb-6 whitespace-nowrap">
             Hiveory for Engineering Teams
           </h1>
 
@@ -76,19 +71,41 @@ export default function EnterprisePage() {
           {tiers.map((t, idx) => (
             <div
               key={idx}
-              className={`rounded-2xl border p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 shadow-2xl ${
+              className={`relative rounded-none border p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 shadow-2xl ${
                 t.isPrimary
-                  ? "border-amber-400/30 bg-[#0f0e0c]/90 shadow-[0_0_50px_-20px_rgba(245,158,11,0.15)]"
+                  ? "border-amber-400/40 bg-[#0f0e0c]/90 shadow-[0_0_50px_-20px_rgba(245,158,11,0.15)]"
                   : "border-white/10 bg-[#0c0c10]/90"
               }`}
             >
+              {/* Corner Brackets */}
+              <div
+                className={`absolute top-2 left-2 w-3.5 h-3.5 border-t-2 border-l-2 pointer-events-none ${
+                  t.isPrimary ? "border-amber-400/50" : "border-white/30"
+                }`}
+              />
+              <div
+                className={`absolute top-2 right-2 w-3.5 h-3.5 border-t-2 border-r-2 pointer-events-none ${
+                  t.isPrimary ? "border-amber-400/50" : "border-white/30"
+                }`}
+              />
+              <div
+                className={`absolute bottom-2 left-2 w-3.5 h-3.5 border-b-2 border-l-2 pointer-events-none ${
+                  t.isPrimary ? "border-amber-400/50" : "border-white/30"
+                }`}
+              />
+              <div
+                className={`absolute bottom-2 right-2 w-3.5 h-3.5 border-b-2 border-r-2 pointer-events-none ${
+                  t.isPrimary ? "border-amber-400/50" : "border-white/30"
+                }`}
+              />
+
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-2xl font-bold text-white tracking-tight">
                     {t.name}
                   </h2>
                   <span
-                    className={`text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md border ${
+                    className={`text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-none border ${
                       t.isPrimary
                         ? "border-amber-400/40 text-amber-300 bg-amber-400/10"
                         : "border-white/10 text-zinc-400 bg-white/[0.04]"
@@ -145,7 +162,7 @@ export default function EnterprisePage() {
                   href={t.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-black py-3 px-6 text-sm font-semibold hover:from-amber-300 hover:to-amber-400 transition-all shadow-md active:scale-95 cursor-pointer"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-none bg-gradient-to-r from-amber-400 to-amber-500 text-black py-3 px-6 text-sm font-semibold hover:from-amber-300 hover:to-amber-400 transition-all shadow-md active:scale-95 cursor-pointer"
                 >
                   <span>{t.cta}</span>
                   <span>→</span>
@@ -153,7 +170,7 @@ export default function EnterprisePage() {
               ) : (
                 <Link
                   href={t.href}
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-white/[0.06] border border-white/10 text-white hover:bg-white/10 py-3 px-6 text-sm font-medium transition-all active:scale-95"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-none bg-white/[0.06] border border-white/10 text-white hover:bg-white/10 py-3 px-6 text-sm font-medium transition-all active:scale-95"
                 >
                   <span>{t.cta}</span>
                 </Link>
@@ -163,7 +180,12 @@ export default function EnterprisePage() {
         </div>
 
         {/* Security & Compliance Callout */}
-        <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 sm:p-10 max-w-4xl mx-auto">
+        <div className="relative rounded-none border border-white/10 bg-white/[0.02] p-8 sm:p-10 max-w-4xl mx-auto shadow-xl">
+          {/* Corner Brackets */}
+          <div className="absolute top-2 left-2 w-3.5 h-3.5 border-t-2 border-l-2 border-white/30 pointer-events-none" />
+          <div className="absolute top-2 right-2 w-3.5 h-3.5 border-t-2 border-r-2 border-white/30 pointer-events-none" />
+          <div className="absolute bottom-2 left-2 w-3.5 h-3.5 border-b-2 border-l-2 border-white/30 pointer-events-none" />
+          <div className="absolute bottom-2 right-2 w-3.5 h-3.5 border-b-2 border-r-2 border-white/30 pointer-events-none" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
             <div>
               <div className="text-xl font-bold text-white mb-2">

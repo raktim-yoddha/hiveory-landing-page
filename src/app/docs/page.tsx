@@ -73,11 +73,6 @@ export default function DocsPage() {
       <main className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-36 sm:pt-44 pb-24 flex-1">
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-white/10 bg-white/[0.04] text-[12px] font-medium text-zinc-400 mb-6">
-            <span className="font-mono text-zinc-300">&gt;_</span>
-            <span>Developer Reference</span>
-          </div>
-
           <h1 className="text-4xl sm:text-6xl font-extrabold tracking-[-0.03em] text-white leading-tight mb-6">
             Hiveory Documentation
           </h1>
@@ -89,12 +84,18 @@ export default function DocsPage() {
         </div>
 
         {/* Quickstart Code Block */}
-        <div className="max-w-3xl mx-auto mb-20 rounded-2xl border border-white/10 bg-[#09090d] p-6 shadow-2xl">
+        <div className="relative max-w-3xl mx-auto mb-20 rounded-none border border-white/10 bg-[#09090d] p-6 shadow-2xl">
+          {/* Corner Brackets */}
+          <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-white/30 pointer-events-none" />
+          <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-white/30 pointer-events-none" />
+          <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-white/30 pointer-events-none" />
+          <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-white/30 pointer-events-none" />
+
           <div className="flex items-center justify-between border-b border-white/[0.06] pb-3 mb-4 text-xs font-mono text-zinc-400">
             <span className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-              <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+              <span className="w-2.5 h-2.5 rounded-none bg-red-500/80" />
+              <span className="w-2.5 h-2.5 rounded-none bg-yellow-500/80" />
+              <span className="w-2.5 h-2.5 rounded-none bg-emerald-500/80" />
               <span className="ml-2 text-zinc-300">Terminal Quickstart</span>
             </span>
             <span className="text-zinc-500">bash</span>
@@ -122,8 +123,14 @@ export default function DocsPage() {
                 {sec.items.map((item, idx) => (
                   <div
                     key={idx}
-                    className="rounded-xl border border-white/[0.06] bg-[#0c0c10]/80 p-5 hover:border-white/20 hover:bg-[#121217] transition-all cursor-pointer group"
+                    className="relative rounded-none border border-white/[0.08] bg-[#0c0c10]/80 p-5 hover:border-white/25 hover:bg-[#121217] transition-all cursor-pointer group shadow-sm"
                   >
+                    {/* Corner Brackets */}
+                    <div className="absolute top-1.5 left-1.5 w-2 h-2 border-t border-l border-white/30 pointer-events-none" />
+                    <div className="absolute top-1.5 right-1.5 w-2 h-2 border-t border-r border-white/30 pointer-events-none" />
+                    <div className="absolute bottom-1.5 left-1.5 w-2 h-2 border-b border-l border-white/30 pointer-events-none" />
+                    <div className="absolute bottom-1.5 right-1.5 w-2 h-2 border-b border-r border-white/30 pointer-events-none" />
+
                     <h3 className="text-base font-semibold text-white group-hover:text-zinc-200 transition-colors mb-1.5 flex items-center justify-between">
                       <span>{item.title}</span>
                       <span className="text-zinc-500 text-xs group-hover:translate-x-0.5 transition-transform">

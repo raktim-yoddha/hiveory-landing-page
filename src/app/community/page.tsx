@@ -60,11 +60,6 @@ export default function CommunityPage() {
       <main className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-36 sm:pt-44 pb-24 flex-1">
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-white/10 bg-white/[0.04] text-[12px] font-medium text-zinc-400 mb-6">
-            <span className="w-2 h-2 rounded-full bg-purple-400" />
-            <span>Community-Driven · Open Source</span>
-          </div>
-
           <h1 className="text-4xl sm:text-6xl font-extrabold tracking-[-0.03em] text-white leading-tight mb-6">
             Join the Hiveory Community
           </h1>
@@ -81,14 +76,20 @@ export default function CommunityPage() {
           {channels.map((c, i) => (
             <div
               key={i}
-              className="rounded-2xl border border-white/[0.08] bg-[#0c0c10]/90 p-8 flex flex-col justify-between hover:border-white/20 hover:bg-[#121217] transition-all shadow-xl group"
+              className="relative rounded-none border border-white/[0.12] bg-[#0c0c10]/90 p-8 flex flex-col justify-between hover:border-white/25 hover:bg-[#121217] transition-all shadow-xl group"
             >
+              {/* Corner Brackets */}
+              <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-white/30 pointer-events-none" />
+              <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-white/30 pointer-events-none" />
+              <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-white/30 pointer-events-none" />
+              <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-white/30 pointer-events-none" />
+
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="p-2.5 rounded-xl bg-white/[0.04] border border-white/10">
+                  <div className="p-2.5 rounded-none bg-white/[0.04] border border-white/10">
                     {c.icon}
                   </div>
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500 bg-white/[0.03] px-2.5 py-1 rounded-md border border-white/[0.06]">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500 bg-white/[0.03] px-2.5 py-1 rounded-none border border-white/[0.06]">
                     {c.badge}
                   </span>
                 </div>
@@ -106,7 +107,7 @@ export default function CommunityPage() {
                 href={c.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-white/[0.06] hover:bg-white text-white hover:text-black py-2.5 px-4 text-sm font-semibold transition-all shadow-sm group-hover:bg-white group-hover:text-black"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-none bg-white/[0.06] hover:bg-white text-white hover:text-black py-2.5 px-4 text-sm font-semibold transition-all shadow-sm group-hover:bg-white group-hover:text-black border border-white/10 hover:border-white"
               >
                 <span>{c.btnText}</span>
                 <span className="text-xs">↗</span>
@@ -116,7 +117,12 @@ export default function CommunityPage() {
         </div>
 
         {/* Community Guidelines & Values */}
-        <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 sm:p-10 max-w-4xl mx-auto text-center">
+        <div className="relative rounded-none border border-white/10 bg-white/[0.02] p-8 sm:p-10 max-w-4xl mx-auto text-center shadow-xl">
+          {/* Corner Brackets */}
+          <div className="absolute top-2 left-2 w-3.5 h-3.5 border-t-2 border-l-2 border-white/30 pointer-events-none" />
+          <div className="absolute top-2 right-2 w-3.5 h-3.5 border-t-2 border-r-2 border-white/30 pointer-events-none" />
+          <div className="absolute bottom-2 left-2 w-3.5 h-3.5 border-b-2 border-l-2 border-white/30 pointer-events-none" />
+          <div className="absolute bottom-2 right-2 w-3.5 h-3.5 border-b-2 border-r-2 border-white/30 pointer-events-none" />
           <h2 className="text-xl font-bold text-white mb-3">
             Open Source Values
           </h2>

@@ -1,6 +1,7 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
+import ProductCardStack from "@/components/ProductCardStack";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -21,7 +22,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="mesh-dot-grid hero-radial-glow relative min-h-screen w-full flex flex-col justify-between overflow-x-hidden selection:bg-white/20 selection:text-white">
+    <div className="mesh-dot-grid hero-radial-glow relative min-h-screen w-full flex flex-col justify-between overflow-x-clip selection:bg-white/20 selection:text-white">
       {/* Subtle vignette border gradient overlay */}
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(6,6,8,0.5)_65%,#060608_100%)] z-0" />
 
@@ -33,7 +34,7 @@ export default function Home() {
         {/* Strictly Two-Line High-Impact Display Headline */}
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[64px] xl:text-[70px] font-extrabold tracking-[-0.035em] text-white leading-[1.12] mb-6">
           <span className="block whitespace-nowrap">The ultimate agent super app</span>
-          <span className="text-zinc-400 font-normal block mt-1 sm:mt-2">
+          <span className="text-zinc-400 font-normal block mt-2 sm:mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-[46px] xl:text-[52px] tracking-[-0.02em]">
             Code, chat & automate
           </span>
         </h1>
@@ -143,7 +144,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION: Bring your own Subscription */}
+      {/* SECTION: Bring your own CLI */}
       <section
         id="byok"
         className="relative w-full border-t border-white/[0.08] bg-[#08080b] px-4 sm:px-6 py-20 md:py-28 z-10 overflow-hidden"
@@ -155,7 +156,7 @@ export default function Home() {
         <div className="max-w-2xl mx-auto text-center mb-14 md:mb-18">
           {/* Display Headline */}
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.02em] text-white leading-tight mb-4">
-            Bring your own Subscription
+            Bring your own CLI
           </h2>
 
           {/* Subtitle */}
@@ -313,6 +314,9 @@ export default function Home() {
           </span>
         </div>
       </section>
+
+      {/* SECTION: The 3 Modes Stacking Cards Product Section */}
+      <ProductCardStack />
 
       {/* Clean Bottom Footer Anchor / Status */}
       <footer className="w-full max-w-5xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] text-zinc-500 z-10 border-t border-white/[0.04]">

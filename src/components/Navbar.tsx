@@ -40,7 +40,7 @@ export default function Navbar() {
     { label: "Capabilities", href: "/capabilities" },
     { label: "Docs", href: "/docs" },
     { label: "Community", href: "/community" },
-    { label: "Enterprise", href: "/enterprise" },
+    { label: "Prices", href: "/price" },
   ];
 
   return (
@@ -85,7 +85,9 @@ export default function Navbar() {
           {/* Navigation Links in Open-Source SaaS Hierarchy */}
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => {
-              const isActive = pathname === link.href;
+              const isActive =
+                pathname === link.href ||
+                (link.href === "/price" && pathname === "/enterprise");
               return (
                 <Link
                   key={link.href}

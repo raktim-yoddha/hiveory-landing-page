@@ -1,21 +1,22 @@
 import Navbar from "@/components/Navbar";
+import HoverFooter from "@/components/ui/hover-footer";
 import Link from "next/link";
 
 export const metadata = {
   title: "Capabilities — Hiveory | Architecture & Foundation",
   description:
-    "Explore Hiveory's core technical capabilities: Rust host authority, Nectar shared memory, cap-std sandboxing, and Git worktree isolation.",
+    "Explore Hiveory's core technical capabilities: Native desktop host authority, Nectar shared memory, cap-std sandboxing, and Git worktree isolation.",
 };
 
 export default function CapabilitiesPage() {
   const capabilities = [
     {
-      title: "Rust Host Process Authority",
+      title: "Native Desktop Process Authority",
       icon: "⚙️",
       summary:
-        "Every filesystem mutation, process spawn, and database write is executed through an uncompromised native Rust host.",
+        "Every filesystem mutation, process spawn, and database write is executed through an uncompromised native desktop host.",
       details:
-        "Frontend web views have zero direct access to system disk or network. All requests pass through strongly-typed Tauri IPC commands with cryptographic validation.",
+        "Frontend web views have zero direct access to system disk or network. All requests pass through strongly-typed desktop IPC commands with cryptographic validation.",
     },
     {
       title: "Cap-Std Path Sandboxing",
@@ -140,16 +141,8 @@ export default function CapabilitiesPage() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="w-full max-w-5xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] text-zinc-500 z-10 border-t border-white/[0.04]">
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-          <span>Local-First Rust Host · SQLite WAL · Cap-Std Sandboxing</span>
-        </div>
-        <div>
-          <span>Three Modes. One Desktop Super App.</span>
-        </div>
-      </footer>
+      {/* Bottom Footer */}
+      <HoverFooter />
     </div>
   );
 }

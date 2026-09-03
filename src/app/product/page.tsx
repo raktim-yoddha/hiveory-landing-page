@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import HoverFooter from "@/components/ui/hover-footer";
 import Link from "next/link";
 
 export const metadata = {
@@ -63,7 +64,7 @@ export default function ProductPage() {
 
       <Navbar />
 
-      <main className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-36 sm:pt-44 pb-24 flex-1">
+      <main className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 pt-36 sm:pt-44 pb-24 flex-1">
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
           <h1 className="text-4xl sm:text-6xl font-extrabold tracking-[-0.03em] text-white leading-tight mb-6">
@@ -82,7 +83,7 @@ export default function ProductPage() {
           {modes.map((m) => (
             <div
               key={m.id}
-              className="relative rounded-none border border-white/[0.12] bg-[#0c0c10]/90 p-7 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:border-white/25 hover:bg-[#111116] shadow-xl group"
+              className="relative rounded-none border border-white/[0.12] bg-[#0c0c10]/90 p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 hover:border-white/25 hover:bg-[#111116] shadow-xl group"
             >
               {/* Corner Brackets */}
               <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-white/30 pointer-events-none" />
@@ -92,15 +93,15 @@ export default function ProductPage() {
 
               <div>
                 <div className="flex items-center justify-between gap-2 mb-6">
-                  <span className="text-[11px] uppercase tracking-wider font-mono px-2.5 py-1 rounded-none bg-white/[0.06] text-zinc-300 border border-white/10">
+                  <span className="text-[10px] sm:text-[11px] uppercase tracking-wider font-mono px-2 py-0.5 rounded-none bg-white/[0.06] text-zinc-300 border border-white/10 whitespace-nowrap shrink-0">
                     {m.tag}
                   </span>
-                  <span className="text-[11px] text-zinc-500 font-medium">
+                  <span className="text-[10px] sm:text-[11px] text-zinc-400 font-medium whitespace-nowrap text-right">
                     {m.badge}
                   </span>
                 </div>
 
-                <h2 className="text-2xl font-bold text-white mb-2 tracking-tight group-hover:text-zinc-100 transition-colors">
+                <h2 className="text-2xl font-bold text-white mb-2 tracking-tight group-hover:text-zinc-100 transition-colors whitespace-nowrap">
                   {m.title}
                 </h2>
 
@@ -179,16 +180,8 @@ export default function ProductPage() {
         </div>
       </main>
 
-      {/* Bottom Footer Anchor */}
-      <footer className="w-full max-w-5xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] text-zinc-500 z-10 border-t border-white/[0.04]">
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-          <span>Local-First Rust Host · SQLite WAL · Cap-Std Sandboxing</span>
-        </div>
-        <div>
-          <span>Three Modes. One Desktop Super App.</span>
-        </div>
-      </footer>
+      {/* Bottom Footer */}
+      <HoverFooter />
     </div>
   );
 }

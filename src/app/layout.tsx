@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Hiveory — Local-First Agent Super App & ADE",
     description:
-      "Run autonomous agents, an agentic development environment (ADE), and standalone chat side by side with host-authoritative Rust security.",
+      "Run autonomous agents, an agentic development environment (ADE), and standalone chat side by side with host-authoritative local security.",
     images: ["/hiveory-logo.png"],
     type: "website",
   },

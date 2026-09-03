@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { triggerLatestDownload } from "@/lib/download";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -36,11 +37,11 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { label: "Product", href: "/product" },
+    { label: "Product", href: "/#product-modes" },
     { label: "Capabilities", href: "/capabilities" },
     { label: "Docs", href: "/docs" },
-    { label: "Community", href: "/community" },
-    { label: "Prices", href: "/price" },
+    { label: "Community", href: "/#community" },
+    { label: "Prices", href: "/#price" },
   ];
 
   return (
@@ -65,6 +66,12 @@ export default function Navbar() {
           {/* Left Brand */}
           <Link
             href="/"
+            onClick={(e) => {
+              if (pathname === "/") {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "instant" });
+              }
+            }}
             className="flex items-center gap-2.5 cursor-pointer group"
           >
             <div className="relative w-7 h-7 rounded-lg overflow-hidden flex items-center justify-center p-0.5 shadow-[0_0_12px_rgba(255,255,255,0.15)] group-hover:scale-105 transition-transform duration-300">
@@ -85,13 +92,21 @@ export default function Navbar() {
           {/* Navigation Links in Open-Source SaaS Hierarchy */}
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => {
-              const isActive =
-                pathname === link.href ||
-                (link.href === "/price" && pathname === "/enterprise");
+              const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
+                  onClick={(e) => {
+                    if (link.href.startsWith("/#") && pathname === "/") {
+                      e.preventDefault();
+                      const id = link.href.replace("/#", "");
+                      const elem = document.getElementById(id);
+                      if (elem) {
+                        elem.scrollIntoView({ behavior: "instant" });
+                      }
+                    }
+                  }}
                   className={`px-3 py-1.5 text-[13px] rounded-lg transition-all duration-200 ${
                     isActive
                       ? "text-white bg-white/10 font-medium shadow-sm"
@@ -160,9 +175,9 @@ export default function Navbar() {
             </a>
 
             {/* Download Button */}
-            <a
-              href="#"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white text-black text-[12px] font-semibold hover:bg-zinc-200 transition-all shadow-sm active:scale-95"
+            <button
+              onClick={() => triggerLatestDownload()}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white text-black text-[12px] font-semibold hover:bg-zinc-200 transition-all shadow-sm active:scale-95 cursor-pointer"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -174,7 +189,7 @@ export default function Navbar() {
                 <path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34A8,8,0,0,0,82.34,109.66Z" />
               </svg>
               <span>Download</span>
-            </a>
+            </button>
           </div>
         </div>
       </nav>

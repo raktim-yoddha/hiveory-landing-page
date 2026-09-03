@@ -131,25 +131,40 @@ export default function ProductCardStack() {
   });
 
   // CARD 0 (Agent Mode): Stays in its place from the start (y: 0), scales down as Card 1 arrives
-  const scale0 = useTransform(scrollYProgress, [0.12, 0.42], [1, 0.94]);
+  const scale0 = useTransform(scrollYProgress, [0.10, 0.35], [1, 0.94]);
 
-  // CARD 1 (Code Mode): Appears from the very bottom, rises and stops over Card 0 at y: 24
-  const y1 = useTransform(scrollYProgress, [0.08, 0.42], [bottomOffset, 24]);
-  const scale1 = useTransform(scrollYProgress, [0.52, 0.80], [1, 0.97]);
+  // CARD 1 (Code Mode): Appears from the very bottom, rises and stops over Card 0 at y: 20
+  const y1 = useTransform(scrollYProgress, [0.08, 0.35], [bottomOffset, 20]);
+  const scale1 = useTransform(scrollYProgress, [0.40, 0.65], [1, 0.97]);
 
-  // CARD 2 (Chat Mode): Appears from the very bottom, rises and stops over Card 1 at y: 48
-  const y2 = useTransform(scrollYProgress, [0.48, 0.80], [bottomOffset, 48]);
+  // CARD 2 (Chat Mode): Appears from the very bottom, rises and stops over Card 1 at y: 40 (settles early by 0.65)
+  const y2 = useTransform(scrollYProgress, [0.38, 0.65], [bottomOffset, 40]);
+
+  // Get Details button: Only appears once Card 3 (Chat Mode) has fully settled at the top (after 0.65)
+  const buttonOpacity = useTransform(scrollYProgress, (pos) => {
+    if (pos >= 0.72) return 1;
+    if (pos <= 0.65) return 0;
+    return (pos - 0.65) / (0.72 - 0.65);
+  });
+  const buttonY = useTransform(scrollYProgress, (pos) => {
+    if (pos >= 0.72) return 0;
+    if (pos <= 0.65) return 16;
+    return Math.round(16 * (1 - (pos - 0.65) / (0.72 - 0.65)));
+  });
+  const buttonPointerEvents = useTransform(scrollYProgress, (pos) =>
+    pos >= 0.68 ? "auto" : "none"
+  );
 
   return (
     <section
       id="product-modes"
       ref={sectionRef}
-      className="relative w-full h-[320vh] z-20"
+      className="relative w-full h-[420vh] z-20"
     >
-      {/* Sticky Viewport Frame: Title and description are stuck at the top */}
-      <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-start pt-24 sm:pt-28 md:pt-32 pb-8 px-4 sm:px-6 overflow-hidden pointer-events-none">
+      {/* Sticky Viewport Frame: Balanced top positioning */}
+      <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-start pt-20 sm:pt-22 md:pt-24 pb-6 px-4 sm:px-6 overflow-hidden pointer-events-none">
         {/* Stuck Title and Description at the Top */}
-        <div className="max-w-3xl mx-auto text-center mb-7 sm:mb-9 shrink-0 pointer-events-auto">
+        <div className="max-w-3xl mx-auto text-center mb-5 sm:mb-6 shrink-0 pointer-events-auto">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-[-0.03em] text-white leading-tight mb-2">
             One Super App. Three Modes.
           </h2>
@@ -160,7 +175,7 @@ export default function ProductCardStack() {
         </div>
 
         {/* Stacking Cards Area: Below the Title and Description */}
-        <div className="relative w-full max-w-5xl h-[460px] sm:h-[490px] md:h-[510px] pointer-events-auto">
+        <div className="relative w-full max-w-5xl h-[420px] sm:h-[450px] md:h-[465px] pointer-events-auto">
           {/* CARD 0: Agent Mode - Stays in place */}
           <motion.div
             style={{ y: 0, scale: scale0, zIndex: 10 }}
@@ -200,6 +215,24 @@ export default function ProductCardStack() {
             <CardInnerContent card={modesData[2]} />
           </motion.div>
         </div>
+
+        {/* Get More Details Button - Persistently appears ONLY after 3rd card settles at the top */}
+        <motion.div
+          style={{
+            opacity: buttonOpacity,
+            y: buttonY,
+            pointerEvents: buttonPointerEvents,
+          }}
+          className="mt-2 sm:mt-3 z-40 flex items-center justify-center"
+        >
+          <Link
+            href="/product"
+            className="group relative inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-[#141418] hover:bg-white text-white hover:text-black border border-white/20 hover:border-white text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 shadow-[0_0_25px_rgba(255,255,255,0.06)] hover:shadow-[0_0_35px_rgba(255,255,255,0.25)]"
+          >
+            <span>Get More Details</span>
+            <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

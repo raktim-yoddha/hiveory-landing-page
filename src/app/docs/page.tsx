@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import HoverFooter from "@/components/ui/hover-footer";
 import Link from "next/link";
 
 export const metadata = {
@@ -19,7 +20,7 @@ export default function DocsPage() {
         },
         {
           title: "System Prerequisites",
-          desc: "Rust 1.80+, Node 20+, and WebView2 / WebKit runtime requirements.",
+          desc: "Node 20+, Git, and modern WebView runtime requirements.",
         },
         {
           title: "Keybindings & Navigation",
@@ -163,16 +164,8 @@ export default function DocsPage() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="w-full max-w-5xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] text-zinc-500 z-10 border-t border-white/[0.04]">
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-          <span>Local-First Rust Host · SQLite WAL · Cap-Std Sandboxing</span>
-        </div>
-        <div>
-          <span>Three Modes. One Desktop Super App.</span>
-        </div>
-      </footer>
+      {/* Bottom Footer */}
+      <HoverFooter />
     </div>
   );
 }

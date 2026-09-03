@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+:root {
+  --background: #070709;
+  --foreground: #f4f4f5;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+/* Dot grid background texture matching reference */
+.mesh-dot-grid {
+  background-color: #060608;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.13) 1.1px, transparent 1.1px);
+  background-size: 28px 28px;
+}
+
+/* Subtle radial lighting for deep focus */
+.hero-radial-glow {
+  background: radial-gradient(
+    circle at 50% 35%,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.015) 30%,
+    transparent 70%
+  );
+}
+
+/* Floating glass dock */
+.floating-glass-dock {
+  background: rgba(18, 18, 22, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.7);
+}
+
+/* Button glow effect */
+.btn-primary-glow {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.18), 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.btn-secondary-glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.btn-secondary-glass:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* App window frame glow */
+.app-frame-glow {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12),
+              0 24px 68px -12px rgba(0, 0, 0, 0.9),
+              0 0 100px -20px rgba(59, 130, 246, 0.08);
+}
+
+/* Infinite Marquee Animations */
+@keyframes marquee-left {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+.animate-marquee-left {
+  animation: marquee-left 45s linear infinite;
+}
+
+.animate-marquee-right {
+  animation: marquee-right 45s linear infinite;
+}
+
+.animate-marquee-left:hover,
+.animate-marquee-right:hover {
+  animation-play-state: paused;
+}
+
+.marquee-mask {
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+

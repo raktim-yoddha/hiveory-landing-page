@@ -19,8 +19,11 @@ export const metadata: Metadata = {
   description:
     "A local-first desktop workspace uniting persistent named agents, an agentic development environment (ADE) with recursive split panes, and isolated AI chat threads over your own folders.",
   icons: {
-    icon: "/hiveory-logo.png",
-    apple: "/hiveory-logo.png",
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/hiveory-logo.png", type: "image/png" },
+    ],
+    apple: [{ url: "/hiveory-logo.png" }],
   },
   openGraph: {
     title: "Hiveory — Local-First Agent Super App & ADE",

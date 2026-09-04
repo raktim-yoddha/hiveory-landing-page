@@ -205,13 +205,13 @@ export default function ProductCardStack() {
         className="relative w-full h-[320vh] z-20"
       >
         {/* Sticky Viewport Frame: Positioned with minimal top gap right under header */}
-        <div className="sticky top-10 sm:top-12 lg:top-14 w-full flex flex-col items-center justify-start pt-2 sm:pt-3 px-4 sm:px-6 lg:px-8 pointer-events-none">
+        <div className="sticky top-12 sm:top-14 lg:top-16 w-full flex flex-col items-center justify-start pt-2 sm:pt-4 px-4 sm:px-6 lg:px-8 pointer-events-none">
           {/* Overriding Taller Cards Area */}
-          <div className="relative w-full max-w-6xl h-[560px] sm:h-[600px] md:h-[640px] lg:h-[670px] pointer-events-auto">
+          <div className="relative w-full max-w-6xl h-[490px] sm:h-[515px] md:h-[540px] lg:h-[560px] pointer-events-auto">
             {/* CARD 0: Agent Mode - In place from start */}
             <motion.div
               style={{ y: 0, zIndex: 10 }}
-              className="group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-6 sm:p-8 md:p-10 lg:p-11 flex flex-col justify-center transition-colors duration-300"
+              className="group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-5 sm:p-6 md:p-8 flex flex-col justify-center transition-colors duration-300"
             >
               {/* Outer Card Corner Brackets - Exactly on boundary level */}
               <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -224,7 +224,7 @@ export default function ProductCardStack() {
             {/* CARD 1: Code Mode - Rises up and completely overrides Card 0 */}
             <motion.div
               style={{ y: y1, zIndex: 20 }}
-              className="group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-6 sm:p-8 md:p-10 lg:p-11 flex flex-col justify-center transition-colors duration-300"
+              className="group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-5 sm:p-6 md:p-8 flex flex-col justify-center transition-colors duration-300"
             >
               {/* Outer Card Corner Brackets - Exactly on boundary level */}
               <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -237,7 +237,7 @@ export default function ProductCardStack() {
             {/* CARD 2: Chat Mode - Rises up and completely overrides Card 1 */}
             <motion.div
               style={{ y: y2, zIndex: 30 }}
-              className="group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-6 sm:p-8 md:p-10 lg:p-11 flex flex-col justify-center transition-colors duration-300"
+              className="group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-5 sm:p-6 md:p-8 flex flex-col justify-center transition-colors duration-300"
             >
               {/* Outer Card Corner Brackets - Exactly on boundary level */}
               <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -299,36 +299,36 @@ function CardInnerContent({ card, index }: { card: ModeCard; index: number }) {
       {/* Left Side: Title & Aesthetic Features */}
       <div className="lg:col-span-5 flex flex-col justify-center">
         {/* Step pill tag */}
-        <div className="flex items-center gap-2 mb-3 sm:mb-4">
+        <div className="flex items-center gap-2 mb-3">
           <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-none bg-white/[0.03] border border-white/10 text-[11px] font-mono tracking-wider text-zinc-400">
             <span className="w-1.5 h-1.5 rounded-full bg-white/70 animate-pulse" />
             <span className="text-white font-semibold">0{index + 1}</span>
           </span>
         </div>
 
-        <h3 className="text-2xl sm:text-3xl lg:text-[36px] font-medium text-white tracking-[-0.015em] leading-tight mb-2 sm:mb-3">
+        <h3 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-white tracking-[-0.015em] leading-tight mb-2">
           {card.title}
         </h3>
 
-        <p className="text-xs sm:text-[14px] text-zinc-400 leading-relaxed font-normal mb-5 sm:mb-6 max-w-sm">
+        <p className="text-xs sm:text-[13px] text-zinc-400 leading-relaxed font-normal mb-5 max-w-sm">
           {card.subtitle}
         </p>
 
         {/* Aesthetic Feature Micro-Cards */}
-        <div className="space-y-2.5 sm:space-y-3 mb-6 sm:mb-7">
+        <div className="space-y-2 mb-6">
           {card.features.map((feature, i) => (
             <div
               key={i}
-              className="group/item flex items-center gap-3.5 px-3.5 py-2.5 rounded-none bg-white/[0.02] border border-white/[0.07] hover:border-white/20 hover:bg-white/[0.04] transition-all duration-300"
+              className="group/item flex items-center gap-3 px-3.5 py-2 rounded-none bg-white/[0.02] border border-white/[0.07] hover:border-white/20 hover:bg-white/[0.04] transition-all duration-300"
             >
-              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-none border border-white/10 bg-white/[0.03] flex items-center justify-center shrink-0 text-zinc-400 group-hover/item:text-white group-hover/item:border-white/25 transition-colors">
+              <span className="w-7 h-7 rounded-none border border-white/10 bg-white/[0.03] flex items-center justify-center shrink-0 text-zinc-400 group-hover/item:text-white group-hover/item:border-white/25 transition-colors">
                 {feature.icon}
               </span>
               <div className="flex flex-col min-w-0 justify-center">
-                <span className="text-xs sm:text-[14px] font-semibold text-white tracking-tight leading-snug">
+                <span className="text-xs sm:text-[13px] font-semibold text-white tracking-tight leading-snug">
                   {feature.title}
                 </span>
-                <span className="text-[11px] sm:text-xs md:text-[13px] text-zinc-400 font-normal leading-tight truncate">
+                <span className="text-[11px] sm:text-xs text-zinc-400 font-normal leading-tight truncate">
                   {feature.desc}
                 </span>
               </div>

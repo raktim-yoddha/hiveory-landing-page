@@ -5,16 +5,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
+interface FeatureItem {
+  title: string;
+  desc: string;
+  icon: React.ReactNode;
+}
+
 interface ModeCard {
   id: string;
   tag: string;
   dotColor: string;
   title: string;
   subtitle: string;
-  description: string;
-  bullets: string[];
+  features: FeatureItem[];
   imageSrc: string;
-  icon: React.ReactNode;
 }
 
 const modesData: ModeCard[] = [
@@ -24,30 +28,42 @@ const modesData: ModeCard[] = [
     dotColor: "bg-emerald-400",
     title: "Agent Mode",
     subtitle: "Persistent autonomous agents with skills and routines",
-    description:
-      "Deploy named autonomous agents configured with custom instructions, system skills, and cron routines. Coordinate swarms of subagents that execute complex multi-step workflows in the background.",
-    bullets: [
-      "Named agent state with SQLite WAL persistence",
-      "Custom SKILL.md routines & plugin management",
-      "Background swarm delegation & reactive wakeups",
-      "Continuous audit logs & execution telemetry",
+    features: [
+      {
+        title: "SQLite WAL State",
+        desc: "Local ACID memory that never leaks to cloud",
+        icon: (
+          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <ellipse cx="12" cy="5" rx="9" ry="3" />
+            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+            <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
+          </svg>
+        ),
+      },
+      {
+        title: "SKILL.md Routines",
+        desc: "Custom prompt instructions & scheduled crons",
+        icon: (
+          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+          </svg>
+        ),
+      },
+      {
+        title: "Swarm Delegation",
+        desc: "Background subagents with reactive wakeups",
+        icon: (
+          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="18" cy="5" r="3" />
+            <circle cx="6" cy="12" r="3" />
+            <circle cx="18" cy="19" r="3" />
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+          </svg>
+        ),
+      },
     ],
     imageSrc: "/agent-mode.png",
-    icon: (
-      <svg
-        className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"
-        />
-      </svg>
-    ),
   },
   {
     id: "code",
@@ -55,30 +71,42 @@ const modesData: ModeCard[] = [
     dotColor: "bg-blue-400",
     title: "Code Mode",
     subtitle: "Agentic Development Environment with concurrent split panes",
-    description:
-      "Multiplex Claude Code, Codex, Antigravity, and OpenCode side by side. Isolated Git worktrees prevent workspace corruption with zero file conflicts while shared Nectar memory keeps project state synced.",
-    bullets: [
-      "Recursive split panes (horizontal & vertical)",
-      "Isolated Git worktrees per agent session",
-      "Native PTY terminal multiplexing with streaming ANSI",
-      "Shared Nectar architecture & memory store over MCP",
+    features: [
+      {
+        title: "Recursive Split Panes",
+        desc: "Multiplex Claude Code, Codex, & CLI agents",
+        icon: (
+          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <path d="M12 3v18" />
+          </svg>
+        ),
+      },
+      {
+        title: "Git Worktree Isolation",
+        desc: "Parallel branches without file conflicts",
+        icon: (
+          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <line x1="6" y1="3" x2="6" y2="15" />
+            <circle cx="18" cy="6" r="3" />
+            <circle cx="6" cy="18" r="3" />
+            <path d="M18 9a9 9 0 0 1-9 9" />
+          </svg>
+        ),
+      },
+      {
+        title: "Nectar Shared Memory",
+        desc: "Unified project state over MCP store",
+        icon: (
+          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            <rect x="9" y="9" width="6" height="6" />
+            <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3" />
+          </svg>
+        ),
+      },
     ],
     imageSrc: "/demo.png",
-    icon: (
-      <svg
-        className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"
-        />
-      </svg>
-    ),
   },
   {
     id: "chat",
@@ -86,30 +114,40 @@ const modesData: ModeCard[] = [
     dotColor: "bg-purple-400",
     title: "Chat Mode",
     subtitle: "Converse with any AI model and hot-swap providers in-thread",
-    description:
-      "Brainstorm architecture decisions with Claude, OpenAI, Gemini, or local models. Seamlessly switch models mid-conversation without losing context, and inspect deep reasoning traces in real time.",
-    bullets: [
-      "Instant in-thread model switching without context loss",
-      "Deep reasoning traces & token consumption tracking",
-      "Sandboxed file attachments and markdown previews",
-      "Local-first encrypted conversation archive",
+    features: [
+      {
+        title: "Hot-Swap Providers",
+        desc: "Switch Claude, GPT & Ollama in-thread",
+        icon: (
+          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polyline points="16 3 21 3 21 8" />
+            <line x1="4" y1="20" x2="21" y2="3" />
+            <polyline points="21 16 21 21 16 21" />
+            <line x1="15" y1="15" x2="21" y2="21" />
+            <line x1="4" y1="4" x2="9" y2="9" />
+          </svg>
+        ),
+      },
+      {
+        title: "Deep Reasoning Traces",
+        desc: "Inspect live step execution & thoughts",
+        icon: (
+          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+          </svg>
+        ),
+      },
+      {
+        title: "Sandboxed Context",
+        desc: "Local-first encrypted conversations",
+        icon: (
+          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+        ),
+      },
     ],
     imageSrc: "/chat-mode.png",
-    icon: (
-      <svg
-        className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a.75.75 0 01-.868-.868c.28-.992.42-2.03.42-3.082 0-.25-.015-.499-.044-.746C3.714 14.88 3 13.51 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"
-        />
-      </svg>
-    ),
   },
 ];
 
@@ -151,8 +189,8 @@ export default function ProductCardStack() {
   return (
     <div id="product-modes" className="relative w-full">
       {/* Section Header (In normal document flow, NOT stuck in the overlapping animation) */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 pt-16 sm:pt-24 pb-8 sm:pb-12 text-center">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.03em] text-white leading-tight mb-4">
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-2 sm:pb-4 text-center">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.03em] text-white leading-tight mb-3">
           One Super App. Three Modes.
         </h2>
         <p className="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
@@ -166,46 +204,46 @@ export default function ProductCardStack() {
         ref={sectionRef}
         className="relative w-full h-[320vh] z-20"
       >
-        {/* Sticky Viewport Frame: Shifted down to stay centered overall in the viewport */}
-        <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center pt-8 pb-4 px-4 sm:px-6 lg:px-8 overflow-hidden pointer-events-none">
-          {/* Overriding Lowered-Length Cards Area */}
-          <div className="relative w-full max-w-6xl h-[430px] sm:h-[450px] md:h-[470px] lg:h-[480px] pointer-events-auto">
+        {/* Sticky Viewport Frame: Positioned with minimal top gap right under header */}
+        <div className="sticky top-12 sm:top-14 lg:top-16 w-full flex flex-col items-center justify-start pt-2 sm:pt-4 px-4 sm:px-6 lg:px-8 pointer-events-none">
+          {/* Overriding Taller Cards Area */}
+          <div className="relative w-full max-w-6xl h-[490px] sm:h-[515px] md:h-[540px] lg:h-[560px] pointer-events-auto">
             {/* CARD 0: Agent Mode - In place from start */}
             <motion.div
               style={{ y: 0, zIndex: 10 }}
-              className="absolute inset-0 rounded-none border border-white/[0.15] bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-5 sm:p-6 md:p-8 flex flex-col justify-center"
+              className="group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-5 sm:p-6 md:p-8 flex flex-col justify-center transition-colors duration-300"
             >
-              {/* Outer Card Corner Brackets */}
-              <div className="absolute top-2.5 left-2.5 w-4 h-4 border-t-2 border-l-2 border-white/40 pointer-events-none" />
-              <div className="absolute top-2.5 right-2.5 w-4 h-4 border-t-2 border-r-2 border-white/40 pointer-events-none" />
-              <div className="absolute bottom-2.5 left-2.5 w-4 h-4 border-b-2 border-l-2 border-white/40 pointer-events-none" />
-              <div className="absolute bottom-2.5 right-2.5 w-4 h-4 border-b-2 border-r-2 border-white/40 pointer-events-none" />
+              {/* Outer Card Corner Brackets - Exactly on boundary level */}
+              <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+              <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+              <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+              <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
               <CardInnerContent card={modesData[0]} index={0} />
             </motion.div>
 
             {/* CARD 1: Code Mode - Rises up and completely overrides Card 0 */}
             <motion.div
               style={{ y: y1, zIndex: 20 }}
-              className="absolute inset-0 rounded-none border border-white/[0.15] bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-5 sm:p-6 md:p-8 flex flex-col justify-center"
+              className="group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-5 sm:p-6 md:p-8 flex flex-col justify-center transition-colors duration-300"
             >
-              {/* Outer Card Corner Brackets */}
-              <div className="absolute top-2.5 left-2.5 w-4 h-4 border-t-2 border-l-2 border-white/40 pointer-events-none" />
-              <div className="absolute top-2.5 right-2.5 w-4 h-4 border-t-2 border-r-2 border-white/40 pointer-events-none" />
-              <div className="absolute bottom-2.5 left-2.5 w-4 h-4 border-b-2 border-l-2 border-white/40 pointer-events-none" />
-              <div className="absolute bottom-2.5 right-2.5 w-4 h-4 border-b-2 border-r-2 border-white/40 pointer-events-none" />
+              {/* Outer Card Corner Brackets - Exactly on boundary level */}
+              <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+              <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+              <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+              <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
               <CardInnerContent card={modesData[1]} index={1} />
             </motion.div>
 
             {/* CARD 2: Chat Mode - Rises up and completely overrides Card 1 */}
             <motion.div
               style={{ y: y2, zIndex: 30 }}
-              className="absolute inset-0 rounded-none border border-white/[0.15] bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-5 sm:p-6 md:p-8 flex flex-col justify-center"
+              className="group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-5 sm:p-6 md:p-8 flex flex-col justify-center transition-colors duration-300"
             >
-              {/* Outer Card Corner Brackets */}
-              <div className="absolute top-2.5 left-2.5 w-4 h-4 border-t-2 border-l-2 border-white/40 pointer-events-none" />
-              <div className="absolute top-2.5 right-2.5 w-4 h-4 border-t-2 border-r-2 border-white/40 pointer-events-none" />
-              <div className="absolute bottom-2.5 left-2.5 w-4 h-4 border-b-2 border-l-2 border-white/40 pointer-events-none" />
-              <div className="absolute bottom-2.5 right-2.5 w-4 h-4 border-b-2 border-r-2 border-white/40 pointer-events-none" />
+              {/* Outer Card Corner Brackets - Exactly on boundary level */}
+              <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+              <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+              <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+              <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
               <CardInnerContent card={modesData[2]} index={2} />
             </motion.div>
           </div>
@@ -217,14 +255,36 @@ export default function ProductCardStack() {
               y: buttonY,
               pointerEvents: buttonPointerEvents,
             }}
-            className="mt-6 sm:mt-8 z-40 flex items-center justify-center"
+            className="mt-5 sm:mt-6 z-40 flex items-center justify-center"
           >
             <Link
               href="/product"
-              className="group relative inline-flex items-center gap-2 px-6 py-2.5 rounded-none bg-[#141418] hover:bg-white text-white hover:text-black border border-white/20 hover:border-white text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 shadow-[0_0_25px_rgba(255,255,255,0.06)] hover:shadow-[0_0_35px_rgba(255,255,255,0.25)]"
+              className="group/btn relative inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-lg"
             >
-              <span>See More Details</span>
-              <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+              {/* Outer Boundary Corner Brackets */}
+              <span className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
+              <span className="absolute -top-[1px] -right-[1px] w-2 h-2 border-t-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
+              <span className="absolute -bottom-[1px] -left-[1px] w-2 h-2 border-b-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
+              <span className="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-b-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
+
+              {/* Inner Expanding White Box */}
+              <span className="absolute inset-y-1 left-1 w-9 bg-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:w-[calc(100%-8px)] pointer-events-none rounded-none" />
+
+              {/* Content Layer */}
+              <span className="relative z-10 flex items-center gap-3">
+                <span className="w-9 h-9 flex items-center justify-center text-black shrink-0 transition-colors duration-300">
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                  </svg>
+                </span>
+                <span className="text-xs sm:text-sm font-semibold text-white group-hover/btn:text-black tracking-wide transition-colors duration-300">
+                  See More Details
+                </span>
+              </span>
+
+              <span className="relative z-10 text-white/50 group-hover/btn:text-black group-hover/btn:translate-x-1 transition-all duration-300 pl-3">
+                →
+              </span>
             </Link>
           </motion.div>
         </div>
@@ -235,78 +295,98 @@ export default function ProductCardStack() {
 
 function CardInnerContent({ card, index }: { card: ModeCard; index: number }) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-8 items-center h-full">
-      {/* Left Side: Title & Description */}
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-center h-full">
+      {/* Left Side: Title & Aesthetic Features */}
       <div className="lg:col-span-5 flex flex-col justify-center">
         {/* Step pill tag */}
-        <div className="flex items-center gap-2 mb-2 sm:mb-2.5">
-          <span className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-none bg-white/[0.06] border border-white/15 text-[11px] font-mono text-zinc-300">
-            <span className="text-white font-bold">{index + 1}/3</span>
-            <span className="text-zinc-500">·</span>
-            <span>{card.tag}</span>
+        <div className="flex items-center gap-2 mb-3">
+          <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-none bg-white/[0.03] border border-white/10 text-[11px] font-mono tracking-wider text-zinc-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-white/70 animate-pulse" />
+            <span className="text-white font-semibold">0{index + 1}</span>
+            <span className="text-white/20">/</span>
+            <span className="uppercase">{card.tag}</span>
           </span>
         </div>
 
-        <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight mb-1.5">
+        <h3 className="text-2xl sm:text-3xl lg:text-[34px] font-bold text-white tracking-tight leading-tight mb-2">
           {card.title}
         </h3>
 
-        <p className="text-xs sm:text-[13px] font-medium text-zinc-300 mb-2 leading-snug">
+        <p className="text-xs sm:text-[13px] text-zinc-400 leading-relaxed font-normal mb-5 max-w-sm">
           {card.subtitle}
         </p>
 
-        <p className="text-xs text-zinc-400 leading-relaxed mb-3 hidden sm:block">
-          {card.description}
-        </p>
-
-        {/* Key Feature Bullets */}
-        <ul className="space-y-1.5 mb-3 sm:mb-4">
-          {card.bullets.map((bullet, i) => (
-            <li
+        {/* Aesthetic Feature Micro-Cards */}
+        <div className="space-y-2 mb-6">
+          {card.features.map((feature, i) => (
+            <div
               key={i}
-              className="flex items-start gap-2 text-xs text-zinc-300"
+              className="group/item flex items-center gap-3 px-3.5 py-2 rounded-none bg-white/[0.02] border border-white/[0.07] hover:border-white/20 hover:bg-white/[0.04] transition-all duration-300"
             >
-              <svg
-                className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4.5 12.75l6 6 9-13.5"
-                />
-              </svg>
-              <span>{bullet}</span>
-            </li>
+              <span className="w-7 h-7 rounded-none border border-white/10 bg-white/[0.03] flex items-center justify-center shrink-0 text-zinc-400 group-hover/item:text-white group-hover/item:border-white/25 transition-colors">
+                {feature.icon}
+              </span>
+              <div className="flex flex-col min-w-0 justify-center">
+                <span className="text-xs sm:text-[13px] font-semibold text-white tracking-tight leading-snug">
+                  {feature.title}
+                </span>
+                <span className="text-[11px] sm:text-xs text-zinc-400 font-normal leading-tight truncate">
+                  {feature.desc}
+                </span>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
 
-        {/* Explore Button Link */}
+        {/* Explore Button Link in Goji Berry Button Style */}
         <div>
           <Link
             href="/product"
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-white hover:text-zinc-200 transition-colors group"
+            className="group/btn relative inline-flex items-center justify-between p-1 pr-3.5 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-sm"
           >
-            <span>Explore {card.title}</span>
-            <span className="transition-transform group-hover:translate-x-1">
+            {/* Outer Boundary Corner Brackets */}
+            <span className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
+            <span className="absolute -top-[1px] -right-[1px] w-2 h-2 border-t-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
+            <span className="absolute -bottom-[1px] -left-[1px] w-2 h-2 border-b-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
+            <span className="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-b-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
+
+            {/* Inner Expanding White Box */}
+            <span className="absolute inset-y-1 left-1 w-8 bg-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:w-[calc(100%-8px)] pointer-events-none rounded-none" />
+
+            {/* Content Layer */}
+            <span className="relative z-10 flex items-center gap-2.5">
+              <span className="w-8 h-8 flex items-center justify-center text-black shrink-0 transition-colors duration-300">
+                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+              </span>
+              <span className="text-xs sm:text-[13px] font-semibold text-white group-hover/btn:text-black tracking-wide transition-colors duration-300">
+                Explore {card.title}
+              </span>
+            </span>
+
+            <span className="relative z-10 text-white/50 group-hover/btn:text-black group-hover/btn:translate-x-1 transition-all duration-300 pl-2">
               →
             </span>
           </Link>
         </div>
       </div>
 
-      {/* Right Side: Mode Desktop Image (Complete unzoomed 16:9 screenshot) */}
+      {/* Right Side: Mode Desktop Image with Highlighting Edges and No Zoom */}
       <div className="lg:col-span-7 flex items-center justify-center w-full">
-        <div className="relative w-full aspect-[16/9] rounded-none border border-white/15 bg-[#08080c] overflow-hidden shadow-2xl group flex items-center justify-center">
+        <div className="relative w-full aspect-[16/9] rounded-none border border-white/15 bg-[#08080c] shadow-2xl group flex items-center justify-center">
+          {/* Image Boundary Highlighting Edges */}
+          <div className="absolute -top-[1px] -left-[1px] w-3.5 h-3.5 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none z-10" />
+          <div className="absolute -top-[1px] -right-[1px] w-3.5 h-3.5 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none z-10" />
+          <div className="absolute -bottom-[1px] -left-[1px] w-3.5 h-3.5 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none z-10" />
+          <div className="absolute -bottom-[1px] -right-[1px] w-3.5 h-3.5 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none z-10" />
+
           <Image
             src={card.imageSrc}
             alt={`${card.title} desktop preview`}
             fill
             sizes="(max-width: 1024px) 100vw, 720px"
-            className="object-contain block rounded-none transition-transform duration-500 group-hover:scale-[1.01]"
+            className="object-contain block rounded-none"
             priority={index === 0}
             quality={100}
           />

@@ -163,8 +163,12 @@ export default function Navbar() {
               href="https://github.com/raktim-yoddha/hiveory"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1.5 rounded-lg bg-[#141418] border border-white/10 hover:border-white/20 text-[11px] sm:text-[12px] font-medium text-white transition-all shadow-sm group"
+              className="relative flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1.5 rounded-none bg-[#141418] border border-white/15 hover:border-white/30 text-[11px] sm:text-[12px] font-medium text-white transition-all shadow-sm group cursor-pointer"
             >
+              <span className="absolute -top-[1px] -left-[1px] w-1.5 h-1.5 border-t border-l border-white/40 group-hover:border-white pointer-events-none" />
+              <span className="absolute -top-[1px] -right-[1px] w-1.5 h-1.5 border-t border-r border-white/40 group-hover:border-white pointer-events-none" />
+              <span className="absolute -bottom-[1px] -left-[1px] w-1.5 h-1.5 border-b border-l border-white/40 group-hover:border-white pointer-events-none" />
+              <span className="absolute -bottom-[1px] -right-[1px] w-1.5 h-1.5 border-b border-r border-white/40 group-hover:border-white pointer-events-none" />
               <svg
                 className="w-3.5 h-3.5 fill-current text-zinc-300 group-hover:text-white"
                 viewBox="0 0 24 24"
@@ -177,8 +181,12 @@ export default function Navbar() {
             {/* Download Button */}
             <button
               onClick={() => triggerLatestDownload()}
-              className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-white text-black text-[11px] sm:text-[12px] font-semibold hover:bg-zinc-200 transition-all shadow-sm active:scale-95 cursor-pointer shrink-0"
+              className="group/navbtn relative flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-none bg-white hover:bg-zinc-200 text-black text-[11px] sm:text-[12px] font-semibold transition-all shadow-sm active:scale-95 cursor-pointer shrink-0 border border-white"
             >
+              <span className="absolute -top-[1px] -left-[1px] w-1.5 h-1.5 border-t border-l border-black/40 pointer-events-none" />
+              <span className="absolute -top-[1px] -right-[1px] w-1.5 h-1.5 border-t border-r border-black/40 pointer-events-none" />
+              <span className="absolute -bottom-[1px] -left-[1px] w-1.5 h-1.5 border-b border-l border-black/40 pointer-events-none" />
+              <span className="absolute -bottom-[1px] -right-[1px] w-1.5 h-1.5 border-b border-r border-black/40 pointer-events-none" />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="13"

@@ -1,6 +1,5 @@
 import Navbar from "@/components/Navbar";
 import HoverFooter from "@/components/ui/hover-footer";
-import Link from "next/link";
 
 export const metadata = {
   title: "Documentation — Hiveory | Developer Guides & Reference",
@@ -86,11 +85,11 @@ export default function DocsPage() {
 
         {/* Quickstart Code Block */}
         <div className="relative max-w-3xl mx-auto mb-20 rounded-none border border-white/10 bg-[#09090d] p-6 shadow-2xl">
-          {/* Corner Brackets */}
-          <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-white/30 pointer-events-none" />
-          <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-white/30 pointer-events-none" />
-          <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-white/30 pointer-events-none" />
-          <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-white/30 pointer-events-none" />
+          {/* Corner Brackets - Sitting directly on the boundary */}
+          <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 pointer-events-none" />
+          <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 pointer-events-none" />
+          <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 pointer-events-none" />
+          <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 pointer-events-none" />
 
           <div className="flex items-center justify-between border-b border-white/[0.06] pb-3 mb-4 text-xs font-mono text-zinc-400">
             <span className="flex items-center gap-2">
@@ -126,11 +125,11 @@ export default function DocsPage() {
                     key={idx}
                     className="relative rounded-none border border-white/[0.08] bg-[#0c0c10]/80 p-5 hover:border-white/25 hover:bg-[#121217] transition-all cursor-pointer group shadow-sm"
                   >
-                    {/* Corner Brackets */}
-                    <div className="absolute top-1.5 left-1.5 w-2 h-2 border-t border-l border-white/30 pointer-events-none" />
-                    <div className="absolute top-1.5 right-1.5 w-2 h-2 border-t border-r border-white/30 pointer-events-none" />
-                    <div className="absolute bottom-1.5 left-1.5 w-2 h-2 border-b border-l border-white/30 pointer-events-none" />
-                    <div className="absolute bottom-1.5 right-1.5 w-2 h-2 border-b border-r border-white/30 pointer-events-none" />
+                    {/* Corner Brackets - Sitting directly on the boundary */}
+                    <div className="absolute -top-[1px] -left-[1px] w-3 h-3 border-t-2 border-l-2 border-white/40 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+                    <div className="absolute -top-[1px] -right-[1px] w-3 h-3 border-t-2 border-r-2 border-white/40 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+                    <div className="absolute -bottom-[1px] -left-[1px] w-3 h-3 border-b-2 border-l-2 border-white/40 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+                    <div className="absolute -bottom-[1px] -right-[1px] w-3 h-3 border-b-2 border-r-2 border-white/40 group-hover:border-white transition-colors duration-300 pointer-events-none" />
 
                     <h3 className="text-base font-semibold text-white group-hover:text-zinc-200 transition-colors mb-1.5 flex items-center justify-between">
                       <span>{item.title}</span>

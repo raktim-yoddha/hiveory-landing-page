@@ -136,7 +136,17 @@ export default function ProductCardStack() {
   const y1 = useTransform(scrollYProgress, [0.01, 0.44], [bottomOffset, 0]);
 
   // CARD 2 (Chat Mode): Rises up and lands at y: 0, completely overriding Card 1
-  const y2 = useTransform(scrollYProgress, [0.48, 0.88], [bottomOffset, 0]);
+  const y2 = useTransform(scrollYProgress, [0.48, 0.86], [bottomOffset, 0]);
+
+  // Button: Only comes up after 3rd card (Chat Mode) has completed its override
+  // Rises up (y: 28 -> 0) and fades in (opacity: 0 -> 1) between 0.84 and 0.90
+  // Stays locked at opacity: 1 and y: 0 on scroll down (never fades out on scroll down)
+  // Reverses automatically on scroll up (fades out as it goes down)
+  const buttonOpacity = useTransform(scrollYProgress, [0.84, 0.90, 1.0], [0, 1, 1]);
+  const buttonY = useTransform(scrollYProgress, [0.84, 0.90, 1.0], [28, 0, 0]);
+  const buttonPointerEvents = useTransform(scrollYProgress, (pos) =>
+    pos >= 0.86 ? "auto" : "none"
+  );
 
   return (
     <div id="product-modes" className="relative w-full">
@@ -200,8 +210,15 @@ export default function ProductCardStack() {
             </motion.div>
           </div>
 
-          {/* See More Details Button - Always visible, never disappears while scrolling down */}
-          <div className="mt-6 sm:mt-8 z-40 flex items-center justify-center pointer-events-auto">
+          {/* See More Details Button - Appears only after 3rd card, never fades on scroll down, fades down on scroll up */}
+          <motion.div
+            style={{
+              opacity: buttonOpacity,
+              y: buttonY,
+              pointerEvents: buttonPointerEvents,
+            }}
+            className="mt-6 sm:mt-8 z-40 flex items-center justify-center"
+          >
             <Link
               href="/product"
               className="group relative inline-flex items-center gap-2 px-6 py-2.5 rounded-none bg-[#141418] hover:bg-white text-white hover:text-black border border-white/20 hover:border-white text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 shadow-[0_0_25px_rgba(255,255,255,0.06)] hover:shadow-[0_0_35px_rgba(255,255,255,0.25)]"
@@ -209,7 +226,7 @@ export default function ProductCardStack() {
               <span>See More Details</span>
               <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>

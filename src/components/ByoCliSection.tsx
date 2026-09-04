@@ -32,7 +32,7 @@ const allBrandLogos = [
   {
     id: "codex",
     name: "OpenAI Codex",
-    icon: <CodexIcon className="w-5 h-5 text-black" />,
+    icon: <CodexIcon className="w-5 h-5" />,
   },
   {
     id: "cline",

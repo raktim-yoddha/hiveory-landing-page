@@ -479,7 +479,7 @@ export default function Home() {
             borderRadius={0}
             className="h-full rounded-none"
           >
-            <div className="group relative h-full rounded-none border border-amber-400/40 hover:border-amber-400/80 bg-[#0f0e0c]/90 hover:bg-[#14120e] p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 shadow-[0_0_50px_-20px_rgba(245,158,11,0.15)]">
+            <div className="group relative h-full rounded-none border border-amber-400/40 hover:border-amber-400/80 bg-[#0f0e0c]/90 hover:bg-[#14120e] p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 shadow-xl">
               <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-amber-400/60 group-hover:border-amber-400 transition-colors duration-300 pointer-events-none" />
               <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-amber-400/60 group-hover:border-amber-400 transition-colors duration-300 pointer-events-none" />
               <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-amber-400/60 group-hover:border-amber-400 transition-colors duration-300 pointer-events-none" />

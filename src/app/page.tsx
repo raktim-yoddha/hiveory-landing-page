@@ -3,6 +3,7 @@
 import Navbar from "@/components/Navbar";
 import HeroFlowLines from "@/components/HeroFlowLines";
 import ProductCardStack from "@/components/ProductCardStack";
+import ByoCliSection from "@/components/ByoCliSection";
 import HoverFooter from "@/components/ui/hover-footer";
 import { triggerLatestDownload, getLatestRelease } from "@/lib/download";
 import { motion, AnimatePresence } from "framer-motion";
@@ -80,7 +81,7 @@ export default function Home() {
       <Navbar />
 
       {/* Main Hero Section with Gojiberry Flowing Lines Animation in White Theme */}
-      <section className="relative flex-1 flex flex-col items-center justify-center text-center w-full pt-36 sm:pt-48 pb-12 sm:pb-16 z-10 overflow-visible">
+      <section className="relative flex-1 flex flex-col items-center justify-center text-center w-full pt-44 sm:pt-56 md:pt-60 pb-14 sm:pb-20 z-10 overflow-visible">
         {/* Background Flowing Lines & Isometric Geometry System spanning edge-to-edge */}
         <HeroFlowLines />
 
@@ -88,19 +89,17 @@ export default function Home() {
         <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-5xl mx-auto px-4">
 
           {/* Strictly Two-Line High-Impact Display Headline */}
-          <h1 className="relative z-10 text-3xl sm:text-5xl md:text-6xl lg:text-[64px] xl:text-[70px] font-extrabold tracking-[-0.035em] text-white leading-[1.14] sm:leading-[1.12] mb-6 max-w-4xl mx-auto">
+          <h1 className="relative z-10 w-full text-center text-3xl sm:text-4xl md:text-5xl lg:text-[56px] xl:text-[62px] font-medium tracking-[-0.03em] text-white leading-[1.1] sm:leading-[1.08] mb-6 mx-auto">
             <span className="block sm:whitespace-nowrap">The ultimate agent super app</span>
-            <span className="text-zinc-400 font-normal block mt-2 sm:mt-3 text-xl sm:text-3xl md:text-4xl lg:text-[46px] xl:text-[52px] tracking-[-0.02em]">
+            <span className="text-zinc-400 font-normal block mt-2 sm:mt-3 text-xl sm:text-2xl md:text-3xl lg:text-[38px] xl:text-[44px] tracking-[-0.02em]">
               Code, chat & automate
             </span>
           </h1>
 
           {/* Crisp Narrative Subtitle */}
           <p className="relative z-10 max-w-2xl mx-auto text-base sm:text-lg text-zinc-400/90 leading-relaxed font-normal mb-10">
-            Orchestrate agent swarms in a terminal-first ADE with plugin and skill
-            management, brainstorm across AI models with instant switching, and
-            delegate tasks to fully autonomous agents—all in one local-first
-            desktop workspace.
+            Run autonomous agents, chat across AI models, and code in a
+            terminal-first ADE—all in one local-first desktop workspace.
           </p>
 
           {/* Call to Action Buttons */}
@@ -256,176 +255,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION: Bring your own CLI */}
-      <section
-        id="byok"
-        className="relative w-full border-t border-white/[0.08] bg-[#08080b] px-4 sm:px-6 py-20 md:py-28 z-10 overflow-hidden"
-      >
-        {/* Subtle center ambient radial glow */}
-        <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-white/[0.02] blur-[130px] rounded-full" />
-
-        {/* Section Header */}
-        <div className="max-w-2xl mx-auto text-center mb-14 md:mb-18">
-          {/* Display Headline */}
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.02em] text-white leading-tight mb-4">
-            Bring your own CLI
-          </h2>
-
-          {/* Subtitle */}
-          <p className="text-sm sm:text-base text-zinc-400 max-w-xl mx-auto leading-relaxed">
-            Works with Claude Code, Codex, OpenCode, Grok, and any other agent
-            CLI. Plug in your existing subscriptions and run them side by side in
-            Hiveory.
-          </p>
-        </div>
-
-        {/* Dual Infinite Marquee Rows (Balanced scale) */}
-        <div className="w-full overflow-x-hidden marquee-mask space-y-6 md:space-y-8 py-2">
-          {/* Row 1 (Track moving left) */}
-          <div className="flex w-max items-center animate-marquee-left">
-            {[
-              { name: "Claude Code", icon: "https://cdn.simpleicons.org/claude" },
-              { name: "Codex", icon: "https://www.google.com/s2/favicons?domain=openai.com&sz=64" },
-              { name: "Grok", icon: "https://www.google.com/s2/favicons?domain=grok.com&sz=64" },
-              { name: "Gemini", icon: "https://cdn.simpleicons.org/googlegemini" },
-              { name: "Cursor", icon: "https://cdn.simpleicons.org/cursor" },
-              { name: "GitHub Copilot", icon: "https://cdn.simpleicons.org/githubcopilot" },
-              { name: "OpenCode", icon: "https://cdn.simpleicons.org/opencode" },
-              { name: "Amp", icon: "https://www.google.com/s2/favicons?domain=ampcode.com&sz=64" },
-              { name: "OpenClaude", isTerminal: true },
-              { name: "Antigravity", icon: "https://www.google.com/s2/favicons?domain=antigravity.google&sz=64" },
-              { name: "Pi", icon: "https://www.google.com/s2/favicons?domain=pi.ai&sz=64" },
-              { name: "oh-my-pi", isTerminal: true },
-              { name: "Hermes Agent", isTerminal: true },
-              { name: "Goose", isTerminal: true },
-              // Repeated for infinite loop
-              { name: "Claude Code", icon: "https://cdn.simpleicons.org/claude" },
-              { name: "Codex", icon: "https://www.google.com/s2/favicons?domain=openai.com&sz=64" },
-              { name: "Grok", icon: "https://www.google.com/s2/favicons?domain=grok.com&sz=64" },
-              { name: "Gemini", icon: "https://cdn.simpleicons.org/googlegemini" },
-              { name: "Cursor", icon: "https://cdn.simpleicons.org/cursor" },
-              { name: "GitHub Copilot", icon: "https://cdn.simpleicons.org/githubcopilot" },
-              { name: "OpenCode", icon: "https://cdn.simpleicons.org/opencode" },
-              { name: "Amp", icon: "https://www.google.com/s2/favicons?domain=ampcode.com&sz=64" },
-              { name: "OpenClaude", isTerminal: true },
-              { name: "Antigravity", icon: "https://www.google.com/s2/favicons?domain=antigravity.google&sz=64" },
-              { name: "Pi", icon: "https://www.google.com/s2/favicons?domain=pi.ai&sz=64" },
-              { name: "oh-my-pi", isTerminal: true },
-              { name: "Hermes Agent", isTerminal: true },
-              { name: "Goose", isTerminal: true },
-            ].map((item, idx) => (
-              <span key={idx} className="mx-6 sm:mx-8 md:mx-10 shrink-0">
-                <span className="inline-flex items-center gap-3">
-                  {item.isTerminal ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="22"
-                      height="22"
-                      fill="currentColor"
-                      viewBox="0 0 256 256"
-                      className="text-white/70 w-5 h-5 sm:w-6 sm:h-6"
-                    >
-                      <path d="M120,137,48,201A12,12,0,1,1,32,183l61.91-55L32,73A12,12,0,1,1,48,55l72,64A12,12,0,0,1,120,137Zm96,43H120a12,12,0,0,0,0,24h96a12,12,0,0,0,0-24Z" />
-                    </svg>
-                  ) : (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      src={item.icon}
-                      alt=""
-                      width={32}
-                      height={32}
-                      className="w-7 h-7 sm:w-8 sm:h-8 object-contain rounded-md filter brightness-95"
-                      loading="lazy"
-                    />
-                  )}
-                  <span className="whitespace-nowrap text-lg sm:text-xl md:text-[22px] font-bold tracking-tight text-white/90 hover:text-white transition-colors duration-200">
-                    {item.name}
-                  </span>
-                </span>
-              </span>
-            ))}
-          </div>
-
-          {/* Row 2 (Track moving right) */}
-          <div className="flex w-max items-center animate-marquee-right">
-            {[
-              { name: "Auggie", icon: "https://www.google.com/s2/favicons?domain=augmentcode.com&sz=64" },
-              { name: "Charm", icon: "https://www.google.com/s2/favicons?domain=charm.sh&sz=64" },
-              { name: "Cline", icon: "https://cdn.simpleicons.org/cline" },
-              { name: "Codebuff", icon: "https://www.google.com/s2/favicons?domain=codebuff.com&sz=64" },
-              { name: "Command Code", isTerminal: true },
-              { name: "Continue", icon: "https://www.google.com/s2/favicons?domain=continue.dev&sz=64" },
-              { name: "Droid", icon: "https://www.google.com/s2/favicons?domain=factory.ai&sz=64" },
-              { name: "Kilocode", icon: "https://www.google.com/s2/favicons?domain=kilocode.ai&sz=64" },
-              { name: "Kimi", icon: "https://cdn.simpleicons.org/moonshotai" },
-              { name: "Kiro", icon: "https://www.google.com/s2/favicons?domain=kiro.dev&sz=64" },
-              { name: "Mistral Vibe", icon: "https://cdn.simpleicons.org/mistralai" },
-              { name: "Qwen Code", icon: "https://cdn.simpleicons.org/qwen" },
-              { name: "Rovo Dev", icon: "https://www.google.com/s2/favicons?domain=atlassian.com&sz=64" },
-              // Repeated for infinite loop
-              { name: "Auggie", icon: "https://www.google.com/s2/favicons?domain=augmentcode.com&sz=64" },
-              { name: "Charm", icon: "https://www.google.com/s2/favicons?domain=charm.sh&sz=64" },
-              { name: "Cline", icon: "https://cdn.simpleicons.org/cline" },
-              { name: "Codebuff", icon: "https://www.google.com/s2/favicons?domain=codebuff.com&sz=64" },
-              { name: "Command Code", isTerminal: true },
-              { name: "Continue", icon: "https://www.google.com/s2/favicons?domain=continue.dev&sz=64" },
-              { name: "Droid", icon: "https://www.google.com/s2/favicons?domain=factory.ai&sz=64" },
-              { name: "Kilocode", icon: "https://www.google.com/s2/favicons?domain=kilocode.ai&sz=64" },
-              { name: "Kimi", icon: "https://cdn.simpleicons.org/moonshotai" },
-              { name: "Kiro", icon: "https://www.google.com/s2/favicons?domain=kiro.dev&sz=64" },
-              { name: "Mistral Vibe", icon: "https://cdn.simpleicons.org/mistralai" },
-              { name: "Qwen Code", icon: "https://cdn.simpleicons.org/qwen" },
-              { name: "Rovo Dev", icon: "https://www.google.com/s2/favicons?domain=atlassian.com&sz=64" },
-            ].map((item, idx) => (
-              <span key={idx} className="mx-6 sm:mx-8 md:mx-10 shrink-0">
-                <span className="inline-flex items-center gap-3">
-                  {item.isTerminal ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="22"
-                      height="22"
-                      fill="currentColor"
-                      viewBox="0 0 256 256"
-                      className="text-white/70 w-5 h-5 sm:w-6 sm:h-6"
-                    >
-                      <path d="M120,137,48,201A12,12,0,1,1,32,183l61.91-55L32,73A12,12,0,1,1,48,55l72,64A12,12,0,0,1,120,137Zm96,43H120a12,12,0,0,0,0,24h96a12,12,0,0,0,0-24Z" />
-                    </svg>
-                  ) : (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      src={item.icon}
-                      alt=""
-                      width={32}
-                      height={32}
-                      className="w-7 h-7 sm:w-8 sm:h-8 object-contain rounded-md filter brightness-95"
-                      loading="lazy"
-                    />
-                  )}
-                  <span className="whitespace-nowrap text-lg sm:text-xl md:text-[22px] font-bold tracking-tight text-white/90 hover:text-white transition-colors duration-200">
-                    {item.name}
-                  </span>
-                </span>
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Bottom Note */}
-        <div className="mt-14 md:mt-16 flex justify-center">
-          <span className="inline-flex items-center gap-2 text-sm font-medium text-white/40">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
-              fill="currentColor"
-              viewBox="0 0 256 256"
-            >
-              <path d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z" />
-            </svg>
-            <span>any CLI agent</span>
-          </span>
-        </div>
-      </section>
+      {/* SECTION: Bring your own CLI with 3D Box Dipping Animation */}
+      <ByoCliSection />
 
       {/* Section Separator */}
       <SectionSeparator />
@@ -439,7 +270,7 @@ export default function Home() {
       {/* SECTION: Pricing Section */}
       <section id="price" className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 py-24 sm:py-32 scroll-mt-20">
         <div id="pricing" className="text-center max-w-4xl mx-auto mb-16 sm:mb-20">
-          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-6xl font-extrabold tracking-[-0.03em] text-white leading-tight mb-4 sm:mb-6 sm:whitespace-nowrap">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-6xl font-medium tracking-[-0.025em] text-white leading-tight mb-4 sm:mb-6 sm:whitespace-nowrap">
             Hiveory for Developers & Teams
           </h2>
           <p className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto">
@@ -458,7 +289,7 @@ export default function Home() {
 
             <div>
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-2xl font-bold text-white tracking-tight">
+                <h3 className="text-2xl font-medium text-white tracking-tight">
                   Open Source
                 </h3>
                 <span className="text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-none border border-white/10 text-zinc-400 bg-white/[0.04]">
@@ -471,7 +302,7 @@ export default function Home() {
               </p>
 
               <div className="mb-8 pb-6 border-b border-white/[0.06]">
-                <span className="text-4xl font-extrabold text-white tracking-tight">
+                <span className="text-4xl font-medium text-white tracking-tight">
                   Free
                 </span>
                 <span className="text-xs text-zinc-500 ml-2">forever</span>
@@ -553,7 +384,7 @@ export default function Home() {
 
             <div>
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-2xl font-bold text-white tracking-tight">
+                <h3 className="text-2xl font-medium text-white tracking-tight">
                   Custom
                 </h3>
                 <span className="text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-none border border-white/10 text-zinc-400 bg-white/[0.04]">
@@ -566,7 +397,7 @@ export default function Home() {
               </p>
 
               <div className="mb-8 pb-6 border-b border-white/[0.06]">
-                <span className="text-4xl font-extrabold text-white tracking-tight">
+                <span className="text-4xl font-medium text-white tracking-tight">
                   Let&apos;s talk
                 </span>
                 <span className="text-xs text-zinc-500 ml-2">for your team</span>
@@ -647,7 +478,7 @@ export default function Home() {
 
             <div>
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-2xl font-bold text-white tracking-tight">
+                <h3 className="text-2xl font-medium text-white tracking-tight">
                   Enterprise
                 </h3>
                 <span className="text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-none border border-amber-400/40 text-amber-300 bg-amber-400/10">
@@ -660,7 +491,7 @@ export default function Home() {
               </p>
 
               <div className="mb-8 pb-6 border-b border-white/[0.06]">
-                <span className="text-4xl font-extrabold text-white tracking-tight">
+                <span className="text-4xl font-medium text-white tracking-tight">
                   Let&apos;s talk
                 </span>
                 <span className="text-xs text-zinc-500 ml-2">for organization</span>
@@ -741,7 +572,7 @@ export default function Home() {
           <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
             <div>
-              <div className="text-xl font-bold text-white mb-2">
+              <div className="text-xl font-medium text-white mb-2">
                 Air-Gapped Ready
               </div>
               <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
@@ -750,7 +581,7 @@ export default function Home() {
               </p>
             </div>
             <div>
-              <div className="text-xl font-bold text-white mb-2">
+              <div className="text-xl font-medium text-white mb-2">
                 Zero Data Ingestion
               </div>
               <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
@@ -759,7 +590,7 @@ export default function Home() {
               </p>
             </div>
             <div>
-              <div className="text-xl font-bold text-white mb-2">
+              <div className="text-xl font-medium text-white mb-2">
                 Sandboxed Executions
               </div>
               <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
@@ -777,7 +608,7 @@ export default function Home() {
       {/* SECTION: Communities Section (Exactly same as Community Page) */}
       <section id="community" className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 py-20 scroll-mt-20 overflow-hidden">
         <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-          <h2 className="text-4xl sm:text-6xl font-extrabold tracking-[-0.03em] text-white leading-tight mb-6">
+          <h2 className="text-4xl sm:text-6xl font-medium tracking-[-0.025em] text-white leading-tight mb-6">
             Join the Hiveory Community
           </h2>
           <p className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto">
@@ -817,7 +648,7 @@ export default function Home() {
                 </span>
               </div>
 
-              <h3 className="text-xl font-bold text-white mb-2 tracking-tight">
+              <h3 className="text-xl font-medium text-white mb-2 tracking-tight">
                 Discord Community
               </h3>
 
@@ -886,7 +717,7 @@ export default function Home() {
                 </span>
               </div>
 
-              <h3 className="text-xl font-bold text-white mb-2 tracking-tight">
+              <h3 className="text-xl font-medium text-white mb-2 tracking-tight">
                 GitHub Repository
               </h3>
 
@@ -955,7 +786,7 @@ export default function Home() {
                 </span>
               </div>
 
-              <h3 className="text-xl font-bold text-white mb-2 tracking-tight">
+              <h3 className="text-xl font-medium text-white mb-2 tracking-tight">
                 YouTube Channel
               </h3>
 
@@ -1010,7 +841,7 @@ export default function Home() {
           <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
           <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium text-white tracking-tight mb-4">
             Ready to experience concurrent agent development?
           </h2>
 
@@ -1125,7 +956,7 @@ export default function Home() {
                   >
                     {demoTier === "custom" ? "Custom Tier" : "Enterprise Tier"}
                   </span>
-                  <h3 className="text-2xl font-bold text-white tracking-tight">
+                  <h3 className="text-2xl font-medium text-white tracking-tight">
                     {demoTier === "custom" ? "Book a Custom Demo" : "Enterprise Deployment"}
                   </h3>
                   <p className="text-sm text-zinc-400 mt-1 leading-relaxed">
@@ -1177,7 +1008,7 @@ export default function Home() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                     </svg>
                   </div>
-                  <h4 className="text-lg font-bold text-white mb-2">Request Received!</h4>
+                  <h4 className="text-lg font-medium text-white mb-2">Request Received!</h4>
                   <p className="text-sm text-zinc-400 max-w-sm mx-auto mb-6 leading-relaxed">
                     Thanks for reaching out. A core team engineer will follow up with you within 24 hours.
                   </p>

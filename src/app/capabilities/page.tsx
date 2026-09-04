@@ -70,7 +70,7 @@ export default function CapabilitiesPage() {
       <main className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-36 sm:pt-44 pb-24 flex-1">
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-[-0.03em] text-white leading-tight mb-6">
+          <h1 className="text-4xl sm:text-6xl font-medium tracking-[-0.03em] text-white leading-tight mb-6">
             Built for multi-agent reliability
           </h1>
 
@@ -96,7 +96,7 @@ export default function CapabilitiesPage() {
 
               <div>
                 <div className="text-3xl mb-4">{c.icon}</div>
-                <h2 className="text-xl font-bold text-white mb-2 tracking-tight">
+                <h2 className="text-xl font-medium text-white mb-2 tracking-tight">
                   {c.title}
                 </h2>
                 <p className="text-sm font-medium text-zinc-300 mb-3 leading-relaxed">
@@ -118,7 +118,7 @@ export default function CapabilitiesPage() {
           <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
           <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
 
-          <h2 className="text-xl font-semibold text-white mb-2">
+          <h2 className="text-xl font-medium text-white mb-2">
             Want to inspect the complete architecture specification?
           </h2>
           <p className="text-sm text-zinc-400 mb-6">

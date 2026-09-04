@@ -67,7 +67,7 @@ export default function ProductPage() {
       <main className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 pt-36 sm:pt-44 pb-24 flex-1">
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-[-0.03em] text-white leading-tight mb-6">
+          <h1 className="text-4xl sm:text-6xl font-medium tracking-[-0.03em] text-white leading-tight mb-6">
             Engineered for code, autonomy & brainstorming
           </h1>
 
@@ -101,7 +101,7 @@ export default function ProductPage() {
                   </span>
                 </div>
 
-                <h2 className="text-2xl font-bold text-white mb-2 tracking-tight group-hover:text-zinc-100 transition-colors whitespace-nowrap">
+                <h2 className="text-2xl font-medium text-white mb-2 tracking-[-0.02em] group-hover:text-zinc-100 transition-colors whitespace-nowrap">
                   {m.title}
                 </h2>
 
@@ -154,7 +154,7 @@ export default function ProductPage() {
           <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
           <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
 
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+          <h2 className="text-2xl sm:text-3xl font-medium text-white mb-4">
             Ready to experience concurrent agent development?
           </h2>
           <p className="text-sm sm:text-base text-zinc-400 max-w-xl mx-auto mb-8">

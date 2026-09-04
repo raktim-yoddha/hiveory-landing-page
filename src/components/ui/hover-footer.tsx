@@ -364,7 +364,7 @@ export function HoverFooter() {
                   className="w-full h-full object-contain rounded-md"
                 />
               </div>
-              <span className="text-white text-3xl font-bold tracking-tight">
+              <span className="text-white text-3xl font-medium tracking-tight">
                 Hiveory
               </span>
             </Link>

@@ -59,7 +59,7 @@ export default function Navbar() {
       >
         {/* Inner content container: Minimal difference between floating (900px) and sticky (930px) */}
         <div
-          className={`w-full flex items-center justify-between transition-[max-width] duration-500 ease-out ${
+          className={`relative w-full flex items-center justify-between transition-[max-width] duration-500 ease-out ${
             isScrolled ? "max-w-[930px]" : "max-w-[900px]"
           }`}
         >
@@ -89,8 +89,8 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Navigation Links in Open-Source SaaS Hierarchy */}
-          <div className="hidden md:flex items-center gap-1">
+          {/* Navigation Links */}
+          <div className="hidden md:flex items-center gap-1 sm:gap-2">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -181,12 +181,14 @@ export default function Navbar() {
             {/* Download Button */}
             <button
               onClick={() => triggerLatestDownload()}
-              className="group/navbtn relative flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-none bg-white hover:bg-zinc-200 text-black text-[11px] sm:text-[12px] font-semibold transition-all shadow-sm active:scale-95 cursor-pointer shrink-0 border border-white"
+              className="group/dlbtn relative flex items-center gap-1 sm:gap-1.5 px-3 py-1.5 rounded-none bg-[#EAEAEA] hover:bg-white text-black text-[12px] font-semibold transition-all shadow-sm active:scale-95 cursor-pointer shrink-0 border border-zinc-400/40 hover:border-zinc-500"
             >
-              <span className="absolute -top-[1px] -left-[1px] w-1.5 h-1.5 border-t border-l border-black/40 pointer-events-none" />
-              <span className="absolute -top-[1px] -right-[1px] w-1.5 h-1.5 border-t border-r border-black/40 pointer-events-none" />
-              <span className="absolute -bottom-[1px] -left-[1px] w-1.5 h-1.5 border-b border-l border-black/40 pointer-events-none" />
-              <span className="absolute -bottom-[1px] -right-[1px] w-1.5 h-1.5 border-b border-r border-black/40 pointer-events-none" />
+              {/* Corner Highlighting Edges */}
+              <span className="absolute -top-[1px] -left-[1px] w-1.5 h-1.5 border-t border-l border-black/70 group-hover/dlbtn:border-black pointer-events-none" />
+              <span className="absolute -top-[1px] -right-[1px] w-1.5 h-1.5 border-t border-r border-black/70 group-hover/dlbtn:border-black pointer-events-none" />
+              <span className="absolute -bottom-[1px] -left-[1px] w-1.5 h-1.5 border-b border-l border-black/70 group-hover/dlbtn:border-black pointer-events-none" />
+              <span className="absolute -bottom-[1px] -right-[1px] w-1.5 h-1.5 border-b border-r border-black/70 group-hover/dlbtn:border-black pointer-events-none" />
+
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="13"

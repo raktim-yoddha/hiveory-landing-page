@@ -190,7 +190,7 @@ export default function ProductCardStack() {
     <div id="product-modes" className="relative w-full">
       {/* Section Header (In normal document flow, NOT stuck in the overlapping animation) */}
       <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-2 sm:pb-4 text-center">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-[-0.03em] text-white leading-tight mb-3">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-medium tracking-[-0.025em] text-white leading-tight mb-3">
           One Super App. Three Modes.
         </h2>
         <p className="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
@@ -308,7 +308,7 @@ function CardInnerContent({ card, index }: { card: ModeCard; index: number }) {
           </span>
         </div>
 
-        <h3 className="text-2xl sm:text-3xl lg:text-[34px] font-bold text-white tracking-tight leading-tight mb-2">
+        <h3 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-white tracking-[-0.015em] leading-tight mb-2">
           {card.title}
         </h3>
 

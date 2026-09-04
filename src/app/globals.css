@@ -21,6 +21,11 @@ body {
   color: #f4f4f5;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
 /* Floating glass dock */
 .floating-glass-dock {
   background: rgba(18, 18, 22, 0.75);

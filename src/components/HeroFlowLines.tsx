@@ -28,8 +28,6 @@ function SingleFlowLine({ top, flipped = false }: SingleFlowLineProps) {
       className="absolute w-[151px] h-[986px] pointer-events-none select-none overflow-visible"
       style={{
         top: `${top}px`,
-        transform: flipped ? "scaleX(-1)" : undefined,
-        transformOrigin: "center top",
       }}
     >
       <svg
@@ -38,28 +36,30 @@ function SingleFlowLine({ top, flipped = false }: SingleFlowLineProps) {
         fill="none"
         role="presentation"
       >
-        {/* 1. Base Static Guide Line (delicate, faint ambient track) */}
-        <path
-          d={GOJIBERRY_FLOW_PATH}
-          fill="none"
-          stroke="rgba(255, 255, 255, 0.025)"
-          strokeWidth="0.8"
-          strokeLinecap="butt"
-        />
+        <g transform={flipped ? "translate(151, 0) scale(-1, 1)" : undefined}>
+          {/* 1. Base Static Guide Line (delicate, faint ambient track) */}
+          <path
+            d={GOJIBERRY_FLOW_PATH}
+            fill="none"
+            stroke="rgba(255, 255, 255, 0.025)"
+            strokeWidth="0.8"
+            strokeLinecap="butt"
+          />
 
-        {/* 2. Delicate Flowing Beam (dimmer, subtle, non-distracting) */}
-        <path
-          d={GOJIBERRY_FLOW_PATH}
-          fill="none"
-          stroke="rgba(255, 255, 255, 0.22)"
-          strokeWidth="1"
-          strokeLinecap="round"
-          strokeDasharray={`${PATH_TOTAL_LENGTH} ${PATH_TOTAL_LENGTH}`}
-          className="animate-gojiberry-flow"
-          style={{
-            filter: "drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.15))",
-          }}
-        />
+          {/* 2. Delicate Flowing Beam (dimmer, subtle, non-distracting) */}
+          <path
+            d={GOJIBERRY_FLOW_PATH}
+            fill="none"
+            stroke="rgba(255, 255, 255, 0.22)"
+            strokeWidth="1"
+            strokeLinecap="round"
+            strokeDasharray={`${PATH_TOTAL_LENGTH} ${PATH_TOTAL_LENGTH}`}
+            className="animate-gojiberry-flow"
+            style={{
+              filter: "drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.15))",
+            }}
+          />
+        </g>
       </svg>
     </div>
   );

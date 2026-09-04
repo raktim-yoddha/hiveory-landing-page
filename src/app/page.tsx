@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import HeroFlowLines from "@/components/HeroFlowLines";
 import ProductCardStack from "@/components/ProductCardStack";
 import ByoCliSection from "@/components/ByoCliSection";
+import ElectricBorder from "@/components/ElectricBorder";
 import HoverFooter from "@/components/ui/hover-footer";
 import { triggerLatestDownload, getLatestRelease } from "@/lib/download";
 import { motion, AnimatePresence } from "framer-motion";
@@ -470,98 +471,107 @@ export default function Home() {
           </div>
 
           {/* Enterprise Tier */}
-          <div className="group relative rounded-none border border-amber-400/40 hover:border-amber-400/80 bg-[#0f0e0c]/90 hover:bg-[#14120e] p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 shadow-[0_0_50px_-20px_rgba(245,158,11,0.15)]">
-            <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-amber-400/60 group-hover:border-amber-400 transition-colors duration-300 pointer-events-none" />
-            <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-amber-400/60 group-hover:border-amber-400 transition-colors duration-300 pointer-events-none" />
-            <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-amber-400/60 group-hover:border-amber-400 transition-colors duration-300 pointer-events-none" />
-            <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-amber-400/60 group-hover:border-amber-400 transition-colors duration-300 pointer-events-none" />
+          <ElectricBorder
+            color="#f59e0b"
+            speed={1}
+            chaos={0.12}
+            thickness={2}
+            borderRadius={0}
+            className="h-full rounded-none"
+          >
+            <div className="group relative h-full rounded-none border border-amber-400/40 hover:border-amber-400/80 bg-[#0f0e0c]/90 hover:bg-[#14120e] p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 shadow-[0_0_50px_-20px_rgba(245,158,11,0.15)]">
+              <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-amber-400/60 group-hover:border-amber-400 transition-colors duration-300 pointer-events-none" />
+              <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-amber-400/60 group-hover:border-amber-400 transition-colors duration-300 pointer-events-none" />
+              <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-amber-400/60 group-hover:border-amber-400 transition-colors duration-300 pointer-events-none" />
+              <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-amber-400/60 group-hover:border-amber-400 transition-colors duration-300 pointer-events-none" />
 
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-2xl font-medium text-white tracking-tight">
-                  Enterprise
-                </h3>
-                <span className="text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-none border border-amber-400/40 text-amber-300 bg-amber-400/10">
-                  Scale & Governance
-                </span>
-              </div>
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-2xl font-medium text-white tracking-tight">
+                    Enterprise
+                  </h3>
+                  <span className="text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-none border border-amber-400/40 text-amber-300 bg-amber-400/10">
+                    Scale & Governance
+                  </span>
+                </div>
 
-              <p className="text-sm text-zinc-400 mb-6 leading-relaxed">
-                White-label it, embed it, or have us run it.
-              </p>
+                <p className="text-sm text-zinc-400 mb-6 leading-relaxed">
+                  White-label it, embed it, or have us run it.
+                </p>
 
-              <div className="mb-8 pb-6 border-b border-white/[0.06]">
-                <span className="text-4xl font-medium text-white tracking-tight">
-                  Let&apos;s talk
-                </span>
-                <span className="text-xs text-zinc-500 ml-2">for organization</span>
-              </div>
+                <div className="mb-8 pb-6 border-b border-white/[0.06]">
+                  <span className="text-4xl font-medium text-white tracking-tight">
+                    Let&apos;s talk
+                  </span>
+                  <span className="text-xs text-zinc-500 ml-2">for organization</span>
+                </div>
 
-              <div className="text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-4">
-                Includes
-              </div>
+                <div className="text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-4">
+                  Includes
+                </div>
 
-              <ul className="space-y-3 mb-8">
-                {[
-                  "White-label builds under your brand",
-                  "Embedded in your existing product",
-                  "Self-hosted or air-gapped deployment",
-                  "SSO, security review, and compliance",
-                  "SLA-backed response times",
-                ].map((f, i) => (
-                  <li
-                    key={i}
-                    className="text-sm text-zinc-300 flex items-center gap-2.5 whitespace-nowrap overflow-hidden"
-                  >
-                    <svg
-                      className="w-4 h-4 shrink-0 text-amber-400"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
+                <ul className="space-y-3 mb-8">
+                  {[
+                    "White-label builds under your brand",
+                    "Embedded in your existing product",
+                    "Self-hosted or air-gapped deployment",
+                    "SSO, security review, and compliance",
+                    "SLA-backed response times",
+                  ].map((f, i) => (
+                    <li
+                      key={i}
+                      className="text-sm text-zinc-300 flex items-center gap-2.5 whitespace-nowrap overflow-hidden"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4.5 12.75l6 6 9-13.5"
-                      />
+                      <svg
+                        className="w-4 h-4 shrink-0 text-amber-400"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M4.5 12.75l6 6 9-13.5"
+                        />
+                      </svg>
+                      <span className="truncate">{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => openDemoModal("enterprise")}
+                className="group/btn relative w-full inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#13110c] border border-amber-400/50 hover:border-amber-400 text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-md"
+              >
+                {/* Outer Boundary Corner L-Brackets */}
+                <span className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t-2 border-l-2 border-amber-400/60 group-hover/btn:border-amber-400 transition-colors duration-300 pointer-events-none" />
+                <span className="absolute -top-[1px] -right-[1px] w-2 h-2 border-t-2 border-r-2 border-amber-400/60 group-hover/btn:border-amber-400 transition-colors duration-300 pointer-events-none" />
+                <span className="absolute -bottom-[1px] -left-[1px] w-2 h-2 border-b-2 border-l-2 border-amber-400/60 group-hover/btn:border-amber-400 transition-colors duration-300 pointer-events-none" />
+                <span className="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-b-2 border-r-2 border-amber-400/60 group-hover/btn:border-amber-400 transition-colors duration-300 pointer-events-none" />
+
+                {/* Inner Expanding Amber Filler covering Zap icon */}
+                <span className="absolute inset-y-1 left-1 w-9 bg-gradient-to-r from-amber-400 to-amber-500 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:w-[calc(100%-8px)] pointer-events-none rounded-none" />
+
+                <span className="relative z-10 flex items-center gap-3">
+                  <span className="w-9 h-9 flex items-center justify-center text-black shrink-0 transition-colors duration-300">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
                     </svg>
-                    <span className="truncate">{f}</span>
-                  </li>
-                ))}
-              </ul>
+                  </span>
+                  <span className="text-sm font-semibold text-white group-hover/btn:text-black transition-colors duration-300">
+                    Make it your own
+                  </span>
+                </span>
+
+                <span className="relative z-10 text-amber-400 group-hover/btn:text-black group-hover/btn:translate-x-1 transition-all duration-300">
+                  →
+                </span>
+              </button>
             </div>
-
-            <button
-              type="button"
-              onClick={() => openDemoModal("enterprise")}
-              className="group/btn relative w-full inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#13110c] border border-amber-400/50 hover:border-amber-400 text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-md"
-            >
-              {/* Outer Boundary Corner L-Brackets */}
-              <span className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t-2 border-l-2 border-amber-400/60 group-hover/btn:border-amber-400 transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -top-[1px] -right-[1px] w-2 h-2 border-t-2 border-r-2 border-amber-400/60 group-hover/btn:border-amber-400 transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -bottom-[1px] -left-[1px] w-2 h-2 border-b-2 border-l-2 border-amber-400/60 group-hover/btn:border-amber-400 transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-b-2 border-r-2 border-amber-400/60 group-hover/btn:border-amber-400 transition-colors duration-300 pointer-events-none" />
-
-              {/* Inner Expanding Amber Filler covering Zap icon */}
-              <span className="absolute inset-y-1 left-1 w-9 bg-gradient-to-r from-amber-400 to-amber-500 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:w-[calc(100%-8px)] pointer-events-none rounded-none" />
-
-              <span className="relative z-10 flex items-center gap-3">
-                <span className="w-9 h-9 flex items-center justify-center text-black shrink-0 transition-colors duration-300">
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-                  </svg>
-                </span>
-                <span className="text-sm font-semibold text-white group-hover/btn:text-black transition-colors duration-300">
-                  Make it your own
-                </span>
-              </span>
-
-              <span className="relative z-10 text-amber-400 group-hover/btn:text-black group-hover/btn:translate-x-1 transition-all duration-300">
-                →
-              </span>
-            </button>
-          </div>
+          </ElectricBorder>
         </div>
 
         {/* Security & Compliance Callout */}

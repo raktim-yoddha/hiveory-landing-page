@@ -161,12 +161,12 @@ export default function ByoCliSection() {
           {/* LEFT COLUMN: Copy & Exploration CTA */}
           <div className="lg:col-span-5 flex flex-col justify-center">
             {/* Headline */}
-            <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-medium text-white tracking-[-0.025em] leading-[1.15] mb-3">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-medium text-white tracking-[-0.025em] leading-[1.12] mb-4">
               Bring your own CLI
             </h2>
 
             {/* Subtitle */}
-            <p className="text-xs sm:text-[14px] text-zinc-400 leading-relaxed font-normal mb-8 max-w-md">
+            <p className="text-sm sm:text-base lg:text-[17px] text-zinc-400 leading-relaxed font-normal mb-8 max-w-lg">
               Run Claude Code, OpenAI Codex, Cursor, Gemini CLI, Copilot, Cline, Goose, and your favorite coding agents side by side. Connect your existing developer accounts and run them concurrently inside Hiveory.
             </p>
 
@@ -174,7 +174,7 @@ export default function ByoCliSection() {
             <div>
               <Link
                 href="/capabilities"
-                className="group/btn relative inline-flex items-center justify-between p-1 pr-3.5 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-sm"
+                className="group/btn relative inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-sm"
               >
                 {/* Button Outer Boundary Corner Brackets */}
                 <span className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
@@ -185,20 +185,16 @@ export default function ByoCliSection() {
                 {/* Inner Expanding White Box */}
                 <span className="absolute inset-y-1 left-1 w-8 bg-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:w-[calc(100%-8px)] pointer-events-none rounded-none" />
 
-                {/* Content Layer */}
+                {/* Content Layer (Only first arrow in white box, no second arrow at end) */}
                 <span className="relative z-10 flex items-center gap-2.5">
                   <span className="w-8 h-8 flex items-center justify-center text-black shrink-0 transition-colors duration-300">
                     <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>
                   </span>
-                  <span className="text-xs sm:text-[13px] font-semibold text-white group-hover/btn:text-black tracking-wide transition-colors duration-300">
+                  <span className="text-sm font-semibold text-white group-hover/btn:text-black tracking-wide transition-colors duration-300">
                     Explore CLI Integrations
                   </span>
-                </span>
-
-                <span className="relative z-10 text-white/50 group-hover/btn:text-black group-hover/btn:translate-x-1 transition-all duration-300 pl-2">
-                  →
                 </span>
               </Link>
             </div>

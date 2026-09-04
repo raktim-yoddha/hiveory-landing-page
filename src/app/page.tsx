@@ -607,8 +607,8 @@ export default function Home() {
 
       {/* SECTION: Communities Section (Exactly same as Community Page) */}
       <section id="community" className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 py-20 scroll-mt-20 overflow-hidden">
-        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-          <h2 className="text-4xl sm:text-6xl font-medium tracking-[-0.025em] text-white leading-tight mb-6">
+        <div className="text-center max-w-4xl mx-auto mb-16 sm:mb-20">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-medium tracking-[-0.025em] text-white leading-tight mb-6 sm:whitespace-nowrap">
             Join the Hiveory Community
           </h2>
           <p className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto">
@@ -620,12 +620,12 @@ export default function Home() {
 
         {/* Community Channels Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Discord Card (Left: comes from extreme left) */}
+          {/* Discord Card (Left: comes from left, triggers earlier above) */}
           <motion.div
-            initial={{ opacity: 0, x: -160 }}
+            initial={{ opacity: 0, x: -70 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true, margin: "200px 0px 0px 0px" }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className="group relative rounded-none border border-white/[0.12] hover:border-white/30 bg-[#0c0c10]/90 hover:bg-[#111116] p-8 flex flex-col justify-between transition-all duration-300 shadow-xl"
           >
             <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -689,12 +689,12 @@ export default function Home() {
             </a>
           </motion.div>
 
-          {/* GitHub Card (Center: comes from bottom) */}
+          {/* GitHub Card (Center: comes from bottom, triggers earlier above) */}
           <motion.div
-            initial={{ opacity: 0, y: 120 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            viewport={{ once: true, margin: "200px 0px 0px 0px" }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
             className="group relative rounded-none border border-white/[0.12] hover:border-white/30 bg-[#0c0c10]/90 hover:bg-[#111116] p-8 flex flex-col justify-between transition-all duration-300 shadow-xl"
           >
             <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -758,12 +758,12 @@ export default function Home() {
             </a>
           </motion.div>
 
-          {/* YouTube Card (Right: comes from extreme right) */}
+          {/* YouTube Card (Right: comes from right, triggers earlier above) */}
           <motion.div
-            initial={{ opacity: 0, x: 160 }}
+            initial={{ opacity: 0, x: 70 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+            viewport={{ once: true, margin: "200px 0px 0px 0px" }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
             className="group relative rounded-none border border-white/[0.12] hover:border-white/30 bg-[#0c0c10]/90 hover:bg-[#111116] p-8 flex flex-col justify-between transition-all duration-300 shadow-xl"
           >
             <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -885,32 +885,45 @@ export default function Home() {
               </span>
             </button>
 
+            {/* Give us a star Button (Identical to Hero Page) */}
             <a
               href="https://github.com/raktim-yoddha/hiveory"
               target="_blank"
               rel="noopener noreferrer"
-              className="group/btn relative w-full sm:w-auto inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-sm"
+              className="group relative w-full sm:w-auto inline-flex items-center justify-between p-1 pr-3.5 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-sm"
             >
-              <span className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -top-[1px] -right-[1px] w-2 h-2 border-t-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -bottom-[1px] -left-[1px] w-2 h-2 border-b-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-b-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
+              {/* Outer Boundary Corner L-Brackets */}
+              <span className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+              <span className="absolute -top-[1px] -right-[1px] w-2 h-2 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+              <span className="absolute -bottom-[1px] -left-[1px] w-2 h-2 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+              <span className="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
 
-              <span className="absolute inset-y-1 left-1 w-9 bg-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:w-[calc(100%-8px)] pointer-events-none rounded-none" />
+              {/* Expanding White Filler covering GitHub icon */}
+              <span className="absolute inset-y-1 left-1 w-9 bg-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-[calc(100%-8px)] pointer-events-none rounded-none" />
 
+              {/* Left: GitHub Icon & Label */}
               <span className="relative z-10 flex items-center gap-3">
                 <span className="w-9 h-9 flex items-center justify-center text-black shrink-0 transition-colors duration-300">
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                     <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
                   </svg>
                 </span>
-                <span className="text-[14px] sm:text-[15px] font-medium text-white group-hover/btn:text-black transition-colors duration-300">
-                  GitHub Repository
+                <span className="text-[14px] sm:text-[15px] font-medium text-white group-hover:text-black transition-colors duration-300">
+                  Give us a star
                 </span>
               </span>
 
-              <span className="relative z-10 text-white/50 group-hover/btn:text-black group-hover/btn:translate-x-1 transition-all duration-300 pl-3">
-                →
+              {/* Right: Star count badge & Arrow */}
+              <span className="relative z-10 flex items-center gap-2 pl-2">
+                <span className="flex items-center gap-1 text-xs font-mono text-zinc-300 group-hover:text-black bg-white/[0.08] group-hover:bg-black/10 px-2 py-0.5 rounded-none border border-white/10 group-hover:border-black/20 transition-all duration-300">
+                  <svg className="w-3 h-3 fill-amber-400 group-hover:fill-black text-amber-400 group-hover:text-black transition-colors" viewBox="0 0 24 24">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                  </svg>
+                  <span>{starCount}</span>
+                </span>
+                <span className="text-white/40 group-hover:text-black group-hover:translate-x-1 transition-all duration-300">
+                  →
+                </span>
               </span>
             </a>
           </div>

@@ -303,8 +303,6 @@ function CardInnerContent({ card, index }: { card: ModeCard; index: number }) {
           <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-none bg-white/[0.03] border border-white/10 text-[11px] font-mono tracking-wider text-zinc-400">
             <span className="w-1.5 h-1.5 rounded-full bg-white/70 animate-pulse" />
             <span className="text-white font-semibold">0{index + 1}</span>
-            <span className="text-white/20">/</span>
-            <span className="uppercase">{card.tag}</span>
           </span>
         </div>
 

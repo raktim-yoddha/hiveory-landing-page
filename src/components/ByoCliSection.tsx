@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 
 import {
@@ -102,28 +101,11 @@ const rightStreamLogos = [
   allBrandLogos[11], // Devin
 ];
 
-// Shorter, elegant mathematical Bézier curve keyframes with dedicated non-overlapping landing lanes
-const leftTrajectory = {
-  x: [-60, -26, 8, 39, 70, 99, 126, 150, 168, 182, 185, 185],
-  y: [145, 127, 115, 111, 113, 123, 139, 164, 196, 230, 268, 305],
-  rotate: [0, -2, -1, 0, 2, 4, 6, 4, 2, 0, 0, 0],
-  times: [0, 0.101, 0.195, 0.277, 0.358, 0.439, 0.521, 0.611, 0.707, 0.804, 0.903, 1],
-};
-
-const rightTrajectory = {
-  x: [500, 466, 432, 401, 370, 341, 314, 290, 272, 258, 255, 255],
-  y: [145, 127, 115, 111, 113, 123, 139, 164, 196, 230, 268, 305],
-  rotate: [0, 2, 1, 0, -2, -4, -6, -4, -2, 0, 0, 0],
-  times: [0, 0.101, 0.195, 0.277, 0.358, 0.439, 0.521, 0.611, 0.707, 0.804, 0.903, 1],
-};
+// Staggered delay schedule (seconds) for 6-tile stream to maintain clean ~18-22px spacing
+const leftDelays = [0, 1.6, 3.2, 4.8, 6.4, 8.0];
+const rightDelays = [0.8, 2.4, 4.0, 5.6, 7.2, 8.8];
 
 export default function ByoCliSection() {
-  // More rapid, lively floating motion for the 3D parcel box (2.4s cycle)
-  const boxFloatTransition = {
-    duration: 2.4,
-    repeat: Infinity,
-    ease: "easeInOut" as const,
-  };
 
   return (
     <section
@@ -132,6 +114,46 @@ export default function ByoCliSection() {
     >
       {/* Subtle ambient background glow */}
       <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-white/[0.02] blur-[140px] rounded-full" />
+
+      {/* Embedded GPU-accelerated keyframe styles for zero-lag conveyor animation */}
+      <style>{`
+        @keyframes cliConveyorLeft {
+          0.0% { transform: translate3d(-60px, 145px, 0) rotate(0deg); opacity: 1; }
+          10.1% { transform: translate3d(-26px, 127px, 0) rotate(-2deg); opacity: 1; }
+          19.5% { transform: translate3d(8px, 115px, 0) rotate(-1deg); opacity: 1; }
+          27.7% { transform: translate3d(39px, 111px, 0) rotate(0deg); opacity: 1; }
+          35.8% { transform: translate3d(70px, 113px, 0) rotate(2deg); opacity: 1; }
+          43.9% { transform: translate3d(99px, 123px, 0) rotate(4deg); opacity: 1; }
+          52.1% { transform: translate3d(126px, 139px, 0) rotate(6deg); opacity: 1; }
+          61.1% { transform: translate3d(150px, 164px, 0) rotate(4deg); opacity: 1; }
+          70.7% { transform: translate3d(168px, 196px, 0) rotate(2deg); opacity: 1; }
+          80.4% { transform: translate3d(182px, 230px, 0) rotate(0deg); opacity: 1; }
+          90.3% { transform: translate3d(185px, 268px, 0) rotate(0deg); opacity: 1; }
+          100.0% { transform: translate3d(185px, 305px, 0) rotate(0deg); opacity: 1; }
+        }
+        @keyframes cliConveyorRight {
+          0.0% { transform: translate3d(500px, 145px, 0) rotate(0deg); opacity: 1; }
+          10.1% { transform: translate3d(466px, 127px, 0) rotate(2deg); opacity: 1; }
+          19.5% { transform: translate3d(432px, 115px, 0) rotate(1deg); opacity: 1; }
+          27.7% { transform: translate3d(401px, 111px, 0) rotate(0deg); opacity: 1; }
+          35.8% { transform: translate3d(370px, 113px, 0) rotate(-2deg); opacity: 1; }
+          43.9% { transform: translate3d(341px, 123px, 0) rotate(-4deg); opacity: 1; }
+          52.1% { transform: translate3d(314px, 139px, 0) rotate(-6deg); opacity: 1; }
+          61.1% { transform: translate3d(290px, 164px, 0) rotate(-4deg); opacity: 1; }
+          70.7% { transform: translate3d(272px, 196px, 0) rotate(-2deg); opacity: 1; }
+          80.4% { transform: translate3d(258px, 230px, 0) rotate(0deg); opacity: 1; }
+          90.3% { transform: translate3d(255px, 268px, 0) rotate(0deg); opacity: 1; }
+          100.0% { transform: translate3d(255px, 305px, 0) rotate(0deg); opacity: 1; }
+        }
+        @keyframes byoBoxFloat {
+          0%, 100% { transform: translate3d(0, -5px, 0); }
+          50% { transform: translate3d(0, 4px, 0); }
+        }
+        @keyframes byoShadowFloat {
+          0%, 100% { transform: translate3d(-50%, 0, 0) scaleX(0.92); opacity: 0.2; }
+          50% { transform: translate3d(-50%, 0, 0) scaleX(1.08); opacity: 0.48; }
+        }
+      `}</style>
 
       {/* Content Layout Container (exterior section box removed) */}
       <div className="relative max-w-6xl mx-auto">
@@ -197,9 +219,8 @@ export default function ByoCliSection() {
               <div className="absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[240px] bg-white/[0.03] blur-[80px] rounded-full pointer-events-none" />
 
               {/* FLOATING SHADOW UNDER THE 3D PARCEL BOX */}
-              <motion.div
-                animate={{ scaleX: [0.92, 1.08, 0.92], opacity: [0.2, 0.48, 0.2] }}
-                transition={boxFloatTransition}
+              <div
+                style={{ animation: "byoShadowFloat 2.4s ease-in-out infinite" }}
                 className="absolute bottom-7 left-1/2 -translate-x-1/2 w-[240px] h-3.5 bg-black/60 blur-md rounded-full pointer-events-none z-0"
               />
 
@@ -207,9 +228,8 @@ export default function ByoCliSection() {
               {/* LAYER 1: SOLID CARDBOARD REAR & INTERIOR CAVITY (z-0)                */}
               {/* Box floats rapidly up & down (y: [-5, 4, -5]) for tangible 3D effect */}
               {/* ==================================================================== */}
-              <motion.div
-                animate={{ y: [-5, 4, -5] }}
-                transition={boxFloatTransition}
+              <div
+                style={{ animation: "byoBoxFloat 2.4s ease-in-out infinite" }}
                 className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[360px] h-[250px] pointer-events-none z-0"
               >
                 <svg className="w-full h-full overflow-visible block" viewBox="0 0 360 250" fill="none">
@@ -291,37 +311,25 @@ export default function ByoCliSection() {
                     fill="url(#innerFloorTone)"
                   />
                 </svg>
-              </motion.div>
+              </div>
 
               {/* ==================================================================== */}
               {/* LAYER 2: DENSE, CONTINUOUS CONVEYOR STREAM OF 3D WHITE SQUIRCLES     */}
-              {/* Closely spaced (1s delay interval), constant-speed Bézier trajectory */}
+              {/* Hardware-accelerated CSS keyframes with native negative delays       */}
               {/* Smoothly arches down and dips behind front flap into cavity floor    */}
               {/* ==================================================================== */}
               <div className="absolute inset-0 z-10 pointer-events-none">
                 
                 {/* LEFT-SIDE INCOMING STREAM (Pre-populated, already flowing on mount) */}
                 {leftStreamLogos.map((item, idx) => {
-                  const totalDuration = 9.6;
-                  // 1.6s spacing creates a clean, guaranteed ~18-22px gap between cards
-                  const delay = idx * (totalDuration / leftStreamLogos.length);
+                  const delay = leftDelays[idx];
                   return (
-                    <motion.div
+                    <div
                       key={`left-${item.id}-${idx}`}
-                      initial={false}
-                      animate={{
-                        x: leftTrajectory.x,
-                        y: leftTrajectory.y,
-                        rotate: leftTrajectory.rotate,
-                        opacity: 1,
-                        scale: 1,
-                      }}
-                      transition={{
-                        duration: totalDuration,
-                        repeat: Infinity,
-                        ease: "linear",
-                        times: leftTrajectory.times,
-                        delay: -delay,
+                      style={{
+                        animation: "cliConveyorLeft 9.6s linear infinite",
+                        animationDelay: `-${delay}s`,
+                        willChange: "transform",
                       }}
                       className="absolute top-0 left-0 pointer-events-auto"
                     >
@@ -331,32 +339,20 @@ export default function ByoCliSection() {
                           {item.icon}
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   );
                 })}
 
                 {/* RIGHT-SIDE INCOMING STREAM (Pre-populated, already flowing on mount) */}
                 {rightStreamLogos.map((item, idx) => {
-                  const totalDuration = 9.6;
-                  // Interleaved by 0.8s so cards alternate cleanly into separate landing tracks
-                  const delay = (idx * (totalDuration / rightStreamLogos.length)) + 0.8;
+                  const delay = rightDelays[idx];
                   return (
-                    <motion.div
+                    <div
                       key={`right-${item.id}-${idx}`}
-                      initial={false}
-                      animate={{
-                        x: rightTrajectory.x,
-                        y: rightTrajectory.y,
-                        rotate: rightTrajectory.rotate,
-                        opacity: 1,
-                        scale: 1,
-                      }}
-                      transition={{
-                        duration: totalDuration,
-                        repeat: Infinity,
-                        ease: "linear",
-                        times: rightTrajectory.times,
-                        delay: -delay,
+                      style={{
+                        animation: "cliConveyorRight 9.6s linear infinite",
+                        animationDelay: `-${delay}s`,
+                        willChange: "transform",
                       }}
                       className="absolute top-0 left-0 pointer-events-auto"
                     >
@@ -366,19 +362,18 @@ export default function ByoCliSection() {
                           {item.icon}
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   );
                 })}
               </div>
 
               {/* ==================================================================== */}
               {/* LAYER 3: 3D CARDBOARD FRONT FLAP & FRONT FACE (z-20)                 */}
-              {/* Oscillates in perfect sync with Layer 1 (y: [-4, 3, -4])             */}
+              {/* Oscillates in perfect sync with Layer 1                              */}
               {/* Front flap covers entering tiles as they dip into the cavity floor   */}
               {/* ==================================================================== */}
-              <motion.div
-                animate={{ y: [-5, 4, -5] }}
-                transition={boxFloatTransition}
+              <div
+                style={{ animation: "byoBoxFloat 2.4s ease-in-out infinite" }}
                 className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[360px] h-[250px] pointer-events-none z-20"
               >
                 <svg className="w-full h-full overflow-visible block" viewBox="0 0 360 250" fill="none">
@@ -473,7 +468,7 @@ export default function ByoCliSection() {
                     strokeWidth="1.5"
                   />
                 </svg>
-              </motion.div>
+              </div>
 
             </div>
           </div>

@@ -365,10 +365,10 @@ export default function CapabilitiesCardStack() {
 
       {/* Sticky Overlapping Cards Container (3-Card Stack) */}
       <section ref={sectionRef} className="relative w-full h-[320vh] z-20">
-        {/* Sticky Viewport Frame */}
-        <div className="sticky top-8 sm:top-10 lg:top-12 w-full flex flex-col items-center justify-start pt-2 sm:pt-4 pb-8 sm:pb-10 px-4 sm:px-6 lg:px-8 pointer-events-none">
+        {/* Sticky Viewport Frame - with clearance below fixed navbar */}
+        <div className="sticky top-20 sm:top-[84px] lg:top-[88px] w-full flex flex-col items-center justify-start pb-8 sm:pb-10 px-4 sm:px-6 lg:px-8 pointer-events-none">
           {/* Overriding Taller Cards Area - Moderately wider, balanced */}
-          <div className="relative w-full max-w-[1240px] h-[510px] sm:h-[530px] md:h-[550px] lg:h-[565px] pointer-events-auto">
+          <div className="relative w-full max-w-[1240px] h-[500px] sm:h-[520px] md:h-[535px] lg:h-[545px] pointer-events-auto">
             {/* CARD 0: Bring your own CLI - In place from start */}
             <motion.div
               style={{ y: 0, zIndex: 10 }}
@@ -777,7 +777,7 @@ export default function CapabilitiesCardStack() {
               y: buttonY,
               pointerEvents: buttonPointerEvents,
             }}
-            className="mt-5 sm:mt-6 mb-10 sm:mb-14 z-40 flex items-center justify-center"
+            className="mt-4 sm:mt-5 mb-10 sm:mb-14 z-40 flex items-center justify-center"
           >
             <Link
               href="/capabilities"

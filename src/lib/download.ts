@@ -73,7 +73,7 @@ export async function getLatestRelease(): Promise<ReleaseInfo> {
         );
 
       cachedRelease = {
-        version: data.tag_name || "v0.1.1",
+        version: data.tag_name || "v0.1.3",
         windowsUrl: windowsAsset?.browser_download_url || GITHUB_RELEASES_PAGE,
         macUrl: macAsset?.browser_download_url || GITHUB_RELEASES_PAGE,
         linuxUrl: linuxAsset?.browser_download_url || GITHUB_RELEASES_PAGE,
@@ -83,7 +83,7 @@ export async function getLatestRelease(): Promise<ReleaseInfo> {
       return cachedRelease;
     } catch {
       return {
-        version: "v0.1.1",
+        version: "v0.1.3",
         windowsUrl: GITHUB_RELEASES_PAGE,
         macUrl: GITHUB_RELEASES_PAGE,
         linuxUrl: GITHUB_RELEASES_PAGE,

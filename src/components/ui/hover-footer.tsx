@@ -440,25 +440,9 @@ export function HoverFooter() {
         <hr className="border-t border-white/[0.08] my-8" />
 
         {/* Footer bottom */}
-        <div className="flex flex-col md:flex-row justify-between items-center text-sm space-y-4 md:space-y-0 text-zinc-500">
-          {/* Social icons */}
-          <div className="flex space-x-6 text-zinc-400 pointer-events-auto">
-            {socialLinks.map(({ icon, label, href }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="hover:text-white transition-colors"
-              >
-                {icon}
-              </a>
-            ))}
-          </div>
-
+        <div className="flex justify-center items-center text-sm text-zinc-500">
           {/* Copyright */}
-          <p className="text-center md:text-left text-xs sm:text-sm pointer-events-auto">
+          <p className="text-center text-xs sm:text-sm pointer-events-auto">
             &copy; {new Date().getFullYear()} Hiveory. Open Source under MIT License.
           </p>
         </div>

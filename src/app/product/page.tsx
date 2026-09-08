@@ -1,59 +1,69 @@
 import Navbar from "@/components/Navbar";
 import HoverFooter from "@/components/ui/hover-footer";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata = {
   title: "Product — Hiveory | The 3 Isolated Modes",
   description:
-    "Explore Hiveory's three isolated desktop modes: Code Mode (ADE), Autonomous Agent Mode, and Multi-Model Chat.",
+    "Explore Hiveory's three isolated desktop modes: Agent Mode, Code Mode (ADE), and Standalone AI Chat.",
 };
 
 export default function ProductPage() {
   const modes = [
     {
-      id: "code",
-      tag: "Terminal-First ADE",
-      title: "Code Mode",
-      headline: "Run coding agent CLIs side by side with zero file collisions",
+      id: "agent",
+      tag: "Ctrl+1 · Autonomous Agency",
+      title: "Agent Mode",
+      headline: "Durable, reusable AI assistants with explicit policies & skills",
       description:
-        "Multiplex Claude Code, Codex, Antigravity, and OpenCode in concurrent split panes. Isolated Git worktrees prevent workspace corruption while shared Nectar memory keeps project architecture in sync.",
+        "Create named agents configured with custom prompt instructions, runtime limits, and approval policies. Grant specific local folders instead of exposing the whole filesystem, with SQLite WAL persistence and direct OpenAI Responses API integration (store: false).",
+      imageSrc: "/agent-mode.png",
       features: [
-        "Recursive vertical and horizontal split panes",
-        "Dedicated Git worktrees per agent pane",
-        "Process lifecycle & terminal multiplexing",
-        "Command palette with instant focus switching",
+        "Named agents with folder grants & approval policies",
+        "Over 20 built-in SKILL.md packages & conflict resolution",
+        "Declarative HTTPS plugins with host allow-lists",
+        "Local routine automations & durable run recovery",
+        "Direct OpenAI Responses API calls (store: false)",
+        "Durable conversations, memories, and generated artifacts",
       ],
-      badge: "Built for Power Developers",
+      badge: "Autonomous Assistants",
     },
     {
-      id: "agent",
-      tag: "Autonomous Agency",
-      title: "Agent Mode",
-      headline: "Persistent named agents with skills, routines, and swarms",
+      id: "code",
+      tag: "Ctrl+2 · Terminal-First ADE",
+      title: "Code Mode",
+      headline: "Multi-pane development workbench with native terminals & coding agents",
       description:
-        "Deploy named agents configured with custom prompt instructions, system skills, and cron routines. Coordinate swarms of subagents that execute complex multi-step workflows in the background.",
+        "Work on local repositories in a flexible multi-pane canvas. Multiplex native PTY terminals, Claude Code, Codex, Antigravity, OpenCode, and embedded browsers. Isolated Git worktrees prevent staging collisions while optimistic SHA-256 fingerprints protect file edits.",
+      imageSrc: "/demo.png",
       features: [
-        "Named agent state & SQLite WAL persistence",
-        "Plugin and skills ecosystem management",
-        "Background task execution and reactive wakeups",
-        "Autonomous routine scheduler & audit logs",
+        "Recursive multi-pane canvas (CMD, PowerShell, Git Bash)",
+        "Coding agent CLIs (Claude Code, Codex, Antigravity, OpenCode)",
+        "Git worktree isolation & durable task DAG orchestration",
+        "Monaco editor with optimistic SHA-256 edit fingerprints",
+        "Coordination pane with mailboxes & decision gates",
+        "GitHub issues and pull requests via authenticated gh CLI",
       ],
-      badge: "Full Automation",
+      badge: "Local-First ADE",
     },
     {
       id: "chat",
-      tag: "Multi-Model Brainstorming",
+      tag: "Ctrl+3 · Standalone AI Chat",
       title: "Chat Mode",
-      headline: "Converse with any AI model and hot-swap providers in-thread",
+      headline: "Independent streaming conversations with branching & rich attachments",
       description:
-        "Brainstorm architecture decisions with Claude, OpenAI, Gemini, or DeepSeek. Seamlessly switch models mid-conversation without losing context, and inspect deep reasoning traces in real time.",
+        "Hold standalone AI conversations independent from Code workspaces and agent tools. Stream text and reasoning events, retry turns, edit messages, branch conversations, preserve drafts, and import bounded PDF, image, text, and Markdown attachments into app-managed storage.",
+      imageSrc: "/chat-mode.png",
       features: [
-        "Hot-swap AI models mid-conversation",
-        "Sandboxed file attachments and markdown previews",
-        "Reasoning traces & token consumption tracking",
-        "Persistent local search and history export",
+        "Streaming text & reasoning event inspection",
+        "Conversation branching, retry & local drafts",
+        "Bounded attachments in application-managed storage",
+        "Sanitized portable archive export & Markdown rendering",
+        "Independent from Code workspaces & agent permissions",
+        "Model gateway credentials secured in OS keyring",
       ],
-      badge: "Universal AI Chat",
+      badge: "Isolated AI Chat",
     },
   ];
 
@@ -68,31 +78,31 @@ export default function ProductPage() {
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
           <h1 className="text-4xl sm:text-6xl font-medium tracking-[-0.03em] text-white leading-tight mb-6">
-            Engineered for code, autonomy & brainstorming
+            Engineered for agents, code & standalone chat
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-            Hiveory eliminates context fragmentation by uniting an Agentic
-            Development Environment, an autonomous agent orchestrator, and a
-            multi-model brainstorming chat inside one local-first desktop host.
+            Hiveory keeps three distinct modes separate so each one has a clear capability
+            boundary. Powered by a privileged Rust host and Tauri with zero cloud dependency.
           </p>
         </div>
 
-        {/* 3 Modes Deep-Dive Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-20">
+        {/* 3 Modes Deep-Dive Detailed Cards Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-20">
           {modes.map((m) => (
             <div
               key={m.id}
-              className="group relative rounded-none border border-white/[0.12] hover:border-white/30 bg-[#0c0c10]/90 hover:bg-[#111116] p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 shadow-xl"
+              id={m.id}
+              className="group relative rounded-none border border-white/[0.12] hover:border-white/30 bg-[#0c0c10]/95 hover:bg-[#111116] p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 shadow-2xl scroll-mt-28"
             >
-              {/* Corner Brackets */}
+              {/* Outer Boundary Corner Brackets */}
               <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
               <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
               <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
               <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
 
               <div>
-                <div className="flex items-center justify-between gap-2 mb-6">
+                <div className="flex items-center justify-between gap-2 mb-5">
                   <span className="text-[10px] sm:text-[11px] uppercase tracking-wider font-mono px-2 py-0.5 rounded-none bg-white/[0.06] text-zinc-300 border border-white/10 whitespace-nowrap shrink-0">
                     {m.tag}
                   </span>
@@ -101,7 +111,7 @@ export default function ProductPage() {
                   </span>
                 </div>
 
-                <h2 className="text-2xl font-medium text-white mb-2 tracking-[-0.02em] group-hover:text-zinc-100 transition-colors whitespace-nowrap">
+                <h2 className="text-2xl sm:text-3xl font-medium text-white mb-2 tracking-[-0.02em] group-hover:text-zinc-100 transition-colors">
                   {m.title}
                 </h2>
 
@@ -109,23 +119,43 @@ export default function ProductPage() {
                   {m.headline}
                 </h3>
 
-                <p className="text-sm text-zinc-400 leading-relaxed mb-6">
+                <p className="text-xs sm:text-[13px] text-zinc-400 leading-relaxed mb-6">
                   {m.description}
                 </p>
+
+                {/* UI Demo Screenshot Preview */}
+                <div className="relative w-full aspect-[16/10] mb-6 rounded-none border border-white/15 bg-[#08080c] shadow-lg group/img flex items-center justify-center overflow-hidden">
+                  <span className="absolute -top-[1px] -left-[1px] w-2.5 h-2.5 border-t-2 border-l-2 border-white/40 pointer-events-none z-10" />
+                  <span className="absolute -top-[1px] -right-[1px] w-2.5 h-2.5 border-t-2 border-r-2 border-white/40 pointer-events-none z-10" />
+                  <span className="absolute -bottom-[1px] -left-[1px] w-2.5 h-2.5 border-b-2 border-l-2 border-white/40 pointer-events-none z-10" />
+                  <span className="absolute -bottom-[1px] -right-[1px] w-2.5 h-2.5 border-b-2 border-r-2 border-white/40 pointer-events-none z-10" />
+
+                  <Image
+                    src={m.imageSrc}
+                    alt={`${m.title} interface preview`}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 420px"
+                    className="object-contain block transition-transform duration-500 group-hover/img:scale-[1.02] filter grayscale contrast-125"
+                    quality={90}
+                  />
+
+                  <div className="absolute inset-0 pointer-events-none shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]" />
+                </div>
               </div>
 
-              <div className="border-t border-white/[0.06] pt-6 mt-auto">
-                <div className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500 mb-3">
-                  Key Capabilities
+              {/* Detailed Capabilities List with White Tick Bullets */}
+              <div className="border-t border-white/[0.08] pt-6 mt-auto">
+                <div className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500 mb-3.5">
+                  Detailed Capabilities
                 </div>
-                <ul className="space-y-2">
+                <ul className="space-y-2.5">
                   {m.features.map((f, i) => (
                     <li
                       key={i}
-                      className="text-[13px] text-zinc-300 flex items-start gap-2"
+                      className="text-xs sm:text-[13px] text-zinc-300 flex items-start gap-2.5 leading-snug"
                     >
                       <svg
-                        className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"
+                        className="w-4 h-4 text-white shrink-0 mt-0.5"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -166,13 +196,11 @@ export default function ProductPage() {
               href="/"
               className="group/btn relative inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-lg"
             >
-              {/* Outer Boundary Corner L-Brackets */}
               <span className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
               <span className="absolute -top-[1px] -right-[1px] w-2 h-2 border-t-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
               <span className="absolute -bottom-[1px] -left-[1px] w-2 h-2 border-b-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
               <span className="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-b-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
 
-              {/* Inner Expanding White Filler covering Home icon */}
               <span className="absolute inset-y-1 left-1 w-9 bg-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:w-[calc(100%-8px)] pointer-events-none rounded-none" />
 
               <span className="relative z-10 flex items-center gap-3">
@@ -197,13 +225,11 @@ export default function ProductPage() {
               rel="noopener noreferrer"
               className="group/btn relative inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-sm"
             >
-              {/* Outer Boundary Corner L-Brackets */}
               <span className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
               <span className="absolute -top-[1px] -right-[1px] w-2 h-2 border-t-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
               <span className="absolute -bottom-[1px] -left-[1px] w-2 h-2 border-b-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
               <span className="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-b-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
 
-              {/* Inner Expanding White Filler covering GitHub icon */}
               <span className="absolute inset-y-1 left-1 w-9 bg-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:w-[calc(100%-8px)] pointer-events-none rounded-none" />
 
               <span className="relative z-10 flex items-center gap-3">

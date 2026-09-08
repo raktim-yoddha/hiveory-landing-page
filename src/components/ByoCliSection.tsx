@@ -15,95 +15,37 @@ import {
   MistralIcon,
   ContinueIcon,
   DevinIcon,
+  GithubIcon,
+  LinearIcon,
+  JiraIcon,
+  VercelIcon,
 } from "./CliIcons";
 
-// 12 Verified, 100% Official CLI Coding Agent Logos
+// 16 Verified CLI Coding Agent & Platform Logos
 const allBrandLogos = [
-  {
-    id: "claude",
-    name: "Claude Code",
-    icon: <ClaudeCodeIcon className="w-5 h-5" />,
-  },
-  {
-    id: "cursor",
-    name: "Cursor",
-    icon: <CursorIcon className="w-5 h-5 text-black" />,
-  },
-  {
-    id: "codex",
-    name: "OpenAI Codex",
-    icon: <CodexIcon className="w-5 h-5" />,
-  },
-  {
-    id: "cline",
-    name: "Cline",
-    icon: <ClineIcon className="w-5 h-5 text-black" />,
-  },
-  {
-    id: "goose",
-    name: "Block Goose",
-    icon: <GooseIcon className="w-5 h-5 text-black" />,
-  },
-  {
-    id: "mistral",
-    name: "Mistral Vibe",
-    icon: <MistralIcon className="w-5 h-5" />,
-  },
-  {
-    id: "gemini",
-    name: "Gemini CLI",
-    icon: <GeminiCLIIcon className="w-5 h-5" />,
-  },
-  {
-    id: "copilot",
-    name: "GitHub Copilot",
-    icon: <GithubCopilotIcon className="w-5 h-5 text-black" />,
-  },
-  {
-    id: "grok",
-    name: "xAI Grok",
-    icon: <GrokIcon className="w-5 h-5 text-black" />,
-  },
-  {
-    id: "antigravity",
-    name: "Antigravity",
-    icon: <AntigravityIcon className="w-5 h-5" />,
-  },
-  {
-    id: "continue",
-    name: "Continue",
-    icon: <ContinueIcon className="w-5 h-5 text-black" />,
-  },
-  {
-    id: "devin",
-    name: "Devin",
-    icon: <DevinIcon className="w-5 h-5" />,
-  },
+  { id: "claude", name: "Claude Code", icon: <ClaudeCodeIcon className="w-6 h-6" /> },
+  { id: "github", name: "GitHub", icon: <GithubIcon className="w-6 h-6 text-black" /> },
+  { id: "cursor", name: "Cursor", icon: <CursorIcon className="w-6 h-6 text-black" /> },
+  { id: "linear", name: "Linear", icon: <LinearIcon className="w-6 h-6" /> },
+  { id: "codex", name: "OpenAI Codex", icon: <CodexIcon className="w-6 h-6" /> },
+  { id: "jira", name: "Jira", icon: <JiraIcon className="w-6 h-6" /> },
+  { id: "antigravity", name: "Antigravity", icon: <AntigravityIcon className="w-6 h-6" /> },
+  { id: "vercel", name: "Vercel", icon: <VercelIcon className="w-6 h-6 text-black" /> },
+  { id: "gemini", name: "Gemini CLI", icon: <GeminiCLIIcon className="w-6 h-6" /> },
+  { id: "copilot", name: "GitHub Copilot", icon: <GithubCopilotIcon className="w-6 h-6 text-black" /> },
+  { id: "devin", name: "Devin", icon: <DevinIcon className="w-6 h-6" /> },
+  { id: "cline", name: "Cline", icon: <ClineIcon className="w-6 h-6 text-black" /> },
+  { id: "goose", name: "Block Goose", icon: <GooseIcon className="w-6 h-6 text-black" /> },
+  { id: "mistral", name: "Mistral Vibe", icon: <MistralIcon className="w-6 h-6" /> },
+  { id: "grok", name: "xAI Grok", icon: <GrokIcon className="w-6 h-6 text-black" /> },
+  { id: "continue", name: "Continue", icon: <ContinueIcon className="w-6 h-6 text-black" /> },
 ];
 
-// Left Stream: 6 curated official CLIs with guaranteed 18-22px space between cards
-const leftStreamLogos = [
-  allBrandLogos[0], // Claude Code
-  allBrandLogos[1], // Cursor
-  allBrandLogos[2], // OpenAI Codex
-  allBrandLogos[3], // Cline
-  allBrandLogos[4], // Block Goose
-  allBrandLogos[5], // Mistral Vibe
-];
+const leftStreamLogos = allBrandLogos.slice(0, 8);
+const rightStreamLogos = allBrandLogos.slice(8, 16);
 
-// Right Stream: 6 curated official CLIs with guaranteed 18-22px space between cards
-const rightStreamLogos = [
-  allBrandLogos[6], // Gemini CLI
-  allBrandLogos[7], // GitHub Copilot
-  allBrandLogos[8], // xAI Grok
-  allBrandLogos[9], // Antigravity
-  allBrandLogos[10], // Continue
-  allBrandLogos[11], // Devin
-];
-
-// Staggered delay schedule (seconds) for 6-tile stream to maintain clean ~18-22px spacing
-const leftDelays = [0, 1.6, 3.2, 4.8, 6.4, 8.0];
-const rightDelays = [0.8, 2.4, 4.0, 5.6, 7.2, 8.8];
+const leftDelays = [0, 1.2, 2.4, 3.6, 4.8, 6.0, 7.2, 8.4];
+const rightDelays = [0.6, 1.8, 3.0, 4.2, 5.4, 6.6, 7.8, 9.0];
 
 export default function ByoCliSection() {
 
@@ -118,32 +60,32 @@ export default function ByoCliSection() {
       {/* Embedded GPU-accelerated keyframe styles for zero-lag conveyor animation */}
       <style>{`
         @keyframes cliConveyorLeft {
-          0.0% { transform: translate3d(-60px, 145px, 0) rotate(0deg); opacity: 1; }
-          10.1% { transform: translate3d(-26px, 127px, 0) rotate(-2deg); opacity: 1; }
-          19.5% { transform: translate3d(8px, 115px, 0) rotate(-1deg); opacity: 1; }
-          27.7% { transform: translate3d(39px, 111px, 0) rotate(0deg); opacity: 1; }
-          35.8% { transform: translate3d(70px, 113px, 0) rotate(2deg); opacity: 1; }
-          43.9% { transform: translate3d(99px, 123px, 0) rotate(4deg); opacity: 1; }
-          52.1% { transform: translate3d(126px, 139px, 0) rotate(6deg); opacity: 1; }
-          61.1% { transform: translate3d(150px, 164px, 0) rotate(4deg); opacity: 1; }
-          70.7% { transform: translate3d(168px, 196px, 0) rotate(2deg); opacity: 1; }
-          80.4% { transform: translate3d(182px, 230px, 0) rotate(0deg); opacity: 1; }
-          90.3% { transform: translate3d(185px, 268px, 0) rotate(0deg); opacity: 1; }
-          100.0% { transform: translate3d(185px, 305px, 0) rotate(0deg); opacity: 1; }
+          0.0% { transform: translate3d(-65px, 122px, 0) rotate(-4deg); opacity: 1; }
+          10.0% { transform: translate3d(-28px, 90px, 0) rotate(-3deg); opacity: 1; }
+          20.0% { transform: translate3d(12px, 68px, 0) rotate(-1deg); opacity: 1; }
+          28.0% { transform: translate3d(52px, 58px, 0) rotate(0deg); opacity: 1; }
+          36.0% { transform: translate3d(90px, 62px, 0) rotate(2deg); opacity: 1; }
+          44.0% { transform: translate3d(126px, 80px, 0) rotate(4deg); opacity: 1; }
+          52.0% { transform: translate3d(156px, 110px, 0) rotate(6deg); opacity: 1; }
+          61.0% { transform: translate3d(178px, 150px, 0) rotate(5deg); opacity: 1; }
+          70.0% { transform: translate3d(190px, 196px, 0) rotate(3deg); opacity: 1; }
+          80.0% { transform: translate3d(196px, 242px, 0) rotate(1deg); opacity: 1; }
+          90.0% { transform: translate3d(196px, 282px, 0) rotate(0deg); opacity: 1; }
+          100.0% { transform: translate3d(196px, 315px, 0) rotate(0deg); opacity: 1; }
         }
         @keyframes cliConveyorRight {
-          0.0% { transform: translate3d(500px, 145px, 0) rotate(0deg); opacity: 1; }
-          10.1% { transform: translate3d(466px, 127px, 0) rotate(2deg); opacity: 1; }
-          19.5% { transform: translate3d(432px, 115px, 0) rotate(1deg); opacity: 1; }
-          27.7% { transform: translate3d(401px, 111px, 0) rotate(0deg); opacity: 1; }
-          35.8% { transform: translate3d(370px, 113px, 0) rotate(-2deg); opacity: 1; }
-          43.9% { transform: translate3d(341px, 123px, 0) rotate(-4deg); opacity: 1; }
-          52.1% { transform: translate3d(314px, 139px, 0) rotate(-6deg); opacity: 1; }
-          61.1% { transform: translate3d(290px, 164px, 0) rotate(-4deg); opacity: 1; }
-          70.7% { transform: translate3d(272px, 196px, 0) rotate(-2deg); opacity: 1; }
-          80.4% { transform: translate3d(258px, 230px, 0) rotate(0deg); opacity: 1; }
-          90.3% { transform: translate3d(255px, 268px, 0) rotate(0deg); opacity: 1; }
-          100.0% { transform: translate3d(255px, 305px, 0) rotate(0deg); opacity: 1; }
+          0.0% { transform: translate3d(497px, 122px, 0) rotate(4deg); opacity: 1; }
+          10.0% { transform: translate3d(460px, 90px, 0) rotate(3deg); opacity: 1; }
+          20.0% { transform: translate3d(420px, 68px, 0) rotate(1deg); opacity: 1; }
+          28.0% { transform: translate3d(380px, 58px, 0) rotate(0deg); opacity: 1; }
+          36.0% { transform: translate3d(342px, 62px, 0) rotate(-2deg); opacity: 1; }
+          44.0% { transform: translate3d(306px, 80px, 0) rotate(-4deg); opacity: 1; }
+          52.0% { transform: translate3d(276px, 110px, 0) rotate(-6deg); opacity: 1; }
+          61.0% { transform: translate3d(254px, 150px, 0) rotate(-5deg); opacity: 1; }
+          70.0% { transform: translate3d(242px, 196px, 0) rotate(-3deg); opacity: 1; }
+          80.0% { transform: translate3d(236px, 242px, 0) rotate(-1deg); opacity: 1; }
+          90.0% { transform: translate3d(236px, 282px, 0) rotate(0deg); opacity: 1; }
+          100.0% { transform: translate3d(236px, 315px, 0) rotate(0deg); opacity: 1; }
         }
         @keyframes byoBoxFloat {
           0%, 100% { transform: translate3d(0, -5px, 0); }
@@ -231,28 +173,28 @@ export default function ByoCliSection() {
                 <svg className="w-full h-full overflow-visible block" viewBox="0 0 360 250" fill="none">
                   <defs>
                     <linearGradient id="rearFlapTone" x1="180" y1="18" x2="180" y2="65" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stopColor="#d5d8df" />
-                      <stop offset="100%" stopColor="#c0c3ca" />
+                      <stop offset="0%" stopColor="#a3a8b4" />
+                      <stop offset="100%" stopColor="#8c929e" />
                     </linearGradient>
                     <linearGradient id="leftFlapTone" x1="20" y1="30" x2="90" y2="120" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stopColor="#d2d5dc" />
-                      <stop offset="100%" stopColor="#bcbfc6" />
+                      <stop offset="0%" stopColor="#9ea3af" />
+                      <stop offset="100%" stopColor="#888e9a" />
                     </linearGradient>
                     <linearGradient id="rightFlapTone" x1="340" y1="30" x2="270" y2="120" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stopColor="#d2d5dc" />
-                      <stop offset="100%" stopColor="#bcbfc6" />
+                      <stop offset="0%" stopColor="#9ea3af" />
+                      <stop offset="100%" stopColor="#888e9a" />
                     </linearGradient>
                     <linearGradient id="innerCavityTone" x1="180" y1="65" x2="180" y2="122" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stopColor="#9ea2ab" />
-                      <stop offset="100%" stopColor="#b1b5be" />
+                      <stop offset="0%" stopColor="#787d89" />
+                      <stop offset="100%" stopColor="#8a8f9b" />
                     </linearGradient>
                     <linearGradient id="innerFloorTone" x1="180" y1="110" x2="180" y2="125" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stopColor="#878b94" />
-                      <stop offset="100%" stopColor="#9296a0" />
+                      <stop offset="0%" stopColor="#656a76" />
+                      <stop offset="100%" stopColor="#707582" />
                     </linearGradient>
                     <linearGradient id="innerSideTone" x1="0" y1="0" x2="1" y2="0">
-                      <stop offset="0%" stopColor="#7e828b" />
-                      <stop offset="100%" stopColor="#9ba0aa" />
+                      <stop offset="0%" stopColor="#5f6470" />
+                      <stop offset="100%" stopColor="#7b808d" />
                     </linearGradient>
                   </defs>
 
@@ -329,9 +271,9 @@ export default function ByoCliSection() {
                       }}
                       className="absolute top-0 left-0 pointer-events-auto"
                     >
-                      {/* WHITE 3D EFFECT SQUARE BOX WITH TACTILE BEVEL & LAYERED SHADOW */}
-                      <div className="relative w-[42px] h-[42px] rounded-[12px] bg-gradient-to-b from-white via-[#fcfcfd] to-[#edf0f4] border border-white/90 shadow-[0_8px_20px_-3px_rgba(0,0,0,0.35),0_3px_6px_-2px_rgba(0,0,0,0.2),inset_0_1.5px_0_rgba(255,255,255,1),inset_0_-2px_4px_rgba(0,0,0,0.06)] flex items-center justify-center p-2 transition-transform hover:scale-110 cursor-pointer">
-                        <div className="w-[19px] h-[19px] flex items-center justify-center">
+                      {/* GRAYISH TACTILE SQUARE BOX MATCHING CAPABILITIES CARDS */}
+                      <div className="relative w-[48px] h-[48px] rounded-[13px] bg-[#f0f2f5] border border-zinc-300/80 shadow-[0_6px_18px_-2px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.9),inset_0_-1px_2px_rgba(0,0,0,0.05)] flex items-center justify-center p-2 transition-transform hover:scale-110 cursor-pointer">
+                        <div className="w-[24px] h-[24px] flex items-center justify-center">
                           {item.icon}
                         </div>
                       </div>
@@ -352,9 +294,9 @@ export default function ByoCliSection() {
                       }}
                       className="absolute top-0 left-0 pointer-events-auto"
                     >
-                      {/* WHITE 3D EFFECT SQUARE BOX WITH TACTILE BEVEL & LAYERED SHADOW */}
-                      <div className="relative w-[42px] h-[42px] rounded-[12px] bg-gradient-to-b from-white via-[#fcfcfd] to-[#edf0f4] border border-white/90 shadow-[0_8px_20px_-3px_rgba(0,0,0,0.35),0_3px_6px_-2px_rgba(0,0,0,0.2),inset_0_1.5px_0_rgba(255,255,255,1),inset_0_-2px_4px_rgba(0,0,0,0.06)] flex items-center justify-center p-2 transition-transform hover:scale-110 cursor-pointer">
-                        <div className="w-[19px] h-[19px] flex items-center justify-center">
+                      {/* GRAYISH TACTILE SQUARE BOX MATCHING CAPABILITIES CARDS */}
+                      <div className="relative w-[48px] h-[48px] rounded-[13px] bg-[#f0f2f5] border border-zinc-300/80 shadow-[0_6px_18px_-2px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.9),inset_0_-1px_2px_rgba(0,0,0,0.05)] flex items-center justify-center p-2 transition-transform hover:scale-110 cursor-pointer">
+                        <div className="w-[24px] h-[24px] flex items-center justify-center">
                           {item.icon}
                         </div>
                       </div>
@@ -381,13 +323,13 @@ export default function ByoCliSection() {
                     </pattern>
 
                     <linearGradient id="cartonFaceGrad" x1="180" y1="122" x2="180" y2="245" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stopColor="#d5d8df" />
-                      <stop offset="100%" stopColor="#c3c6cd" />
+                      <stop offset="0%" stopColor="#a8adb8" />
+                      <stop offset="100%" stopColor="#9398a4" />
                     </linearGradient>
 
                     <linearGradient id="frontFlapCarton" x1="180" y1="75" x2="180" y2="122" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stopColor="#eceef2" />
-                      <stop offset="100%" stopColor="#d8dbe2" />
+                      <stop offset="0%" stopColor="#bcc1cc" />
+                      <stop offset="100%" stopColor="#a7acb8" />
                     </linearGradient>
 
                     {/* Soft Drop shadow filter for front flap onto front face */}

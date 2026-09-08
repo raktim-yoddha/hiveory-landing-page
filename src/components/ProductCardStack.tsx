@@ -1,393 +1,430 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-interface FeatureItem {
-  title: string;
-  desc: string;
-  icon: React.ReactNode;
-}
-
 interface ModeCard {
   id: string;
-  tag: string;
-  dotColor: string;
+  stepIndex: string;
   title: string;
   subtitle: string;
-  features: FeatureItem[];
-  imageSrc: string;
+  keyPoints: string[];
 }
 
 const modesData: ModeCard[] = [
   {
     id: "agent",
-    tag: "Autonomous Agency",
-    dotColor: "bg-emerald-400",
+    stepIndex: "01",
     title: "Agent Mode",
-    subtitle: "Persistent autonomous agents with skills and routines",
-    features: [
-      {
-        title: "SQLite WAL State",
-        desc: "Local ACID memory that never leaks to cloud",
-        icon: (
-          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <ellipse cx="12" cy="5" rx="9" ry="3" />
-            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-            <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
-          </svg>
-        ),
-      },
-      {
-        title: "SKILL.md Routines",
-        desc: "Custom prompt instructions & scheduled crons",
-        icon: (
-          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
-          </svg>
-        ),
-      },
-      {
-        title: "Swarm Delegation",
-        desc: "Background subagents with reactive wakeups",
-        icon: (
-          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="18" cy="5" r="3" />
-            <circle cx="6" cy="12" r="3" />
-            <circle cx="18" cy="19" r="3" />
-            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
-          </svg>
-        ),
-      },
+    subtitle: "Durable AI assistants with granular skills",
+    keyPoints: [
+      "Named agents with strict runtime limits",
+      "Folder grants without full disk access",
+      "Over 20 practical built-in skill packages",
+      "Local routines & SQLite WAL persistence",
     ],
-    imageSrc: "/agent-mode.png",
   },
   {
     id: "code",
-    tag: "Terminal-First ADE",
-    dotColor: "bg-blue-400",
+    stepIndex: "02",
     title: "Code Mode",
-    subtitle: "Agentic Development Environment with concurrent split panes",
-    features: [
-      {
-        title: "Recursive Split Panes",
-        desc: "Multiplex Claude Code, Codex, & CLI agents",
-        icon: (
-          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <rect x="3" y="3" width="18" height="18" rx="2" />
-            <path d="M12 3v18" />
-          </svg>
-        ),
-      },
-      {
-        title: "Git Worktree Isolation",
-        desc: "Parallel branches without file conflicts",
-        icon: (
-          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <line x1="6" y1="3" x2="6" y2="15" />
-            <circle cx="18" cy="6" r="3" />
-            <circle cx="6" cy="18" r="3" />
-            <path d="M18 9a9 9 0 0 1-9 9" />
-          </svg>
-        ),
-      },
-      {
-        title: "Nectar Shared Memory",
-        desc: "Unified project state over MCP store",
-        icon: (
-          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <rect x="4" y="4" width="16" height="16" rx="2" />
-            <rect x="9" y="9" width="6" height="6" />
-            <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3" />
-          </svg>
-        ),
-      },
+    subtitle: "Multi-pane canvas with native terminals",
+    keyPoints: [
+      "Multi-pane canvas with ConPTY shells",
+      "Dedicated Git worktrees for zero collisions",
+      "Monaco editor with SHA-256 fingerprinting",
+      "Durable task DAG proposals & mailboxes",
     ],
-    imageSrc: "/demo.png",
   },
   {
     id: "chat",
-    tag: "Multi-Model Brainstorming",
-    dotColor: "bg-purple-400",
+    stepIndex: "03",
     title: "Chat Mode",
-    subtitle: "Converse with any AI model and hot-swap providers in-thread",
-    features: [
-      {
-        title: "Hot-Swap Providers",
-        desc: "Switch Claude, GPT & Ollama in-thread",
-        icon: (
-          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polyline points="16 3 21 3 21 8" />
-            <line x1="4" y1="20" x2="21" y2="3" />
-            <polyline points="21 16 21 21 16 21" />
-            <line x1="15" y1="15" x2="21" y2="21" />
-            <line x1="4" y1="4" x2="9" y2="9" />
-          </svg>
-        ),
-      },
-      {
-        title: "Deep Reasoning Traces",
-        desc: "Inspect live step execution & thoughts",
-        icon: (
-          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-          </svg>
-        ),
-      },
-      {
-        title: "Sandboxed Context",
-        desc: "Local-first encrypted conversations",
-        icon: (
-          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-          </svg>
-        ),
-      },
+    subtitle: "Streaming AI chat with branching & drafts",
+    keyPoints: [
+      "Streaming text turns with zero telemetry",
+      "Conversation branching & local draft states",
+      "Local attachments for PDF, images & text",
+      "Sanitized portable archive exports",
     ],
-    imageSrc: "/chat-mode.png",
   },
 ];
 
 export default function ProductCardStack() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [bottomOffset, setBottomOffset] = useState<number>(1200);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+
+  // References to compute exact trajectory contact points with zero gap
+  const topBoxRef = useRef<HTMLDivElement>(null);
+  const svgContainerRef = useRef<HTMLDivElement>(null);
+  const card0Ref = useRef<HTMLDivElement>(null);
+  const card1Ref = useRef<HTMLDivElement>(null);
+  const card2Ref = useRef<HTMLDivElement>(null);
+
+  const [coords, setCoords] = useState<{
+    topX: number;
+    startY: number;
+    x0: number;
+    x1: number;
+    x2: number;
+    endY0: number;
+    endY1: number;
+    endY2: number;
+    width: number;
+    height: number;
+  } | null>(null);
 
   useEffect(() => {
-    const updateOffset = () => {
-      setBottomOffset(window.innerHeight + 150);
+    const updateCoords = () => {
+      if (
+        !svgContainerRef.current ||
+        !topBoxRef.current ||
+        !card0Ref.current ||
+        !card1Ref.current ||
+        !card2Ref.current
+      ) {
+        return;
+      }
+      const svgRect = svgContainerRef.current.getBoundingClientRect();
+      const topRect = topBoxRef.current.getBoundingClientRect();
+      const c0 = card0Ref.current.getBoundingClientRect();
+      const c1 = card1Ref.current.getBoundingClientRect();
+      const c2 = card2Ref.current.getBoundingClientRect();
+
+      const width = svgRect.width;
+      const height = svgRect.height;
+
+      // Exact horizontal center of the top logo box relative to SVG container
+      const topX = topRect.left + topRect.width / 2 - svgRect.left;
+      // Start directly on the bottom border of top logo box with 1.5px overlap (zero gap)
+      const startY = Math.min(0, topRect.bottom - svgRect.top) - 1.5;
+
+      // Exact horizontal center of each card relative to SVG container (middle of ceiling)
+      const x0 = c0.left + c0.width / 2 - svgRect.left;
+      const x1 = c1.left + c1.width / 2 - svgRect.left;
+      const x2 = c2.left + c2.width / 2 - svgRect.left;
+
+      // End directly on the top border (ceiling) of each card with 1.5px overlap (zero gap)
+      const endY0 = Math.max(height, c0.top - svgRect.top) + 1.5;
+      const endY1 = Math.max(height, c1.top - svgRect.top) + 1.5;
+      const endY2 = Math.max(height, c2.top - svgRect.top) + 1.5;
+
+      setCoords({ topX, startY, x0, x1, x2, endY0, endY1, endY2, width, height });
     };
-    updateOffset();
-    window.addEventListener("resize", updateOffset);
-    return () => window.removeEventListener("resize", updateOffset);
+
+    updateCoords();
+    window.addEventListener("resize", updateCoords);
+
+    let observer: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== "undefined" && svgContainerRef.current) {
+      observer = new ResizeObserver(updateCoords);
+      observer.observe(svgContainerRef.current);
+    }
+
+    return () => {
+      window.removeEventListener("resize", updateCoords);
+      observer?.disconnect();
+    };
   }, []);
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
+  // Fallback geometry for SSR
+  const width = coords?.width ?? 1152;
+  const height = coords?.height ?? 125;
+  const topX = coords?.topX ?? width / 2;
+  const startY = coords?.startY ?? -1.5;
+  const x0 = coords?.x0 ?? (width - 64) / 6;
+  const x1 = coords?.x1 ?? width / 2;
+  const x2 = coords?.x2 ?? width - (width - 64) / 6;
+  const endY0 = coords?.endY0 ?? height + 1.5;
+  const endY1 = coords?.endY1 ?? height + 1.5;
+  const endY2 = coords?.endY2 ?? height + 1.5;
 
-  // CARD 0 (Agent Mode): Stays at y: 0, full scale
-  // CARD 1 (Code Mode): Starts rising immediately as scroll starts from this position, completely overriding Card 0
-  const y1 = useTransform(scrollYProgress, [0.01, 0.44], [bottomOffset, 0]);
-
-  // CARD 2 (Chat Mode): Rises up and lands at y: 0, completely overriding Card 1
-  const y2 = useTransform(scrollYProgress, [0.48, 0.86], [bottomOffset, 0]);
-
-  // Button: Only comes up after 3rd card (Chat Mode) has completed its override
-  // Rises up (y: 28 -> 0) and fades in (opacity: 0 -> 1) between 0.84 and 0.90
-  // Stays locked at opacity: 1 and y: 0 on scroll down (never fades out on scroll down)
-  // Reverses automatically on scroll up (fades out as it goes down)
-  const buttonOpacity = useTransform(scrollYProgress, [0.84, 0.90, 1.0], [0, 1, 1]);
-  const buttonY = useTransform(scrollYProgress, [0.84, 0.90, 1.0], [28, 0, 0]);
-  const buttonPointerEvents = useTransform(scrollYProgress, (pos) =>
-    pos >= 0.86 ? "auto" : "none"
-  );
+  // Path definitions: smooth curves that touch the bottom of the logo box and middle of the ceiling of each card
+  const leftPath = `M ${topX} ${startY} C ${topX} ${startY + (endY0 - startY) * 0.45}, ${x0} ${startY + (endY0 - startY) * 0.55}, ${x0} ${endY0}`;
+  const centerPath = `M ${topX} ${startY} L ${x1} ${endY1}`;
+  const rightPath = `M ${topX} ${startY} C ${topX} ${startY + (endY2 - startY) * 0.45}, ${x2} ${startY + (endY2 - startY) * 0.55}, ${x2} ${endY2}`;
 
   return (
-    <div id="product-modes" className="relative w-full">
-      {/* Section Header (In normal document flow, NOT stuck in the overlapping animation) */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-2 sm:pb-4 text-center">
+    <section
+      id="product-modes"
+      className="relative w-full border-t border-white/[0.08] bg-[#07070a] px-4 sm:px-6 lg:px-8 py-20 sm:py-28 overflow-hidden z-10"
+    >
+      {/* Subtle ambient aura */}
+      <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-white/[0.012] blur-[150px] rounded-full" />
+
+      {/* Animation: 4s linear matching the exact speed of the Hero section flow */}
+      <style>{`
+        @keyframes fillAndDrainTrajectory {
+          0% {
+            stroke-dashoffset: 1000;
+          }
+          100% {
+            stroke-dashoffset: -1400;
+          }
+        }
+        .animate-trajectory-fill-drain {
+          animation: fillAndDrainTrajectory 4s linear infinite;
+        }
+      `}</style>
+
+      {/* SECTION HEADER */}
+      <div className="relative z-10 w-full max-w-4xl mx-auto text-center mb-12 sm:mb-16">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-medium tracking-[-0.025em] text-white leading-tight mb-3">
           One Super App. Three Modes.
         </h2>
         <p className="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-          Switch seamlessly between full autonomous task execution, multi-CLI
-          coding sessions, and multi-model brainstorming inside one unified host.
+          Switch seamlessly between Agent Mode (Ctrl+1), Code Mode (Ctrl+2), and Chat Mode (Ctrl+3) inside one local-first desktop workspace.
         </p>
       </div>
 
-      {/* Sticky Overlapping Cards Animation (Title is NOT shown in sticky viewport) */}
-      <section
-        ref={sectionRef}
-        className="relative w-full h-[320vh] z-20"
-      >
-        {/* Sticky Viewport Frame: Positioned with minimal top gap right under header */}
-        <div className="sticky top-12 sm:top-14 lg:top-16 w-full flex flex-col items-center justify-start pt-2 sm:pt-4 px-4 sm:px-6 lg:px-8 pointer-events-none">
-          {/* Overriding Taller Cards Area */}
-          <div className="relative w-full max-w-6xl h-[490px] sm:h-[515px] md:h-[540px] lg:h-[560px] pointer-events-auto">
-            {/* CARD 0: Agent Mode - In place from start */}
-            <motion.div
-              style={{ y: 0, zIndex: 10 }}
-              className="group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-5 sm:p-6 md:p-8 flex flex-col justify-center transition-colors duration-300"
-            >
-              {/* Outer Card Corner Brackets - Exactly on boundary level */}
-              <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-              <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-              <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-              <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-              <CardInnerContent card={modesData[0]} index={0} />
-            </motion.div>
+      {/* ========================================================================= */}
+      {/* CENTRAL TREE CONTAINER: Shared max-width guarantees pixel-perfect alignment*/}
+      {/* ========================================================================= */}
+      <div className="relative w-full max-w-6xl mx-auto flex flex-col items-center">
 
-            {/* CARD 1: Code Mode - Rises up and completely overrides Card 0 */}
-            <motion.div
-              style={{ y: y1, zIndex: 20 }}
-              className="group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-5 sm:p-6 md:p-8 flex flex-col justify-center transition-colors duration-300"
-            >
-              {/* Outer Card Corner Brackets - Exactly on boundary level */}
-              <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-              <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-              <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-              <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-              <CardInnerContent card={modesData[1]} index={1} />
-            </motion.div>
-
-            {/* CARD 2: Chat Mode - Rises up and completely overrides Card 1 */}
-            <motion.div
-              style={{ y: y2, zIndex: 30 }}
-              className="group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-5 sm:p-6 md:p-8 flex flex-col justify-center transition-colors duration-300"
-            >
-              {/* Outer Card Corner Brackets - Exactly on boundary level */}
-              <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-              <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-              <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-              <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-              <CardInnerContent card={modesData[2]} index={2} />
-            </motion.div>
-          </div>
-
-          {/* See More Details Button - Appears only after 3rd card, never fades on scroll down, fades down on scroll up */}
-          <motion.div
-            style={{
-              opacity: buttonOpacity,
-              y: buttonY,
-              pointerEvents: buttonPointerEvents,
-            }}
-            className="mt-5 sm:mt-6 z-40 flex items-center justify-center"
-          >
-            <Link
-              href="/product"
-              className="group/btn relative inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-lg"
-            >
-              {/* Outer Boundary Corner Brackets */}
-              <span className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -top-[1px] -right-[1px] w-2 h-2 border-t-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -bottom-[1px] -left-[1px] w-2 h-2 border-b-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-b-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
-
-              {/* Inner Expanding White Box */}
-              <span className="absolute inset-y-1 left-1 w-9 bg-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:w-[calc(100%-8px)] pointer-events-none rounded-none" />
-
-              {/* Content Layer */}
-              <span className="relative z-10 flex items-center gap-3">
-                <span className="w-9 h-9 flex items-center justify-center text-black shrink-0 transition-colors duration-300">
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                  </svg>
-                </span>
-                <span className="text-xs sm:text-sm font-semibold text-white group-hover/btn:text-black tracking-wide transition-colors duration-300">
-                  See More Details
-                </span>
-              </span>
-
-              <span className="relative z-10 text-white/50 group-hover/btn:text-black group-hover/btn:translate-x-1 transition-all duration-300 pl-3">
-                →
-              </span>
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-    </div>
-  );
-}
-
-function CardInnerContent({ card, index }: { card: ModeCard; index: number }) {
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-center h-full">
-      {/* Left Side: Title & Aesthetic Features */}
-      <div className="lg:col-span-5 flex flex-col justify-center">
-        {/* Step pill tag */}
-        <div className="flex items-center gap-2 mb-3">
-          <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-none bg-white/[0.03] border border-white/10 text-[11px] font-mono tracking-wider text-zinc-400">
-            <span className="w-1.5 h-1.5 rounded-full bg-white/70 animate-pulse" />
-            <span className="text-white font-semibold">0{index + 1}</span>
-          </span>
-        </div>
-
-        <h3 className="text-2xl sm:text-3xl lg:text-[34px] font-medium text-white tracking-[-0.015em] leading-tight mb-2">
-          {card.title}
-        </h3>
-
-        <p className="text-xs sm:text-[13px] text-zinc-400 leading-relaxed font-normal mb-5 max-w-sm">
-          {card.subtitle}
-        </p>
-
-        {/* Aesthetic Feature Micro-Cards */}
-        <div className="space-y-2 mb-6">
-          {card.features.map((feature, i) => (
-            <div
-              key={i}
-              className="group/item flex items-center gap-3 px-3.5 py-2 rounded-none bg-white/[0.02] border border-white/[0.07] hover:border-white/20 hover:bg-white/[0.04] transition-all duration-300"
-            >
-              <span className="w-7 h-7 rounded-none border border-white/10 bg-white/[0.03] flex items-center justify-center shrink-0 text-zinc-400 group-hover/item:text-white group-hover/item:border-white/25 transition-colors">
-                {feature.icon}
-              </span>
-              <div className="flex flex-col min-w-0 justify-center">
-                <span className="text-xs sm:text-[13px] font-semibold text-white tracking-tight leading-snug">
-                  {feature.title}
-                </span>
-                <span className="text-[11px] sm:text-xs text-zinc-400 font-normal leading-tight truncate">
-                  {feature.desc}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Explore Button Link in Goji Berry Button Style */}
-        <div>
-          <Link
-            href="/product"
-            className="group/btn relative inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-sm"
+        {/* 1. CENTRAL TOP NODE: HIVEORY LOGO BOX */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="relative z-20 flex flex-col items-center"
+        >
+          {/* Central Technical Box */}
+          <div
+            ref={topBoxRef}
+            className="group relative w-20 h-20 sm:w-24 sm:h-24 rounded-none border border-white/20 hover:border-white/50 bg-[#0c0c12] p-3.5 sm:p-4 flex items-center justify-center shadow-[0_20px_60px_-15px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.1)] transition-colors duration-300"
           >
             {/* Outer Boundary Corner Brackets */}
+            <span className="absolute -top-[1px] -left-[1px] w-3.5 h-3.5 border-t-2 border-l-2 border-white/60 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+            <span className="absolute -top-[1px] -right-[1px] w-3.5 h-3.5 border-t-2 border-r-2 border-white/60 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+            <span className="absolute -bottom-[1px] -left-[1px] w-3.5 h-3.5 border-b-2 border-l-2 border-white/60 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+            <span className="absolute -bottom-[1px] -right-[1px] w-3.5 h-3.5 border-b-2 border-r-2 border-white/60 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+
+            {/* Hiveory Bee Logo Icon */}
+            <div className="relative w-full h-full flex items-center justify-center">
+              <Image
+                src="/hiveory-logo.png"
+                alt="Hiveory Host Engine"
+                width={56}
+                height={56}
+                className="w-full h-full object-contain filter brightness-110 contrast-125 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)]"
+                priority
+              />
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ===================================================================== */}
+        {/* 2. CABLE BRANCHING NETWORK (Lines touch all boxes in middle of ceiling)*/}
+        {/* ===================================================================== */}
+        <div
+          ref={svgContainerRef}
+          className="relative w-full h-[100px] sm:h-[115px] md:h-[125px] hidden md:block overflow-visible select-none pointer-events-none mt-0 mb-0"
+        >
+          <svg
+            className="w-full h-full overflow-visible"
+            viewBox={`0 0 ${width} ${height}`}
+            fill="none"
+          >
+            {/* Base Static Guide Paths: Clearly visible subtle track touching middle of ceiling */}
+            <g stroke="rgba(255, 255, 255, 0.16)" strokeWidth="0.85" strokeLinecap="butt">
+              <path d={leftPath} />
+              <path d={centerPath} />
+              <path d={rightPath} />
+            </g>
+
+            {/* Fills Full Trajectory with White, then Goes Out and Repeats (4s matching Hero) */}
+            <g
+              stroke="rgba(255, 255, 255, 0.65)"
+              fill="none"
+              strokeDasharray="1000 1400"
+              strokeLinecap="round"
+              style={{
+                filter: "drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.25))",
+              }}
+            >
+              <path
+                d={leftPath}
+                pathLength={1000}
+                className="animate-trajectory-fill-drain"
+                strokeWidth={hoveredCard !== null ? 1.0 : 0.85}
+                style={{ transition: "stroke-width 0.3s ease" }}
+              />
+              <path
+                d={centerPath}
+                pathLength={1000}
+                className="animate-trajectory-fill-drain"
+                strokeWidth={hoveredCard !== null ? 1.0 : 0.85}
+                style={{ transition: "stroke-width 0.3s ease" }}
+              />
+              <path
+                d={rightPath}
+                pathLength={1000}
+                className="animate-trajectory-fill-drain"
+                strokeWidth={hoveredCard !== null ? 1.0 : 0.85}
+                style={{ transition: "stroke-width 0.3s ease" }}
+              />
+            </g>
+          </svg>
+        </div>
+
+        {/* Mobile Vertical Flow Stem */}
+        <div className="w-[1px] h-8 bg-gradient-to-b from-white/30 via-white/15 to-transparent block md:hidden mb-4" />
+
+        {/* ===================================================================== */}
+        {/* 3. THE 3 SMALL MODE CARDS (No buttons, separator after description)   */}
+        {/* ===================================================================== */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch mb-12 sm:mb-16 mt-0">
+          {modesData.map((mode, index) => {
+            const isHovered = hoveredCard === index;
+            const cardRef =
+              index === 0 ? card0Ref : index === 1 ? card1Ref : card2Ref;
+
+            return (
+              <motion.div
+                key={mode.id}
+                ref={cardRef}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
+                onMouseEnter={() => setHoveredCard(index)}
+                onMouseLeave={() => setHoveredCard(null)}
+                className={`group relative rounded-none border transition-all duration-300 bg-[#0c0c11] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.06)] flex flex-col p-6 sm:p-7 ${
+                  isHovered
+                    ? "border-white/40 shadow-[0_25px_80px_-10px_rgba(0,0,0,0.95),0_0_20px_-5px_rgba(255,255,255,0.1)] -translate-y-1"
+                    : "border-white/[0.12] hover:border-white/30"
+                }`}
+              >
+                {/* OUTER CARD CORNER BRACKETS */}
+                <div
+                  className={`absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 transition-colors duration-300 pointer-events-none z-10 ${
+                    isHovered ? "border-white" : "border-white/50 group-hover:border-white/80"
+                  }`}
+                />
+                <div
+                  className={`absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 transition-colors duration-300 pointer-events-none z-10 ${
+                    isHovered ? "border-white" : "border-white/50 group-hover:border-white/80"
+                  }`}
+                />
+                <div
+                  className={`absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 transition-colors duration-300 pointer-events-none z-10 ${
+                    isHovered ? "border-white" : "border-white/50 group-hover:border-white/80"
+                  }`}
+                />
+                <div
+                  className={`absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 transition-colors duration-300 pointer-events-none z-10 ${
+                    isHovered ? "border-white" : "border-white/50 group-hover:border-white/80"
+                  }`}
+                />
+
+                {/* CARD CONTENT */}
+                <div className="relative z-10 flex flex-col h-full">
+                  {/* Step Pill Tag (Only the number as requested) */}
+                  <div className="flex items-center mb-3">
+                    <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-none bg-white/[0.03] border border-white/10 text-[11px] font-mono tracking-wider text-zinc-400">
+                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                      <span className="text-white font-semibold">{mode.stepIndex}</span>
+                    </span>
+                  </div>
+
+                  {/* Title: Strictly ONE line */}
+                  <h3 className="text-xl sm:text-2xl font-medium text-white tracking-tight mb-2 truncate whitespace-nowrap">
+                    {mode.title}
+                  </h3>
+
+                  {/* Description: Strictly ONE line */}
+                  <p className="text-xs sm:text-[13px] text-zinc-400 font-normal leading-relaxed truncate whitespace-nowrap">
+                    {mode.subtitle}
+                  </p>
+
+                  {/* Small Separator after Description (just like the pricing cards) */}
+                  <div className="w-full border-b border-white/[0.08] my-5" />
+
+                  {/* Four Key Points with White Tick Bullets: Strictly ONE line each */}
+                  <ul className="space-y-3.5 flex-1">
+                    {mode.keyPoints.map((point, i) => (
+                      <li
+                        key={i}
+                        className="flex items-center gap-2.5 text-xs sm:text-[13px] text-zinc-300 min-w-0"
+                      >
+                        {/* White tick bullet mark */}
+                        <svg
+                          className="w-4 h-4 text-white shrink-0"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M4.5 12.75l6 6 9-13.5"
+                          />
+                        </svg>
+                        <span className="truncate whitespace-nowrap text-zinc-300 font-normal">
+                          {point}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* ===================================================================== */}
+        {/* 4. SEE MORE DETAILS BUTTON                                            */}
+        {/* ===================================================================== */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="z-20 flex items-center justify-center"
+        >
+          <Link
+            href="/product"
+            className="group/btn relative inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-lg"
+          >
             <span className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
             <span className="absolute -top-[1px] -right-[1px] w-2 h-2 border-t-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
             <span className="absolute -bottom-[1px] -left-[1px] w-2 h-2 border-b-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
             <span className="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-b-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
 
-            {/* Inner Expanding White Box */}
-            <span className="absolute inset-y-1 left-1 w-8 bg-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:w-[calc(100%-8px)] pointer-events-none rounded-none" />
+            <span className="absolute inset-y-1 left-1 w-9 bg-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:w-[calc(100%-8px)] pointer-events-none rounded-none" />
 
-            {/* Content Layer (Only first arrow inside white box, no second arrow at end) */}
-            <span className="relative z-10 flex items-center gap-2.5">
-              <span className="w-8 h-8 flex items-center justify-center text-black shrink-0 transition-colors duration-300">
-                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            <span className="relative z-10 flex items-center gap-3">
+              <span className="w-9 h-9 flex items-center justify-center text-black shrink-0 transition-colors duration-300">
+                <svg
+                  className="w-4 h-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
                 </svg>
               </span>
-              <span className="text-xs sm:text-[13px] md:text-sm font-semibold text-white group-hover/btn:text-black tracking-wide transition-colors duration-300">
-                Explore {card.title}
+              <span className="text-xs sm:text-sm font-semibold text-white group-hover/btn:text-black tracking-wide transition-colors duration-300">
+                See More Details
               </span>
             </span>
+
+            <span className="relative z-10 text-white/50 group-hover/btn:text-black group-hover/btn:translate-x-1 transition-all duration-300 pl-3">
+              →
+            </span>
           </Link>
-        </div>
-      </div>
+        </motion.div>
 
-      {/* Right Side: Mode Desktop Image with Highlighting Edges and No Zoom */}
-      <div className="lg:col-span-7 flex items-center justify-center w-full">
-        <div className="relative w-full aspect-[16/9] rounded-none border border-white/15 bg-[#08080c] shadow-2xl group flex items-center justify-center">
-          {/* Image Boundary Highlighting Edges */}
-          <div className="absolute -top-[1px] -left-[1px] w-3.5 h-3.5 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none z-10" />
-          <div className="absolute -top-[1px] -right-[1px] w-3.5 h-3.5 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none z-10" />
-          <div className="absolute -bottom-[1px] -left-[1px] w-3.5 h-3.5 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none z-10" />
-          <div className="absolute -bottom-[1px] -right-[1px] w-3.5 h-3.5 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none z-10" />
-
-          <Image
-            src={card.imageSrc}
-            alt={`${card.title} desktop preview`}
-            fill
-            sizes="(max-width: 1024px) 100vw, 720px"
-            className="object-contain block rounded-none"
-            priority={index === 0}
-            quality={100}
-          />
-          {/* Subtle glass reflection accent */}
-          <div className="absolute inset-0 pointer-events-none border border-white/10 rounded-none shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]" />
-        </div>
       </div>
-    </div>
+    </section>
   );
 }

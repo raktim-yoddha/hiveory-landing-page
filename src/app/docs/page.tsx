@@ -14,50 +14,50 @@ export default function DocsPage() {
       items: [
         {
           title: "Quickstart Guide",
-          desc: "Set up Hiveory on Windows, macOS, or Linux in under two minutes.",
-          code: "git clone https://github.com/raktim-yoddha/hiveory.git\npnpm install\npnpm tauri dev",
+          desc: "Clone the repo, install pnpm dependencies, and launch with pnpm app:dev.",
+          code: "git clone https://github.com/raktim-yoddha/hiveory.git\npnpm install\npnpm app:dev",
         },
         {
-          title: "System Prerequisites",
-          desc: "Node 20+, Git, and modern WebView runtime requirements.",
+          title: "Prerequisites & Toolchain",
+          desc: "Node.js & pnpm 10.12.1, Rust MSVC toolchain, C++ Build Tools, WebView2 Runtime, and Git.",
         },
         {
-          title: "Keybindings & Navigation",
-          desc: "Default shortcuts for recursive split panes, mode swapping, and terminal focus.",
-        },
-      ],
-    },
-    {
-      category: "Mode Guides",
-      items: [
-        {
-          title: "Code Mode (ADE) Setup",
-          desc: "Configuring Claude Code, Codex, Antigravity, and OpenCode in concurrent panes.",
-        },
-        {
-          title: "Agent Mode & Custom Skills",
-          desc: "Authoring SKILL.md routines, permission models, and autonomous routines.",
-        },
-        {
-          title: "Multi-Model Chat Session",
-          desc: "Connecting custom API keys, hot-swapping providers, and inspecting reasoning traces.",
+          title: "Keybindings & Shortcuts",
+          desc: "Ctrl+1 (Agent), Ctrl+2 (Code), Ctrl+3 (Chat), Ctrl+K (Palette), Ctrl+B (Sidebar), Ctrl+, (Settings).",
         },
       ],
     },
     {
-      category: "Protocols & Extensions",
+      category: "Application Modes",
       items: [
         {
-          title: "Nectar Shared Memory Protocol",
-          desc: "Reading and writing to .nectar/ via standard MCP tools.",
+          title: "Agent Mode (Ctrl+1)",
+          desc: "Named agents, folder grants, approval policies, OpenAI Responses API (store: false), and routine scheduler.",
         },
         {
-          title: "MCP Plugin Integration",
-          desc: "Registering external Model Context Protocol servers in your workspace.",
+          title: "Code Mode (Ctrl+2)",
+          desc: "Multi-pane canvas (CMD, PowerShell, Git Bash), coding CLIs, Monaco SHA-256 fingerprints, and Git worktrees.",
         },
         {
-          title: "Sandboxing & Cap-Std Security",
-          desc: "Understanding directory capability containment and security boundaries.",
+          title: "Chat Mode (Ctrl+3)",
+          desc: "Independent streaming conversations, reasoning events, branching, retry, drafts, and sanitized archive export.",
+        },
+      ],
+    },
+    {
+      category: "Architecture & Plugins",
+      items: [
+        {
+          title: "Privileged Rust Host & Security",
+          desc: "Rust owns privileged operations, OS keyring credentials, explicit trust sandboxing, and SQLite WAL.",
+        },
+        {
+          title: "Declarative HTTPS Plugins",
+          desc: "Connecting GitHub, Linear, Slack, Supabase, Vercel, Stripe, or custom JSON manifests with host allow-lists.",
+        },
+        {
+          title: "Skills (SKILL.md) Ecosystem",
+          desc: "Authoring and managing local SKILL.md instruction packages with frontmatter validation and conflict resolution.",
         },
       ],
     },
@@ -79,7 +79,7 @@ export default function DocsPage() {
 
           <p className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto">
             Everything you need to orchestrate autonomous agents, configure
-            terminal split panes, and extend Hiveory with custom MCP skills.
+            multi-pane ADE workspaces, author custom skills, and build production desktop releases.
           </p>
         </div>
 
@@ -96,9 +96,9 @@ export default function DocsPage() {
               <span className="w-2.5 h-2.5 rounded-none bg-red-500/80" />
               <span className="w-2.5 h-2.5 rounded-none bg-yellow-500/80" />
               <span className="w-2.5 h-2.5 rounded-none bg-emerald-500/80" />
-              <span className="ml-2 text-zinc-300">Terminal Quickstart</span>
+              <span className="ml-2 text-zinc-300">Terminal Quickstart (Windows PowerShell)</span>
             </span>
-            <span className="text-zinc-500">bash</span>
+            <span className="text-zinc-500">powershell</span>
           </div>
           <pre className="font-mono text-sm text-zinc-300 leading-relaxed overflow-x-auto">
             <code>
@@ -106,8 +106,8 @@ export default function DocsPage() {
               {"\n"}git clone https://github.com/raktim-yoddha/hiveory.git{"\n\n"}
               <span className="text-zinc-500"># 2. Install dependencies</span>
               {"\n"}pnpm install{"\n\n"}
-              <span className="text-zinc-500"># 3. Launch Tauri 2 Desktop Host</span>
-              {"\n"}pnpm tauri dev
+              <span className="text-zinc-500"># 3. Launch native development application</span>
+              {"\n"}pnpm app:dev
             </code>
           </pre>
         </div>

@@ -38,7 +38,7 @@ export default function Navbar() {
 
   const navLinks = [
     { label: "Product", href: "/#product-modes" },
-    { label: "Capabilities", href: "/capabilities" },
+    { label: "Capabilities", href: "/#capabilities" },
     { label: "Docs", href: "/docs" },
     { label: "Community", href: "/#community" },
     { label: "Prices", href: "/#price" },

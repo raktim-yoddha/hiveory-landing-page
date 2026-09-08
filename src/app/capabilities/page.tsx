@@ -5,58 +5,58 @@ import Link from "next/link";
 export const metadata = {
   title: "Capabilities — Hiveory | Architecture & Foundation",
   description:
-    "Explore Hiveory's core technical capabilities: Native desktop host authority, Nectar shared memory, cap-std sandboxing, and Git worktree isolation.",
+    "Explore Hiveory's core technical capabilities: Privileged Rust host authority, capability-scoped trust sandboxing, native ConPTY multiplexing, and Git worktree isolation.",
 };
 
 export default function CapabilitiesPage() {
   const capabilities = [
     {
-      title: "Native Desktop Process Authority",
+      title: "Privileged Rust Host & Local-First Authority",
       icon: "⚙️",
       summary:
-        "Every filesystem mutation, process spawn, and database write is executed through an uncompromised native desktop host.",
+        "Filesystem access, process execution, credentials, persistence, and networking are owned exclusively by the Rust desktop host.",
       details:
-        "Frontend web views have zero direct access to system disk or network. All requests pass through strongly-typed desktop IPC commands with cryptographic validation.",
+        "The React renderer cannot access disk, retrieve stored secrets, or run arbitrary processes. All operations pass through typed Tauri IPC commands validated by the host with SQLite WAL persistence.",
     },
     {
-      title: "Cap-Std Path Sandboxing",
+      title: "Explicit Workspace Trust & Path Sandboxing",
       icon: "🛡️",
       summary:
-        "Hardened directory capability handles prevent arbitrary path traversal or accidental host deletion.",
+        "Untrusted workspaces open read-only. Privileged operations require explicit user trust before file writes or process launches.",
       details:
-        "Agents can only mutate files within explicitly attached workspace directories. Symlink escapes and root path manipulations are trapped at the kernel boundary.",
+        "Rejects absolute paths, path traversal, symlinks, and stale file fingerprints. Monaco Editor uses optimistic SHA-256 fingerprinting so external edits trigger a conflict instead of an overwrite.",
     },
     {
-      title: "Nectar Shared Memory & MCP",
-      icon: "🧠",
-      summary:
-        "A project-scoped shared memory store that all agents query and update over Model Context Protocol.",
-      details:
-        "Architectural decisions, dependency graphs, and conventions persist continuously in `.nectar/` so agents never contradict one another across sessions.",
-    },
-    {
-      title: "Git Worktree Collision Prevention",
-      icon: "🌿",
-      summary:
-        "Concurrent coding agents work on dedicated Git worktrees on the same local repository.",
-      details:
-        "Run 4 agents modifying different features in parallel. Review unified diffs and merge cleanly without git index locking or dirty workspace errors.",
-    },
-    {
-      title: "Native PTY Multiplexing",
+      title: "Multi-Pane Canvas & Native ConPTY Terminals",
       icon: "⚡",
       summary:
-        "High-performance pseudo-terminal emulator handling high-frequency streaming output from CLI agents.",
+        "Recursive horizontal and vertical splits multiplex native shells, coding agents, and embedded browser panes.",
       details:
-        "Render ANSI colors, cursor movements, and interactive prompts for Claude Code, Codex, and Antigravity with zero UI thread stutter.",
+        "Terminal sessions run through native PTY/ConPTY (CMD, PowerShell, Git Bash) with bounded scrollback and snapshot resynchronization on sequence gaps. Live processes stay alive across re-renders.",
     },
     {
-      title: "Local-First SQLite WAL Persistence",
-      icon: "💾",
+      title: "Git Worktrees, Task DAGs & Coordination",
+      icon: "🌿",
       summary:
-        "Everything from conversation history to agent skills is saved locally on your device.",
+        "Durable code runs execute dependency-ready tasks in application-managed Git worktrees with zero index collisions.",
       details:
-        "Write-Ahead Logging provides ACID guarantees and sub-millisecond querying without requiring any cloud server or telemetry tracking.",
+        "Structured DAG proposals track worker leases, checkpoints, reviews, and non-interactive fan-in. The Coordination pane provides durable participant mailboxes and decision gates.",
+    },
+    {
+      title: "Declarative HTTPS Plugins & SKILL.md",
+      icon: "🔌",
+      summary:
+        "Host-executed declarative HTTPS integrations with strict host allow-lists, plus 20+ built-in SKILL.md packages.",
+      details:
+        "Pre-built catalog includes GitHub, Linear, Gmail, Slack, Notion, Cloudflare, Supabase, Vercel, Stripe, and Shopify. Supports custom JSON manifests and per-agent skill conflict resolution.",
+    },
+    {
+      title: "On-Device Automations & Workspace Board",
+      icon: "📋",
+      summary:
+        "Local cron scheduling via hiveory-routine-scheduler paired with a unified Kanban board for GitHub, Jira, and Linear.",
+      details:
+        "Schedules evaluate on-device with concurrency and approval-timeout limits. The full-screen workspace board connects local code run tasks with GitHub (gh CLI), Jira Cloud, and Linear tasks.",
     },
   ];
 

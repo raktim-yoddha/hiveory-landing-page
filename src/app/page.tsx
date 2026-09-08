@@ -3,7 +3,7 @@
 import Navbar from "@/components/Navbar";
 import HeroFlowLines from "@/components/HeroFlowLines";
 import ProductCardStack from "@/components/ProductCardStack";
-import ByoCliSection from "@/components/ByoCliSection";
+import CapabilitiesCardStack from "@/components/CapabilitiesCardStack";
 import HoverFooter from "@/components/ui/hover-footer";
 import { triggerLatestDownload, getLatestRelease } from "@/lib/download";
 import { motion, AnimatePresence } from "framer-motion";
@@ -98,8 +98,7 @@ export default function Home() {
 
           {/* Crisp Narrative Subtitle */}
           <p className="relative z-10 max-w-2xl mx-auto text-base sm:text-lg text-zinc-400/90 leading-relaxed font-normal mb-10">
-            Run autonomous agents, chat across AI models, and code in a
-            terminal-first ADE—all in one local-first desktop workspace.
+            A local-first desktop workspace for AI agents, software development, and standalone AI chat. Built with Tauri and a privileged Rust host with zero cloud dependency.
           </p>
 
           {/* Call to Action Buttons */}
@@ -193,7 +192,7 @@ export default function Home() {
               onClick={() => triggerLatestDownload()}
               className="text-[12px] text-zinc-500 mt-3 flex items-center gap-1 cursor-pointer hover:text-zinc-300 transition-colors"
             >
-              <span>Also for Apple Silicon · Intel · Linux</span>
+              <span>Windows v0.1.3 · Portable EXE · NSIS Installer · MSI Package</span>
               <svg
                 className="w-3 h-3 text-zinc-500"
                 viewBox="0 0 24 24"
@@ -255,14 +254,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION: Bring your own CLI with 3D Box Dipping Animation */}
-      <ByoCliSection />
+      {/* SECTION: The 3 Modes Stacking Cards Product Section */}
+      <ProductCardStack />
 
       {/* Section Separator */}
       <SectionSeparator />
 
-      {/* SECTION: The 3 Modes Stacking Cards Product Section */}
-      <ProductCardStack />
+      {/* SECTION: Core Architectural Capabilities 4-Card Sliding Stack */}
+      <CapabilitiesCardStack />
 
       {/* Section Separator */}
       <SectionSeparator />
@@ -314,10 +313,10 @@ export default function Home() {
 
               <ul className="space-y-3 mb-8">
                 {[
-                  "Full access to Code Mode (ADE)",
-                  "Autonomous agent routine automation",
-                  "Multi-model chat with BYOK & Ollama",
-                  "Local SQLite WAL persistence",
+                  "Full access to Code Mode (ADE) & multi-pane canvas",
+                  "Agent Mode with SKILL.md & routine automations",
+                  "Direct provider calls with OS-keyring security",
+                  "Local SQLite WAL persistence & crash recovery",
                   "Discord & GitHub community support",
                 ].map((f, i) => (
                   <li
@@ -469,19 +468,20 @@ export default function Home() {
             </button>
           </div>
 
-          {/* Enterprise Tier */}
-          <div className="group relative rounded-none border border-amber-400/40 hover:border-amber-400/80 bg-[#0f0e0c]/90 hover:bg-[#14120e] p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 shadow-[0_0_50px_-20px_rgba(245,158,11,0.15)]">
-            <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-amber-400/60 group-hover:border-amber-400 transition-colors duration-300 pointer-events-none" />
-            <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-amber-400/60 group-hover:border-amber-400 transition-colors duration-300 pointer-events-none" />
-            <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-amber-400/60 group-hover:border-amber-400 transition-colors duration-300 pointer-events-none" />
-            <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-amber-400/60 group-hover:border-amber-400 transition-colors duration-300 pointer-events-none" />
+          {/* Enterprise Tier - Clean Matte Yellow Theme without glossy ambient blur */}
+          <div className="group relative rounded-none border border-amber-400/40 hover:border-amber-400 bg-[#0c0c10]/95 hover:bg-[#101014] p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 shadow-2xl">
+            {/* Matte Yellow Corner Brackets */}
+            <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-amber-400 pointer-events-none" />
+            <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-amber-400 pointer-events-none" />
+            <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-amber-400 pointer-events-none" />
+            <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-amber-400 pointer-events-none" />
 
             <div>
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-2xl font-medium text-white tracking-tight">
                   Enterprise
                 </h3>
-                <span className="text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-none border border-amber-400/40 text-amber-300 bg-amber-400/10">
+                <span className="text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-none border border-amber-400/50 text-amber-400 bg-amber-400/[0.06]">
                   Scale & Governance
                 </span>
               </div>
@@ -535,16 +535,16 @@ export default function Home() {
             <button
               type="button"
               onClick={() => openDemoModal("enterprise")}
-              className="group/btn relative w-full inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#13110c] border border-amber-400/50 hover:border-amber-400 text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-md"
+              className="group/btn relative w-full inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#0c0c10] border border-amber-400/50 hover:border-amber-400 text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-md"
             >
               {/* Outer Boundary Corner L-Brackets */}
-              <span className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-amber-400/60 group-hover/btn:border-amber-400 transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-amber-400/60 group-hover/btn:border-amber-400 transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-amber-400/60 group-hover/btn:border-amber-400 transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-amber-400/60 group-hover/btn:border-amber-400 transition-colors duration-300 pointer-events-none" />
+              <span className="absolute -top-[1px] -left-[1px] w-3 h-3 border-t-2 border-l-2 border-amber-400 pointer-events-none" />
+              <span className="absolute -top-[1px] -right-[1px] w-3 h-3 border-t-2 border-r-2 border-amber-400 pointer-events-none" />
+              <span className="absolute -bottom-[1px] -left-[1px] w-3 h-3 border-b-2 border-l-2 border-amber-400 pointer-events-none" />
+              <span className="absolute -bottom-[1px] -right-[1px] w-3 h-3 border-b-2 border-r-2 border-amber-400 pointer-events-none" />
 
-              {/* Inner Expanding Amber Filler covering Zap icon */}
-              <span className="absolute inset-y-1 left-1 w-9 bg-gradient-to-r from-amber-400 to-amber-500 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:w-[calc(100%-8px)] pointer-events-none rounded-none" />
+              {/* Solid Matte Amber Square on Left */}
+              <span className="absolute inset-y-1 left-1 w-9 bg-amber-400 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:w-[calc(100%-8px)] pointer-events-none rounded-none" />
 
               <span className="relative z-10 flex items-center gap-3">
                 <span className="w-9 h-9 flex items-center justify-center text-black shrink-0 transition-colors duration-300">
@@ -573,29 +573,29 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
             <div>
               <div className="text-xl font-medium text-white mb-2">
-                Air-Gapped Ready
+                Privileged Rust Host
               </div>
               <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                Run with local models via Ollama or vLLM inside strictly isolated
-                internal networks.
+                The renderer cannot access disk, secrets, or processes. All privileged operations
+                run through typed Tauri commands owned by Rust.
               </p>
             </div>
             <div>
               <div className="text-xl font-medium text-white mb-2">
-                Zero Data Ingestion
+                Zero Cloud Dependency
               </div>
               <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                Hiveory never stores, routes, or trains on your company code or
-                terminal prompts.
+                Direct provider communication with user-owned keys in the OS keyring.
+                No Hiveory-hosted backend.
               </p>
             </div>
             <div>
               <div className="text-xl font-medium text-white mb-2">
-                Sandboxed Executions
+                Capability Sandboxing
               </div>
               <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                Hardware and directory access is gated through sandboxed OS capabilities
-                and permission prompts.
+                Explicit workspace trust, rejection of traversal or symlinks, and
+                optimistic SHA-256 file fingerprinting.
               </p>
             </div>
           </div>
@@ -606,8 +606,8 @@ export default function Home() {
       <SectionSeparator />
 
       {/* SECTION: Communities Section (Exactly same as Community Page) */}
-      <section id="community" className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 py-20 scroll-mt-20 overflow-hidden">
-        <div className="text-center max-w-4xl mx-auto mb-16 sm:mb-20">
+      <section id="community" className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-14 pb-20 scroll-mt-20 overflow-hidden">
+        <div className="text-center max-w-4xl mx-auto mb-14 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-medium tracking-[-0.025em] text-white leading-tight mb-6 sm:whitespace-nowrap">
             Join the Hiveory Community
           </h2>
@@ -620,11 +620,11 @@ export default function Home() {
 
         {/* Community Channels Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Discord Card (Left: comes from left, triggers earlier above) */}
+          {/* Discord Card (Left: comes from left, triggers early on downward scroll) */}
           <motion.div
             initial={{ opacity: 0, x: -70 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "200px 0px 0px 0px" }}
+            viewport={{ once: true, margin: "0px 0px 250px 0px", amount: 0.1 }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className="group relative rounded-none border border-white/[0.12] hover:border-white/30 bg-[#0c0c10]/90 hover:bg-[#111116] p-8 flex flex-col justify-between transition-all duration-300 shadow-xl"
           >
@@ -689,11 +689,11 @@ export default function Home() {
             </a>
           </motion.div>
 
-          {/* GitHub Card (Center: comes from bottom, triggers earlier above) */}
+          {/* GitHub Card (Center: comes from bottom, triggers early on downward scroll) */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "200px 0px 0px 0px" }}
+            viewport={{ once: true, margin: "0px 0px 250px 0px", amount: 0.1 }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
             className="group relative rounded-none border border-white/[0.12] hover:border-white/30 bg-[#0c0c10]/90 hover:bg-[#111116] p-8 flex flex-col justify-between transition-all duration-300 shadow-xl"
           >
@@ -758,11 +758,11 @@ export default function Home() {
             </a>
           </motion.div>
 
-          {/* YouTube Card (Right: comes from right, triggers earlier above) */}
+          {/* YouTube Card (Right: comes from right, triggers early on downward scroll) */}
           <motion.div
             initial={{ opacity: 0, x: 70 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "200px 0px 0px 0px" }}
+            viewport={{ once: true, margin: "0px 0px 250px 0px", amount: 0.1 }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
             className="group relative rounded-none border border-white/[0.12] hover:border-white/30 bg-[#0c0c10]/90 hover:bg-[#111116] p-8 flex flex-col justify-between transition-all duration-300 shadow-xl"
           >

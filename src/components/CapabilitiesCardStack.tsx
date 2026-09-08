@@ -366,7 +366,7 @@ export default function CapabilitiesCardStack() {
       {/* Sticky Overlapping Cards Container (3-Card Stack) */}
       <section ref={sectionRef} className="relative w-full h-[320vh] z-20">
         {/* Sticky Viewport Frame */}
-        <div className="sticky top-12 sm:top-14 lg:top-16 w-full flex flex-col items-center justify-start pt-2 sm:pt-4 px-4 sm:px-6 lg:px-8 pointer-events-none">
+        <div className="sticky top-8 sm:top-10 lg:top-12 w-full flex flex-col items-center justify-start pt-2 sm:pt-4 pb-8 sm:pb-10 px-4 sm:px-6 lg:px-8 pointer-events-none">
           {/* Overriding Taller Cards Area - Moderately wider, balanced */}
           <div className="relative w-full max-w-[1240px] h-[510px] sm:h-[530px] md:h-[550px] lg:h-[565px] pointer-events-auto">
             {/* CARD 0: Bring your own CLI - In place from start */}
@@ -734,8 +734,6 @@ export default function CapabilitiesCardStack() {
 
                     {/* Git Tree SVG - Scaled up with box, golden, silver & white theme */}
                     <div className="relative flex-1 flex items-center justify-center py-4">
-                      <div className="absolute w-[340px] h-[340px] bg-amber-400/[0.04] blur-[80px] rounded-full pointer-events-none" />
-
                       <svg className="w-full h-full max-w-[480px] max-h-[300px]" viewBox="0 0 360 210" fill="none">
                         {/* Main Branch Trunk Line */}
                         <line x1="30" y1="105" x2="330" y2="105" stroke="#ffffff" strokeWidth="2" opacity="0.35" />
@@ -756,15 +754,14 @@ export default function CapabilitiesCardStack() {
                         {/* Branch 1 commits (Golden) */}
                         <circle cx="170" cy="50" r="4.5" fill="#121218" stroke="#f59e0b" strokeWidth="2" />
                         <circle cx="220" cy="50" r="4.5" fill="#fbbf24" stroke="#f59e0b" strokeWidth="2" />
-                        <circle cx="270" cy="50" r="5" fill="#f59e0b" stroke="#fde68a" strokeWidth="1.5" />
-                        <text x="270" y="38" textAnchor="middle" fill="#fde68a" fontSize="7.5" fontFamily="monospace">worktree-claude: 9fa1c</text>
+                        <circle cx="270" cy="50" r="5" fill="#f59e0b" stroke="#ffffff" strokeWidth="1.5" />
+                        <text x="270" y="38" textAnchor="middle" fill="#ffffff" fontSize="7.5" fontFamily="monospace">worktree-claude: 9fa1c</text>
 
                         {/* Branch 2 commits (Silver & Platinum) */}
                         <circle cx="200" cy="160" r="4.5" fill="#121218" stroke="#d4d4d8" strokeWidth="2" />
                         <circle cx="250" cy="160" r="4.5" fill="#121218" stroke="#e4e4e7" strokeWidth="2" />
                         <circle cx="290" cy="160" r="5" fill="#e4e4e7" stroke="#ffffff" strokeWidth="1.5" />
-                        <text x="290" y="178" textAnchor="middle" fill="#e4e4e7" fontSize="7.5" fontFamily="monospace">worktree-codex: 3b40e</text>
-
+                        <text x="290" y="178" textAnchor="middle" fill="#ffffff" fontSize="7.5" fontFamily="monospace">worktree-codex: 3b40e</text>
                       </svg>
                     </div>
                   </div>
@@ -780,7 +777,7 @@ export default function CapabilitiesCardStack() {
               y: buttonY,
               pointerEvents: buttonPointerEvents,
             }}
-            className="mt-5 sm:mt-6 z-40 flex items-center justify-center"
+            className="mt-5 sm:mt-6 mb-10 sm:mb-14 z-40 flex items-center justify-center"
           >
             <Link
               href="/capabilities"

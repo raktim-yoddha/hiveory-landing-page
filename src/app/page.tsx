@@ -90,7 +90,7 @@ export default function Home() {
 
           {/* Strictly Two-Line High-Impact Display Headline */}
           <h1 className="relative z-10 w-full text-center text-3xl sm:text-4xl md:text-5xl lg:text-[56px] xl:text-[62px] font-medium tracking-[-0.03em] text-white leading-[1.1] sm:leading-[1.08] mb-6 mx-auto">
-            <span className="block sm:whitespace-nowrap">The ultimate agent super app</span>
+            <span className="block sm:whitespace-nowrap">Ship 100x with agent super app</span>
             <span className="text-zinc-400 font-normal block mt-2 sm:mt-3 text-xl sm:text-2xl md:text-3xl lg:text-[38px] xl:text-[44px] tracking-[-0.02em]">
               Code, chat & automate
             </span>

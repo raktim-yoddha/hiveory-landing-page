@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useTime } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -272,6 +272,10 @@ const capabilitiesData: CapabilityData[] = [
 export default function CapabilitiesCardStack() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [bottomOffset, setBottomOffset] = useState<number>(1200);
+
+  // Synchronized animation clock for the pipeline stream
+  const streamTime = useTime();
+  const streamY = useTransform(streamTime, (t) => -320 + ((t % 14000) / 14000) * 320);
 
   useEffect(() => {
     const updateOffset = () => {
@@ -596,17 +600,15 @@ export default function CapabilitiesCardStack() {
                       {/* Subtle Ambient Center Lighting */}
                       <div className="absolute w-[360px] h-[360px] bg-white/[0.04] blur-[80px] rounded-full pointer-events-none" />
 
-                      {/* LAYER A (UPPER STREAM): Entering cards flowing down into Hiveory logo - Flowing right from the very top */}
+                      {/* LAYER A (UPPER STREAM): Smaller cards entering the center line */}
                       <div
                         style={{
-                          maskImage: "linear-gradient(to bottom, black 0px, black calc(50% - 24px), transparent 50%)",
-                          WebkitMaskImage: "linear-gradient(to bottom, black 0px, black calc(50% - 24px), transparent 50%)",
                           clipPath: "inset(0 0 50% 0)",
                         }}
                         className="absolute inset-0 overflow-hidden pointer-events-none flex justify-center z-10"
                       >
-                        <div
-                          style={{ animation: "hostStreamDown 14s linear infinite" }}
+                        <motion.div
+                          style={{ y: streamY }}
                           className="flex flex-col gap-[12px] items-center w-full px-4 will-change-transform"
                         >
                           {streamTasks.map((item, idx) => (
@@ -629,31 +631,30 @@ export default function CapabilitiesCardStack() {
                               </div>
                             </div>
                           ))}
-                        </div>
+                        </motion.div>
                       </div>
 
-                      {/* CENTRAL ENGINE NODE: Seamless Blackness behind Hiveory logo badge */}
+                      {/* Light-colored center line across the pipeline stage */}
+                      <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent shadow-[0_0_8px_rgba(255,255,255,0.2)] z-20 pointer-events-none" />
+
+                      {/* Hiveory Icon Badge - Centered on top of the line without outer square box */}
                       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex items-center justify-center pointer-events-none">
-                        {/* Soft Ambient Blackness - Seamlessly blends cards into container background */}
-                        <div className="absolute w-[440px] h-[120px] bg-[radial-gradient(ellipse_at_center,#0b0b10_45%,rgba(11,11,16,0.92)_70%,transparent_100%)] blur-md pointer-events-none" />
-
-                        {/* Standalone Hiveory Icon Badge */}
-                        <div className="relative w-14 h-14 rounded-2xl bg-white border border-zinc-200/90 shadow-[0_8px_25px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,1)] flex items-center justify-center z-10">
-                          <img src="/hiveory-logo.png" alt="Hiveory" className="w-8 h-8 object-contain" />
-                        </div>
+                        <img
+                          src="/hiveory-logo.png"
+                          alt="Hiveory"
+                          className="w-11 h-11 object-contain rounded-xl drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] border border-white/20 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                        />
                       </div>
 
-                      {/* LAYER B (LOWER STREAM): Synchronized 1-to-1 output stream - Emerging seamlessly from blackness */}
+                      {/* LAYER B (LOWER STREAM): Bigger cards appearing from the center line */}
                       <div
                         style={{
-                          maskImage: "linear-gradient(to bottom, transparent 50%, black calc(50% + 24px), black calc(100% - 36px), transparent calc(100% - 10px), transparent 100%)",
-                          WebkitMaskImage: "linear-gradient(to bottom, transparent 50%, black calc(50% + 24px), black calc(100% - 36px), transparent calc(100% - 10px), transparent 100%)",
-                          clipPath: "inset(50% 0 1px 0)",
+                          clipPath: "inset(50% 0 0 0)",
                         }}
                         className="absolute inset-0 overflow-hidden pointer-events-none flex justify-center z-10"
                       >
-                        <div
-                          style={{ animation: "hostStreamDown 14s linear infinite" }}
+                        <motion.div
+                          style={{ y: streamY }}
                           className="flex flex-col gap-[12px] items-center w-full px-4 will-change-transform"
                         >
                           {streamTasks.map((item, idx) => (
@@ -687,7 +688,7 @@ export default function CapabilitiesCardStack() {
                               </div>
                             </div>
                           ))}
-                        </div>
+                        </motion.div>
                       </div>
                     </div>
                   </div>

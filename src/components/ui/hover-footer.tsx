@@ -57,17 +57,16 @@ export const TextHoverEffect = ({
         pt.y = e.clientY;
         const svgP = pt.matrixTransform(ctm.inverse());
 
-        // In viewBox 0 0 300 100, the letters HIVEORY span Y: 18 to 82, X: 10 to 290
-        // Top half of letters (18-50) and bottom half (50-82) are both fully hoverable.
-        // Once cursor moves past the letters (Y < 18 or Y > 82), hover immediately stops.
-        if (svgP.y >= 18 && svgP.y <= 82 && svgP.x >= 10 && svgP.x <= 290) {
+        // In viewBox 0 0 300 100, the letters HIVEORY span from X ~ -10 ('H') to X ~ 310 ('Y')
+        // Allow generous bounds so extreme left and extreme right are fully hoverable.
+        if (svgP.y >= 5 && svgP.y <= 95 && svgP.x >= -30 && svgP.x <= 330) {
           setHovered(true);
           setCursor({ x: e.clientX, y: e.clientY });
         } else {
           setHovered(false);
         }
       }}
-      className={cn("select-none uppercase cursor-pointer", className)}
+      className={cn("select-none uppercase cursor-pointer overflow-visible", className)}
     >
       <defs>
         {/* Dynamic monochrome gradient continuously cycling between white, silver, and blackish */}
@@ -156,7 +155,7 @@ export const TextHoverEffect = ({
         <motion.radialGradient
           id="revealMask"
           gradientUnits="userSpaceOnUse"
-          r={hovered ? "25%" : "0%"}
+          r={hovered ? "28%" : "0%"}
           initial={{ cx: "50%", cy: "50%" }}
           animate={maskPosition}
           transition={{ duration: duration ?? 0, ease: "easeOut" }}
@@ -164,12 +163,12 @@ export const TextHoverEffect = ({
           <stop offset="0%" stopColor="white" />
           <stop offset="100%" stopColor="black" />
         </motion.radialGradient>
-        <mask id="textMask">
+        <mask id="textMask" x="-30%" y="-30%" width="160%" height="160%">
           <rect
-            x="0"
-            y="0"
-            width="100%"
-            height="100%"
+            x="-30%"
+            y="-30%"
+            width="160%"
+            height="160%"
             fill="url(#revealMask)"
           />
         </mask>
@@ -371,6 +370,9 @@ export function HoverFooter() {
             <p className="text-sm text-zinc-400 leading-relaxed">
               A local-first desktop super app uniting autonomous agents, a multi-CLI development environment, and isolated AI chat threads over your own files.
             </p>
+            <p className="text-xs text-zinc-500 pointer-events-auto pt-2">
+              &copy; {new Date().getFullYear()} Hiveory. Open Source under MIT License.
+            </p>
           </div>
 
           {/* Footer link sections */}
@@ -437,19 +439,11 @@ export function HoverFooter() {
           </div>
         </div>
 
-        <hr className="border-t border-white/[0.08] my-8" />
-
-        {/* Footer bottom */}
-        <div className="flex justify-center items-center text-sm text-zinc-500">
-          {/* Copyright */}
-          <p className="text-center text-xs sm:text-sm pointer-events-auto">
-            &copy; {new Date().getFullYear()} Hiveory. Open Source under MIT License.
-          </p>
-        </div>
+        <hr className="border-t border-white/[0.08] mt-10 sm:mt-12" />
       </div>
 
       {/* Text hover effect with white-silver-blackish continuous theme */}
-      <div className="flex justify-center items-center h-[24rem] sm:h-[30rem] -mt-36 sm:-mt-52 -mb-28 sm:-mb-36 pointer-events-auto overflow-hidden relative z-30">
+      <div className="flex justify-center items-center h-[24rem] sm:h-[30rem] -mt-20 sm:-mt-28 -mb-20 sm:-mb-28 pointer-events-auto overflow-hidden relative z-30">
         <TextHoverEffect text="HIVEORY" className="w-full h-full z-50" />
       </div>
 

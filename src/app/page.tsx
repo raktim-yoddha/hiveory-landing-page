@@ -97,8 +97,13 @@ export default function Home() {
           </h1>
 
           {/* Crisp Narrative Subtitle */}
-          <p className="relative z-10 max-w-2xl mx-auto text-base sm:text-lg text-zinc-400/90 leading-relaxed font-normal mb-10">
-            A local-first desktop workspace for AI agents, software development, and standalone AI chat. Built with Tauri and a privileged Rust host with zero cloud dependency.
+          <p className="relative z-10 max-w-[820px] mx-auto text-base sm:text-lg text-zinc-400/90 leading-relaxed font-normal mb-10">
+            <span className="lg:block">
+              A local-first desktop workspace for AI agents, software development, and standalone AI chat.
+            </span>{" "}
+            <span className="lg:block">
+              Built with Tauri and a privileged Rust host with zero cloud dependency.
+            </span>
           </p>
 
           {/* Call to Action Buttons */}

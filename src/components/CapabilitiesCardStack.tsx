@@ -778,7 +778,7 @@ export default function CapabilitiesCardStack() {
               y: buttonY,
               pointerEvents: buttonPointerEvents,
             }}
-            className="mt-4 sm:mt-5 mb-10 sm:mb-14 z-40 flex items-center justify-center"
+            className="mt-8 sm:mt-10 lg:mt-12 mb-10 sm:mb-14 z-40 flex items-center justify-center"
           >
             <Link
               href="/capabilities"

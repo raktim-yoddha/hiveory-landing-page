@@ -6,12 +6,11 @@ import ProductCardStack from "@/components/ProductCardStack";
 import CapabilitiesCardStack from "@/components/CapabilitiesCardStack";
 import HoverFooter from "@/components/ui/hover-footer";
 import { triggerLatestDownload, getLatestRelease } from "@/lib/download";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [starCount, setStarCount] = useState<string>("2");
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
   const [demoTier, setDemoTier] = useState<"custom" | "enterprise">("custom");
@@ -23,6 +22,43 @@ export default function Home() {
     message: "",
   });
 
+  // Smooth scroll-driven animation for the Hiveory desktop demo image
+  const { scrollY } = useScroll();
+
+  // Map scrollY range (0 to 420px) to normalized [0, 1] progress
+  const rawScrollProgress = useTransform(scrollY, [0, 420], [0, 1], {
+    clamp: true,
+  });
+
+  // High-performance critically-damped spring physics:
+  // Interpolates discrete mouse-wheel ticks into an ultra-smooth 60/120fps glide
+  // with instantaneous responsiveness (~30ms, no lag, no bounce)
+  const smoothProgress = useSpring(rawScrollProgress, {
+    stiffness: 320,
+    damping: 32,
+    mass: 0.15,
+    restDelta: 0.0001,
+  });
+
+  // Desktop image transform values (preserves exact starting and ending sizes)
+  const demoMaxWidth = useTransform(
+    smoothProgress,
+    (p) => `min(${684 + p * 556}px, calc((100vh - 84px) * (16 / 9)))`
+  );
+  const demoScale = useTransform(smoothProgress, [0, 1], [0.94, 1.0]);
+  const demoBoxShadow = useTransform(
+    smoothProgress,
+    (p) => `0 ${15 + p * 25}px ${40 + p * 40}px -15px rgba(0,0,0,${0.8 + p * 0.18})`
+  );
+  const demoBorderColor = useTransform(
+    smoothProgress,
+    (p) => `rgba(255, 255, 255, ${0.1 + p * 0.1})`
+  );
+
+  // Ambient back-glow transform values
+  const glowWidth = useTransform(smoothProgress, (p) => `${50 + p * 40}%`);
+  const glowOpacity = useTransform(smoothProgress, (p) => 0.35 + p * 0.55);
+
   const openDemoModal = (tier: "custom" | "enterprise") => {
     setDemoTier(tier);
     setDemoSubmitted(false);
@@ -30,16 +66,6 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      const y = window.scrollY;
-      // Scroll expansion progress: starts immediately as user scrolls (from 10px to 420px)
-      const progress = Math.min(Math.max((y - 10) / 410, 0), 1);
-      setScrollProgress(progress);
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
     // Prewarm latest release info from GitHub API for instantaneous downloads
     getLatestRelease().catch(() => {});
 
@@ -56,8 +82,6 @@ export default function Home() {
         }
       })
       .catch(() => {});
-
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -222,27 +246,25 @@ export default function Home() {
         className="relative w-full flex flex-col items-center justify-center px-4 sm:px-6 pt-6 sm:pt-10 pb-20 sm:pb-28 z-20 overflow-visible"
       >
         {/* Ambient back-glow that gently brightens */}
-        <div
-          className="pointer-events-none absolute -top-12 left-1/2 -translate-x-1/2 h-64 bg-blue-500/10 blur-[130px] rounded-full transition-all duration-500 ease-out"
+        <motion.div
+          className="pointer-events-none absolute -top-12 left-1/2 -translate-x-1/2 h-64 bg-blue-500/10 blur-[130px] rounded-full will-change-[width,opacity]"
           style={{
-            width: `${50 + scrollProgress * 40}%`,
-            opacity: 0.35 + scrollProgress * 0.55,
+            width: glowWidth,
+            opacity: glowOpacity,
           }}
         />
 
         {/* The Desktop Image container: Small starting size framed by flow lines, smoothly expands to fill screen */}
-        <div
-          className="relative rounded-none overflow-hidden transition-[max-width,transform,box-shadow,border-color] duration-300 ease-out will-change-transform flex items-center justify-center"
+        <motion.div
+          className="relative rounded-none overflow-hidden will-change-transform flex items-center justify-center"
           style={{
             width: "100%",
             maxHeight: "calc(100vh - 84px)",
-            maxWidth: `min(${684 + scrollProgress * 556}px, calc((100vh - 84px) * (16 / 9)))`,
+            maxWidth: demoMaxWidth,
             aspectRatio: "16 / 9",
-            transform: `scale(${0.94 + scrollProgress * 0.06})`,
-            boxShadow: `0 ${15 + scrollProgress * 25}px ${
-              40 + scrollProgress * 40
-            }px -15px rgba(0,0,0,${0.8 + scrollProgress * 0.18})`,
-            borderColor: `rgba(255, 255, 255, ${0.1 + scrollProgress * 0.1})`,
+            scale: demoScale,
+            boxShadow: demoBoxShadow,
+            borderColor: demoBorderColor,
             borderWidth: "1px",
             borderStyle: "solid",
           }}
@@ -256,7 +278,7 @@ export default function Home() {
             priority
             quality={95}
           />
-        </div>
+        </motion.div>
       </section>
 
       {/* SECTION: The 3 Modes Stacking Cards Product Section */}

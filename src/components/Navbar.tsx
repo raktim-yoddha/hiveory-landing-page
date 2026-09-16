@@ -4,21 +4,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { triggerLatestDownload } from "@/lib/download";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [isScrolled, setIsScrolled] = useState(false);
   const [starCount, setStarCount] = useState<string>("Star");
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Monitor scroll position with high performance outside React render cycle
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setIsScrolled(latest > 20);
+  });
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
     // Fetch GitHub stars for raktim-yoddha/hiveory
     fetch("https://api.github.com/repos/raktim-yoddha/hiveory")
       .then((res) => res.json())
@@ -32,8 +33,6 @@ export default function Navbar() {
         }
       })
       .catch(() => {});
-
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navLinks = [
@@ -45,23 +44,63 @@ export default function Navbar() {
   ];
 
   return (
-    <header
-      className={`fixed top-0 inset-x-0 z-50 w-full flex justify-center pointer-events-none transition-[padding] duration-500 ease-out ${
-        isScrolled ? "pt-0 px-0" : "pt-2 sm:pt-3 px-2 sm:px-4"
-      }`}
+    <motion.header
+      className="fixed top-0 inset-x-0 z-50 w-full flex justify-center pointer-events-none"
+      initial={false}
+      animate={{
+        paddingTop: isScrolled ? 0 : 10,
+        paddingLeft: isScrolled ? 0 : 16,
+        paddingRight: isScrolled ? 0 : 16,
+      }}
+      transition={{
+        duration: 0.35,
+        ease: [0.16, 1, 0.3, 1],
+      }}
     >
-      <nav
-        className={`w-full pointer-events-auto flex items-center justify-center backdrop-blur-xl transition-all duration-500 ease-out ${
-          isScrolled
-            ? "max-w-full rounded-none px-3 sm:px-6 py-2.5 sm:py-3 bg-[#070709]/95 border-b border-white/[0.08] border-t-transparent border-x-transparent shadow-2xl"
-            : "max-w-[920px] rounded-2xl px-3 sm:px-6 py-2 sm:py-2.5 bg-[#121216]/80 border border-white/[0.1] shadow-2xl"
-        }`}
+      <motion.nav
+        className="w-full pointer-events-auto flex items-center justify-center backdrop-blur-xl px-3 sm:px-6 shadow-2xl"
+        initial={false}
+        animate={{
+          maxWidth: isScrolled ? "2560px" : "920px",
+          borderRadius: isScrolled ? "0px" : "16px",
+          backgroundColor: isScrolled
+            ? "rgba(7, 7, 9, 0.96)"
+            : "rgba(18, 18, 22, 0.8)",
+          paddingTop: isScrolled ? "12px" : "9px",
+          paddingBottom: isScrolled ? "12px" : "9px",
+          borderTopColor: isScrolled
+            ? "rgba(255, 255, 255, 0)"
+            : "rgba(255, 255, 255, 0.1)",
+          borderLeftColor: isScrolled
+            ? "rgba(255, 255, 255, 0)"
+            : "rgba(255, 255, 255, 0.1)",
+          borderRightColor: isScrolled
+            ? "rgba(255, 255, 255, 0)"
+            : "rgba(255, 255, 255, 0.1)",
+          borderBottomColor: isScrolled
+            ? "rgba(255, 255, 255, 0.08)"
+            : "rgba(255, 255, 255, 0.1)",
+        }}
+        style={{
+          borderWidth: "1px",
+          borderStyle: "solid",
+        }}
+        transition={{
+          duration: 0.35,
+          ease: [0.16, 1, 0.3, 1],
+        }}
       >
-        {/* Inner content container: Minimal difference between floating (900px) and sticky (930px) */}
-        <div
-          className={`relative w-full flex items-center justify-between transition-[max-width] duration-500 ease-out ${
-            isScrolled ? "max-w-[930px]" : "max-w-[900px]"
-          }`}
+        {/* Inner content container: Smoothly widens from floating (900px) to sticky (930px) in one motion */}
+        <motion.div
+          className="relative w-full flex items-center justify-between"
+          initial={false}
+          animate={{
+            maxWidth: isScrolled ? "930px" : "900px",
+          }}
+          transition={{
+            duration: 0.35,
+            ease: [0.16, 1, 0.3, 1],
+          }}
         >
           {/* Left Brand */}
           <Link
@@ -201,8 +240,8 @@ export default function Navbar() {
               <span>Download</span>
             </button>
           </div>
-        </div>
-      </nav>
-    </header>
+        </motion.div>
+      </motion.nav>
+    </motion.header>
   );
 }

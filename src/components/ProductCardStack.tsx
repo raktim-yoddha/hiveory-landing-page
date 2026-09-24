@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -54,6 +53,7 @@ const modesData: ModeCard[] = [
 
 export default function ProductCardStack() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   // References to compute exact trajectory contact points with zero gap
   const topBoxRef = useRef<HTMLDivElement>(null);
@@ -74,6 +74,15 @@ export default function ProductCardStack() {
     width: number;
     height: number;
   } | null>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const updateCoords = () => {
@@ -184,13 +193,7 @@ export default function ProductCardStack() {
       <div className="relative w-full max-w-6xl mx-auto flex flex-col items-center">
 
         {/* 1. CENTRAL TOP NODE: HIVEORY LOGO BOX */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="relative z-20 flex flex-col items-center"
-        >
+        <div className="relative z-20 flex flex-col items-center">
           {/* Central Technical Box */}
           <div
             ref={topBoxRef}
@@ -214,7 +217,7 @@ export default function ProductCardStack() {
               />
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* ===================================================================== */}
         {/* 2. CABLE BRANCHING NETWORK (Lines touch all boxes in middle of ceiling)*/}
@@ -283,13 +286,9 @@ export default function ProductCardStack() {
               index === 0 ? card0Ref : index === 1 ? card1Ref : card2Ref;
 
             return (
-              <motion.div
+              <div
                 key={mode.id}
                 ref={cardRef}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4 }}
                 onMouseEnter={() => setHoveredCard(index)}
                 onMouseLeave={() => setHoveredCard(null)}
                 className={`group relative rounded-none border transition-all duration-300 bg-[#0c0c11] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.06)] flex flex-col p-6 sm:p-7 ${
@@ -330,29 +329,29 @@ export default function ProductCardStack() {
                     </span>
                   </div>
 
-                  {/* Title: Strictly ONE line */}
-                  <h3 className="text-xl sm:text-2xl font-medium text-white tracking-tight mb-2 truncate whitespace-nowrap">
+                  {/* Title */}
+                  <h3 className="text-xl sm:text-2xl font-medium text-white tracking-tight mb-2 truncate">
                     {mode.title}
                   </h3>
 
-                  {/* Description: Strictly ONE line */}
-                  <p className="text-xs sm:text-[13px] text-zinc-400 font-normal leading-relaxed truncate whitespace-nowrap">
+                  {/* Description */}
+                  <p className="text-xs sm:text-[13px] text-zinc-400 font-normal leading-relaxed break-words">
                     {mode.subtitle}
                   </p>
 
-                  {/* Small Separator after Description (just like the pricing cards) */}
+                  {/* Small Separator after Description */}
                   <div className="w-full border-b border-white/[0.08] my-5" />
 
-                  {/* Four Key Points with White Tick Bullets: Strictly ONE line each */}
+                  {/* Four Key Points with White Tick Bullets */}
                   <ul className="space-y-3.5 flex-1">
                     {mode.keyPoints.map((point, i) => (
                       <li
                         key={i}
-                        className="flex items-center gap-2.5 text-xs sm:text-[13px] text-zinc-300 min-w-0"
+                        className="flex items-start sm:items-center gap-2.5 text-xs sm:text-[13px] text-zinc-300 min-w-0"
                       >
                         {/* White tick bullet mark */}
                         <svg
-                          className="w-4 h-4 text-white shrink-0"
+                          className="w-4 h-4 text-white shrink-0 mt-0.5 sm:mt-0"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
@@ -364,14 +363,14 @@ export default function ProductCardStack() {
                             d="M4.5 12.75l6 6 9-13.5"
                           />
                         </svg>
-                        <span className="truncate whitespace-nowrap text-zinc-300 font-normal">
+                        <span className="text-zinc-300 font-normal break-words leading-snug">
                           {point}
                         </span>
                       </li>
                     ))}
                   </ul>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
@@ -379,13 +378,7 @@ export default function ProductCardStack() {
         {/* ===================================================================== */}
         {/* 4. SEE MORE DETAILS BUTTON                                            */}
         {/* ===================================================================== */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="z-20 flex items-center justify-center"
-        >
+        <div className="z-20 flex items-center justify-center">
           <Link
             href="/product"
             className="group/btn relative inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-lg"
@@ -422,7 +415,7 @@ export default function ProductCardStack() {
               →
             </span>
           </Link>
-        </motion.div>
+        </div>
 
       </div>
     </section>

@@ -145,7 +145,7 @@ export default function ByoCliSection() {
           {/* RIGHT COLUMN: FRAMED ANIMATION BOUNDARY BOX (Matches Goji Berry Image 3) */}
           <div className="lg:col-span-7 flex items-center justify-center w-full">
             {/* BOUNDARY BOX CONTAINER with unified technical corners */}
-            <div className="relative w-full max-w-[480px] h-[460px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden select-none">
+            <div className="relative w-full max-w-[480px] h-[380px] xs:h-[420px] sm:h-[460px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden select-none">
               
               {/* Corner Boundary Highlight Brackets aligned with outer corners */}
               <div className="absolute -top-[1px] -left-[1px] w-3.5 h-3.5 border-t-2 border-l-2 border-white/50 pointer-events-none z-30" />
@@ -156,6 +156,8 @@ export default function ByoCliSection() {
               {/* Ambient Center Glow */}
               <div className="absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[240px] bg-white/[0.03] blur-[80px] rounded-full pointer-events-none" />
 
+              {/* Scaled Inner 3D Box & Conveyor Stream for Narrow Viewports */}
+              <div className="absolute inset-0 scale-[0.74] xs:scale-[0.84] sm:scale-100 origin-bottom">
               {/* FLOATING SHADOW UNDER THE 3D PARCEL BOX */}
               <div
                 style={{ animation: "byoShadowFloat 2.4s ease-in-out infinite" }}
@@ -406,6 +408,7 @@ export default function ByoCliSection() {
                     strokeWidth="1.5"
                   />
                 </svg>
+              </div>
               </div>
 
             </div>

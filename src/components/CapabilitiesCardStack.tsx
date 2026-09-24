@@ -272,18 +272,20 @@ const capabilitiesData: CapabilityData[] = [
 export default function CapabilitiesCardStack() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [bottomOffset, setBottomOffset] = useState<number>(1200);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   // Synchronized animation clock for the pipeline stream
   const streamTime = useTime();
   const streamY = useTransform(streamTime, (t) => -320 + ((t % 14000) / 14000) * 320);
 
   useEffect(() => {
-    const updateOffset = () => {
+    const updateDimensions = () => {
       setBottomOffset(window.innerHeight + 150);
+      setIsMobile(window.innerWidth < 1024);
     };
-    updateOffset();
-    window.addEventListener("resize", updateOffset);
-    return () => window.removeEventListener("resize", updateOffset);
+    updateDimensions();
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
   const { scrollYProgress } = useScroll({
@@ -367,16 +369,16 @@ export default function CapabilitiesCardStack() {
         </p>
       </div>
 
-      {/* Sticky Overlapping Cards Container (3-Card Stack) */}
-      <section ref={sectionRef} className="relative w-full h-[320vh] z-20">
-        {/* Sticky Viewport Frame - with clearance below fixed navbar */}
-        <div className="sticky top-20 sm:top-[84px] lg:top-[88px] w-full flex flex-col items-center justify-start pb-8 sm:pb-10 px-4 sm:px-6 lg:px-8 pointer-events-none">
-          {/* Overriding Taller Cards Area - Moderately wider, balanced */}
-          <div className="relative w-full max-w-[1240px] h-[500px] sm:h-[520px] md:h-[535px] lg:h-[545px] pointer-events-auto">
-            {/* CARD 0: Bring your own CLI - In place from start */}
+      {/* Overlapping Cards Container: On mobile, normal sequential flow without scroll-jacking; on desktop, sticky 320vh scroll stack */}
+      <section ref={sectionRef} className={isMobile ? "relative w-full h-auto py-6 sm:py-10 z-20" : "relative w-full h-[320vh] z-20"}>
+        {/* Sticky/Relative Viewport Frame */}
+        <div className={isMobile ? "relative w-full flex flex-col items-center justify-start pb-6 px-4 sm:px-6 pointer-events-auto" : "sticky top-20 sm:top-[84px] lg:top-[88px] w-full flex flex-col items-center justify-start pb-8 sm:pb-10 px-4 sm:px-6 lg:px-8 pointer-events-none"}>
+          {/* Cards Area: Stacked vertically on mobile, single overlaid area on desktop */}
+          <div className={isMobile ? "relative w-full max-w-[1240px] flex flex-col gap-6 sm:gap-8 pointer-events-auto" : "relative w-full max-w-[1240px] h-[500px] sm:h-[520px] md:h-[535px] lg:h-[545px] pointer-events-auto"}>
+            {/* CARD 0: Bring your own CLI */}
             <motion.div
-              style={{ y: 0, zIndex: 10 }}
-              className="group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-4 sm:p-5 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300"
+              style={isMobile ? { y: 0, zIndex: 1 } : { y: 0, zIndex: 10 }}
+              className={isMobile ? "group relative w-full rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95)] p-5 sm:p-7 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300 min-h-[460px]" : "group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-4 sm:p-5 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300"}
             >
               {/* Corner boundary highlight brackets */}
               <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -394,7 +396,7 @@ export default function CapabilitiesCardStack() {
                     </span>
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl lg:text-[26px] xl:text-[28px] font-medium text-white tracking-[-0.015em] leading-tight mb-4 lg:whitespace-nowrap">
+                  <h3 className="text-xl sm:text-2xl lg:text-[26px] xl:text-[28px] font-medium text-white tracking-[-0.015em] leading-tight mb-4">
                     {capabilitiesData[0].title}
                   </h3>
 
@@ -405,7 +407,7 @@ export default function CapabilitiesCardStack() {
 
                 {/* Right Side: 3D Box Dipping Animation with 12 Verified CLI Logos - Balanced width, tight card edges */}
                 <div className="lg:col-span-6 flex items-center justify-end w-full h-full">
-                  <div className="relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] lg:h-full lg:max-h-[530px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden select-none">
+                  <div className="relative w-full max-w-[540px] h-[330px] sm:h-[400px] md:h-[460px] lg:h-full lg:max-h-[530px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden select-none">
                     {/* Corner highlights */}
                     <div className="absolute -top-[1px] -left-[1px] w-3.5 h-3.5 border-t-2 border-l-2 border-white/50 pointer-events-none z-30" />
                     <div className="absolute -top-[1px] -right-[1px] w-3.5 h-3.5 border-t-2 border-r-2 border-white/50 pointer-events-none z-30" />
@@ -417,7 +419,7 @@ export default function CapabilitiesCardStack() {
 
                     {/* Scaled Animation Stage - Enclosing both conveyor & 3D box to scale animation proportionally with box */}
                     <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-                      <div className="relative w-[480px] h-[430px] scale-105 sm:scale-110 lg:scale-[1.12] origin-center">
+                      <div className="relative w-[480px] h-[430px] scale-[0.68] xs:scale-[0.80] sm:scale-100 lg:scale-[1.12] origin-center">
                         {/* Floating shadow under taller box */}
                         <div
                           style={{ animation: "byoShadowFloat 2.4s ease-in-out infinite" }}
@@ -559,8 +561,8 @@ export default function CapabilitiesCardStack() {
 
             {/* CARD 1: Privileged Rust Host & SQLite WAL */}
             <motion.div
-              style={{ y: y1, zIndex: 20 }}
-              className="group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-4 sm:p-5 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300"
+              style={isMobile ? { y: 0, zIndex: 2 } : { y: y1, zIndex: 20 }}
+              className={isMobile ? "group relative w-full rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95)] p-5 sm:p-7 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300 min-h-[460px]" : "group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-4 sm:p-5 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300"}
             >
               <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
               <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -577,7 +579,7 @@ export default function CapabilitiesCardStack() {
                     </span>
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl lg:text-[26px] xl:text-[28px] font-medium text-white tracking-[-0.015em] leading-tight mb-4 lg:whitespace-nowrap">
+                  <h3 className="text-xl sm:text-2xl lg:text-[26px] xl:text-[28px] font-medium text-white tracking-[-0.015em] leading-tight mb-4">
                     {capabilitiesData[1].title}
                   </h3>
 
@@ -698,8 +700,8 @@ export default function CapabilitiesCardStack() {
 
             {/* CARD 2: Git Worktree Isolation (Card 3/3) */}
             <motion.div
-              style={{ y: y2, zIndex: 30 }}
-              className="group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-4 sm:p-5 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300"
+              style={isMobile ? { y: 0, zIndex: 3 } : { y: y2, zIndex: 30 }}
+              className={isMobile ? "group relative w-full rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95)] p-5 sm:p-7 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300 min-h-[460px]" : "group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-4 sm:p-5 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300"}
             >
               <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
               <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -716,7 +718,7 @@ export default function CapabilitiesCardStack() {
                     </span>
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl lg:text-[26px] xl:text-[28px] font-medium text-white tracking-[-0.015em] leading-tight mb-4 lg:whitespace-nowrap">
+                  <h3 className="text-xl sm:text-2xl lg:text-[26px] xl:text-[28px] font-medium text-white tracking-[-0.015em] leading-tight mb-4">
                     {capabilitiesData[2].title}
                   </h3>
 
@@ -771,14 +773,18 @@ export default function CapabilitiesCardStack() {
             </motion.div>
           </div>
 
-          {/* See More Details Button - Appears only after 4th card lands */}
+          {/* See More Details Button - Appears statically on mobile, on desktop appears after 3rd card lands */}
           <motion.div
-            style={{
-              opacity: buttonOpacity,
-              y: buttonY,
-              pointerEvents: buttonPointerEvents,
-            }}
-            className="mt-8 sm:mt-10 lg:mt-12 mb-10 sm:mb-14 z-40 flex items-center justify-center"
+            style={
+              isMobile
+                ? { opacity: 1, y: 0, pointerEvents: "auto" }
+                : {
+                    opacity: buttonOpacity,
+                    y: buttonY,
+                    pointerEvents: buttonPointerEvents,
+                  }
+            }
+            className="mt-6 sm:mt-10 lg:mt-12 mb-6 sm:mb-14 z-40 flex items-center justify-center"
           >
             <Link
               href="/capabilities"

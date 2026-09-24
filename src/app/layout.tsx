@@ -58,8 +58,10 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/hiveory-logo.png?v=hiveory" />
         <link rel="apple-touch-icon" href="/hiveory-logo.png?v=hiveory" />
       </head>
-      <body className="min-h-screen bg-[#070709] text-[#f4f4f5] antialiased selection:bg-white/20 selection:text-white font-sans">
-        {children}
+      <body className="min-h-screen bg-[#060608] text-[#f4f4f5] antialiased selection:bg-white/20 selection:text-white font-sans overflow-x-clip">
+        <div className="w-full max-w-[1536px] mx-auto relative min-h-screen flex flex-col justify-between overflow-x-clip">
+          {children}
+        </div>
         <Analytics />
       </body>
     </html>

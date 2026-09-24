@@ -84,21 +84,21 @@ export default function DocsPage() {
         </div>
 
         {/* Quickstart Code Block */}
-        <div className="relative max-w-3xl mx-auto mb-20 rounded-none border border-white/10 bg-[#09090d] p-6 shadow-2xl">
+        <div className="relative max-w-3xl mx-auto mb-20 rounded-none border border-white/10 bg-[#09090d] p-4 sm:p-6 shadow-2xl">
           {/* Corner Brackets - Sitting directly on the boundary */}
           <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 pointer-events-none" />
           <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 pointer-events-none" />
           <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 pointer-events-none" />
           <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 pointer-events-none" />
 
-          <div className="flex items-center justify-between border-b border-white/[0.06] pb-3 mb-4 text-xs font-mono text-zinc-400">
-            <span className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-none bg-red-500/80" />
-              <span className="w-2.5 h-2.5 rounded-none bg-yellow-500/80" />
-              <span className="w-2.5 h-2.5 rounded-none bg-emerald-500/80" />
-              <span className="ml-2 text-zinc-300">Terminal Quickstart (Windows PowerShell)</span>
+          <div className="flex items-center justify-between border-b border-white/[0.06] pb-3 mb-4 text-xs font-mono text-zinc-400 gap-2">
+            <span className="flex items-center gap-2 min-w-0">
+              <span className="w-2.5 h-2.5 rounded-none bg-red-500/80 shrink-0" />
+              <span className="w-2.5 h-2.5 rounded-none bg-yellow-500/80 shrink-0" />
+              <span className="w-2.5 h-2.5 rounded-none bg-emerald-500/80 shrink-0" />
+              <span className="ml-1 sm:ml-2 text-zinc-300 truncate">Terminal Quickstart (Windows PowerShell)</span>
             </span>
-            <span className="text-zinc-500">powershell</span>
+            <span className="text-zinc-500 shrink-0 hidden xs:inline">powershell</span>
           </div>
           <pre className="font-mono text-sm text-zinc-300 leading-relaxed overflow-x-auto">
             <code>

@@ -174,4 +174,21 @@ html {
   50% { transform: translate3d(-50%, 0, 0) scaleX(1.08); opacity: 0.48; }
 }
 
+/* Disable all animations and transforms for community cards on mobile devices */
+@media (max-width: 767px) {
+  .community-card-mobile-static {
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  /* Ensure product modes section and cards are fully visible without animation dependencies */
+  #product-modes,
+  #product-modes .group {
+    opacity: 1 !important;
+  }
+}
+
+
 

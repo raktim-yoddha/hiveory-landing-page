@@ -48,6 +48,37 @@ export const TextHoverEffect = ({
       viewBox="0 0 300 100"
       xmlns="http://www.w3.org/2000/svg"
       onMouseLeave={() => setHovered(false)}
+      onTouchEnd={() => setHovered(false)}
+      onTouchStart={(e) => {
+        if (!svgRef.current || !e.touches[0]) return;
+        const touch = e.touches[0];
+        const ctm = svgRef.current.getScreenCTM();
+        if (!ctm) return;
+        const pt = svgRef.current.createSVGPoint();
+        pt.x = touch.clientX;
+        pt.y = touch.clientY;
+        const svgP = pt.matrixTransform(ctm.inverse());
+        if (svgP.y >= 5 && svgP.y <= 95 && svgP.x >= -30 && svgP.x <= 330) {
+          setHovered(true);
+          setCursor({ x: touch.clientX, y: touch.clientY });
+        }
+      }}
+      onTouchMove={(e) => {
+        if (!svgRef.current || !e.touches[0]) return;
+        const touch = e.touches[0];
+        const ctm = svgRef.current.getScreenCTM();
+        if (!ctm) return;
+        const pt = svgRef.current.createSVGPoint();
+        pt.x = touch.clientX;
+        pt.y = touch.clientY;
+        const svgP = pt.matrixTransform(ctm.inverse());
+        if (svgP.y >= 5 && svgP.y <= 95 && svgP.x >= -30 && svgP.x <= 330) {
+          setHovered(true);
+          setCursor({ x: touch.clientX, y: touch.clientY });
+        } else {
+          setHovered(false);
+        }
+      }}
       onMouseMove={(e) => {
         if (!svgRef.current) return;
         const ctm = svgRef.current.getScreenCTM();
@@ -348,9 +379,9 @@ export function HoverFooter() {
   ];
 
   return (
-    <footer className="bg-[#0F0F11]/40 border border-white/[0.08] relative h-fit rounded-none sm:rounded-3xl overflow-hidden m-4 sm:m-8 z-20 shadow-2xl backdrop-blur-xl">
-      <div className="max-w-7xl mx-auto p-8 sm:p-14 z-40 relative pointer-events-none">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 lg:gap-16 pb-12">
+    <footer className="bg-[#0F0F11]/40 border border-white/[0.08] relative h-fit rounded-none sm:rounded-3xl overflow-hidden m-3 sm:m-8 z-20 shadow-2xl backdrop-blur-xl">
+      <div className="max-w-7xl mx-auto p-5 sm:p-14 z-40 relative pointer-events-none">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-8 lg:gap-16 pb-8 sm:pb-12">
           {/* Brand section */}
           <div className="flex flex-col space-y-4">
             <Link href="/" className="flex items-center space-x-3 group pointer-events-auto">
@@ -363,25 +394,22 @@ export function HoverFooter() {
                   className="w-full h-full object-contain rounded-md"
                 />
               </div>
-              <span className="text-white text-3xl font-medium tracking-tight">
+              <span className="text-white text-2xl sm:text-3xl font-medium tracking-tight">
                 Hiveory
               </span>
             </Link>
-            <p className="text-sm text-zinc-400 leading-relaxed">
+            <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
               A local-first desktop super app uniting autonomous agents, a multi-CLI development environment, and isolated AI chat threads over your own files.
-            </p>
-            <p className="text-xs text-zinc-500 pointer-events-auto pt-2">
-              &copy; {new Date().getFullYear()} Hiveory. Open Source under MIT License.
             </p>
           </div>
 
           {/* Footer link sections */}
           {footerLinks.map((section) => (
             <div key={section.title}>
-              <h4 className="text-white text-lg font-semibold mb-6">
+              <h4 className="text-white text-base sm:text-lg font-semibold mb-4 sm:mb-6">
                 {section.title}
               </h4>
-              <ul className="space-y-3 pointer-events-auto">
+              <ul className="space-y-2.5 sm:space-y-3 pointer-events-auto">
                 {section.links.map((link) => (
                   <li key={link.label} className="relative">
                     {link.href.startsWith("http") ? (
@@ -389,14 +417,14 @@ export function HoverFooter() {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-zinc-400 hover:text-white transition-colors text-sm"
+                        className="text-zinc-400 hover:text-white transition-colors text-xs sm:text-sm"
                       >
                         {link.label}
                       </a>
                     ) : (
                       <Link
                         href={link.href}
-                        className="text-zinc-400 hover:text-white transition-colors text-sm"
+                        className="text-zinc-400 hover:text-white transition-colors text-xs sm:text-sm"
                       >
                         {link.label}
                       </Link>
@@ -412,12 +440,12 @@ export function HoverFooter() {
 
           {/* Contact section */}
           <div>
-            <h4 className="text-white text-lg font-semibold mb-6">
+            <h4 className="text-white text-base sm:text-lg font-semibold mb-4 sm:mb-6">
               Connect
             </h4>
-            <ul className="space-y-4 pointer-events-auto">
+            <ul className="space-y-3 sm:space-y-4 pointer-events-auto">
               {contactInfo.map((item, i) => (
-                <li key={i} className="flex items-center space-x-3 text-sm text-zinc-400">
+                <li key={i} className="flex items-center space-x-3 text-xs sm:text-sm text-zinc-400">
                   {item.icon}
                   {item.href ? (
                     <a
@@ -439,11 +467,30 @@ export function HoverFooter() {
           </div>
         </div>
 
-        <hr className="border-t border-white/[0.08] mt-10 sm:mt-12" />
+        <hr className="border-t border-white/[0.08] mt-6 sm:mt-12" />
+
+        {/* Bottom copyright and social icons bar */}
+        <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-4 pt-6 text-xs text-zinc-500 pointer-events-auto">
+          <p>&copy; {new Date().getFullYear()} Hiveory. Open Source under MIT License.</p>
+          <div className="flex items-center gap-4">
+            {socialLinks.map((item, idx) => (
+              <a
+                key={idx}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-zinc-400 hover:text-white transition-colors p-1"
+                aria-label={item.label}
+              >
+                {item.icon}
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* Text hover effect with white-silver-blackish continuous theme */}
-      <div className="flex justify-center items-center h-[24rem] sm:h-[30rem] -mt-20 sm:-mt-28 -mb-20 sm:-mb-28 pointer-events-auto overflow-hidden relative z-30">
+      {/* Text hover effect with responsive height for mobile and desktop */}
+      <div className="flex justify-center items-center h-[10rem] xs:h-[13rem] sm:h-[22rem] md:h-[28rem] -mt-6 sm:-mt-20 md:-mt-28 -mb-4 sm:-mb-20 md:-mb-28 pointer-events-auto overflow-hidden relative z-30">
         <TextHoverEffect text="HIVEORY" className="w-full h-full z-50" />
       </div>
 

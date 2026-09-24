@@ -10,6 +10,111 @@ import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "fra
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+function CommunityCard({
+  icon,
+  buttonIcon,
+  badge,
+  title,
+  description,
+  buttonText,
+  buttonHref,
+  initialDesktop,
+  transitionDelay = 0,
+  isMobile,
+}: {
+  icon: React.ReactNode;
+  buttonIcon: React.ReactNode;
+  badge: string;
+  title: string;
+  description: string;
+  buttonText: string;
+  buttonHref: string;
+  initialDesktop: { opacity: number; x?: number; y?: number };
+  transitionDelay?: number;
+  isMobile: boolean;
+}) {
+  const cardBody = (
+    <>
+      {/* Outer Card Corner Brackets - Sitting directly on the boundary */}
+      <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+      <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+      <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+      <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+
+      <div>
+        <div className="flex items-center justify-between mb-6">
+          <div className="p-2.5 rounded-none bg-white/[0.04] border border-white/10">
+            {icon}
+          </div>
+          <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500 bg-white/[0.03] px-2.5 py-1 rounded-none border border-white/[0.06]">
+            {badge}
+          </span>
+        </div>
+
+        <h3 className="text-xl font-medium text-white mb-2 tracking-tight">
+          {title}
+        </h3>
+
+        <p className="text-sm text-zinc-400 leading-relaxed mb-8">
+          {description}
+        </p>
+      </div>
+
+      <a
+        href={buttonHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group/btn relative w-full inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#0c0c10] border border-white/20 sm:hover:border-white text-white sm:transition-all sm:duration-300 cursor-pointer active:scale-[0.98]"
+      >
+        {/* Outer Boundary Corner L-Brackets */}
+        <span className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
+        <span className="absolute -top-[1px] -right-[1px] w-2 h-2 border-t-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
+        <span className="absolute -bottom-[1px] -left-[1px] w-2 h-2 border-b-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
+        <span className="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-b-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
+
+        {/* Inner Expanding White Filler */}
+        <span className="absolute inset-y-1 left-1 w-9 bg-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:w-[calc(100%-8px)] pointer-events-none rounded-none" />
+
+        <span className="relative z-10 flex items-center gap-3">
+          <span className="w-9 h-9 flex items-center justify-center text-black shrink-0 transition-colors duration-300">
+            {buttonIcon}
+          </span>
+          <span className="text-sm font-semibold text-white group-hover/btn:text-black transition-colors duration-300">
+            {buttonText}
+          </span>
+        </span>
+
+        <span className="relative z-10 text-white/50 group-hover/btn:text-black group-hover/btn:translate-x-1 transition-all duration-300">
+          ↗
+        </span>
+      </a>
+    </>
+  );
+
+  const cardClasses =
+    "community-card-mobile-static group relative rounded-none border border-white/[0.12] sm:hover:border-white/30 bg-[#0c0c10]/90 sm:hover:bg-[#111116] p-6 sm:p-8 flex flex-col justify-between sm:transition-all sm:duration-300 shadow-xl max-md:![transform:none] max-md:![opacity:1] max-md:![transition:none]";
+
+  if (isMobile) {
+    return (
+      <div className={cardClasses}>
+        {cardBody}
+      </div>
+    );
+  }
+
+  return (
+    <motion.div
+      initial={initialDesktop}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      viewport={{ once: true, margin: "0px 0px 250px 0px", amount: 0.1 }}
+      transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: transitionDelay }}
+      className={cardClasses}
+    >
+      {cardBody}
+    </motion.div>
+  );
+}
+
 export default function Home() {
   const [starCount, setStarCount] = useState<string>("2");
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
@@ -21,6 +126,16 @@ export default function Home() {
     company: "",
     message: "",
   });
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Smooth scroll-driven animation for the Hiveory desktop demo image
   const { scrollY } = useScroll();
@@ -97,7 +212,7 @@ export default function Home() {
   }, [isDemoModalOpen]);
 
   return (
-    <div className="bg-[#060608] relative min-h-screen w-full flex flex-col justify-between overflow-x-clip selection:bg-white/20 selection:text-white">
+    <div className="bg-[#060608] relative min-h-screen w-full max-w-[1536px] mx-auto flex flex-col justify-between overflow-x-clip selection:bg-white/20 selection:text-white">
       {/* Subtle vignette border gradient overlay */}
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(6,6,8,0.5)_65%,#060608_100%)] z-0" />
 
@@ -105,7 +220,7 @@ export default function Home() {
       <Navbar />
 
       {/* Main Hero Section with Gojiberry Flowing Lines Animation in White Theme */}
-      <section className="relative flex-1 flex flex-col items-center justify-center text-center w-full pt-44 sm:pt-56 md:pt-60 pb-14 sm:pb-20 z-10 overflow-visible">
+      <section className="relative flex-1 flex flex-col items-center justify-center text-center w-full pt-40 sm:pt-56 md:pt-60 pb-14 sm:pb-20 z-10 overflow-visible">
         {/* Background Flowing Lines & Isometric Geometry System spanning edge-to-edge */}
         <HeroFlowLines />
 
@@ -113,9 +228,9 @@ export default function Home() {
         <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-5xl mx-auto px-4">
 
           {/* Strictly Two-Line High-Impact Display Headline */}
-          <h1 className="relative z-10 w-full text-center text-3xl sm:text-4xl md:text-5xl lg:text-[56px] xl:text-[62px] font-medium tracking-[-0.03em] text-white leading-[1.1] sm:leading-[1.08] mb-6 mx-auto">
+          <h1 className="relative z-10 w-full text-center text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-[56px] xl:text-[62px] font-medium tracking-[-0.03em] text-white leading-[1.15] sm:leading-[1.08] mb-6 mx-auto">
             <span className="block sm:whitespace-nowrap">Ship 100x with agent super app</span>
-            <span className="text-zinc-400 font-normal block mt-2 sm:mt-3 text-xl sm:text-2xl md:text-3xl lg:text-[38px] xl:text-[44px] tracking-[-0.02em]">
+            <span className="text-zinc-400 font-normal block mt-2 sm:mt-3 text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-[38px] xl:text-[44px] tracking-[-0.02em]">
               Code, chat & automate
             </span>
           </h1>
@@ -240,34 +355,55 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION: Hiveory Desktop App Image (Smooth scroll expansion from compact framed start to full screen) */}
+      {/* SECTION: Hiveory Desktop App Image (Smooth scroll expansion on desktop, static responsive frame on mobile) */}
       <section
         id="ade-preview"
-        className="relative w-full flex flex-col items-center justify-center px-4 sm:px-6 pt-6 sm:pt-10 pb-20 sm:pb-28 z-20 overflow-visible"
+        className="relative w-full flex flex-col items-center justify-center px-4 sm:px-6 pt-6 sm:pt-10 pb-16 sm:pb-28 z-20 overflow-visible"
       >
         {/* Ambient back-glow that gently brightens */}
         <motion.div
           className="pointer-events-none absolute -top-12 left-1/2 -translate-x-1/2 h-64 bg-blue-500/10 blur-[130px] rounded-full will-change-[width,opacity]"
-          style={{
-            width: glowWidth,
-            opacity: glowOpacity,
-          }}
+          style={
+            isMobile
+              ? {
+                  width: "90%",
+                  opacity: 0.45,
+                }
+              : {
+                  width: glowWidth,
+                  opacity: glowOpacity,
+                }
+          }
         />
 
-        {/* The Desktop Image container: Small starting size framed by flow lines, smoothly expands to fill screen */}
+        {/* The Desktop Image container: Static full responsive on mobile without scroll animations, smooth spring expansion on desktop */}
         <motion.div
           className="relative rounded-none overflow-hidden will-change-transform flex items-center justify-center"
-          style={{
-            width: "100%",
-            maxHeight: "calc(100vh - 84px)",
-            maxWidth: demoMaxWidth,
-            aspectRatio: "16 / 9",
-            scale: demoScale,
-            boxShadow: demoBoxShadow,
-            borderColor: demoBorderColor,
-            borderWidth: "1px",
-            borderStyle: "solid",
-          }}
+          style={
+            isMobile
+              ? {
+                  width: "100%",
+                  maxWidth: "100%",
+                  maxHeight: "calc(100vh - 84px)",
+                  aspectRatio: "16 / 9",
+                  scale: 1,
+                  boxShadow: "0 20px 50px -10px rgba(0, 0, 0, 0.85)",
+                  borderColor: "rgba(255, 255, 255, 0.15)",
+                  borderWidth: "1px",
+                  borderStyle: "solid",
+                }
+              : {
+                  width: "100%",
+                  maxHeight: "calc(100vh - 84px)",
+                  maxWidth: demoMaxWidth,
+                  aspectRatio: "16 / 9",
+                  scale: demoScale,
+                  boxShadow: demoBoxShadow,
+                  borderColor: demoBorderColor,
+                  borderWidth: "1px",
+                  borderStyle: "solid",
+                }
+          }
         >
           <Image
             src="/demo.png"
@@ -348,10 +484,10 @@ export default function Home() {
                 ].map((f, i) => (
                   <li
                     key={i}
-                    className="text-sm text-zinc-300 flex items-center gap-2.5 whitespace-nowrap overflow-hidden"
+                    className="text-sm text-zinc-300 flex items-start sm:items-center gap-2.5 min-w-0"
                   >
                     <svg
-                      className="w-4 h-4 shrink-0 text-white"
+                      className="w-4 h-4 shrink-0 text-white mt-0.5 sm:mt-0"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -363,7 +499,7 @@ export default function Home() {
                         d="M4.5 12.75l6 6 9-13.5"
                       />
                     </svg>
-                    <span className="truncate">{f}</span>
+                    <span className="text-zinc-300 leading-snug break-words">{f}</span>
                   </li>
                 ))}
               </ul>
@@ -443,10 +579,10 @@ export default function Home() {
                 ].map((f, i) => (
                   <li
                     key={i}
-                    className="text-sm text-zinc-300 flex items-center gap-2.5 whitespace-nowrap overflow-hidden"
+                    className="text-sm text-zinc-300 flex items-start sm:items-center gap-2.5 min-w-0"
                   >
                     <svg
-                      className="w-4 h-4 shrink-0 text-sky-400"
+                      className="w-4 h-4 shrink-0 text-sky-400 mt-0.5 sm:mt-0"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -458,7 +594,7 @@ export default function Home() {
                         d="M4.5 12.75l6 6 9-13.5"
                       />
                     </svg>
-                    <span className="truncate">{f}</span>
+                    <span className="text-zinc-300 leading-snug break-words">{f}</span>
                   </li>
                 ))}
               </ul>
@@ -538,10 +674,10 @@ export default function Home() {
                 ].map((f, i) => (
                   <li
                     key={i}
-                    className="text-sm text-zinc-300 flex items-center gap-2.5 whitespace-nowrap overflow-hidden"
+                    className="text-sm text-zinc-300 flex items-start sm:items-center gap-2.5 min-w-0"
                   >
                     <svg
-                      className="w-4 h-4 shrink-0 text-amber-400"
+                      className="w-4 h-4 shrink-0 text-amber-400 mt-0.5 sm:mt-0"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -553,7 +689,7 @@ export default function Home() {
                         d="M4.5 12.75l6 6 9-13.5"
                       />
                     </svg>
-                    <span className="truncate">{f}</span>
+                    <span className="text-zinc-300 leading-snug break-words">{f}</span>
                   </li>
                 ))}
               </ul>
@@ -647,212 +783,76 @@ export default function Home() {
 
         {/* Community Channels Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Discord Card (Left: comes from left, triggers early on downward scroll) */}
-          <motion.div
-            initial={{ opacity: 0, x: -70 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "0px 0px 250px 0px", amount: 0.1 }}
-            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            className="group relative rounded-none border border-white/[0.12] hover:border-white/30 bg-[#0c0c10]/90 hover:bg-[#111116] p-8 flex flex-col justify-between transition-all duration-300 shadow-xl"
-          >
-            <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-            <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-            <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-            <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+          <CommunityCard
+            isMobile={isMobile}
+            initialDesktop={{ opacity: 0, x: -70 }}
+            icon={
+              <svg
+                className="w-6 h-6 fill-current text-[#5865F2]"
+                viewBox="0 0 24 24"
+              >
+                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
+              </svg>
+            }
+            buttonIcon={
+              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
+              </svg>
+            }
+            badge="Active Chat"
+            title="Discord Community"
+            description="Chat with fellow developers, share custom agent routines, get help, and participate in weekly community office hours."
+            buttonText="Join Discord Server"
+            buttonHref="https://discord.gg/sT8Maq6Cxs"
+          />
 
-            <div>
-              <div className="flex items-center justify-between mb-6">
-                <div className="p-2.5 rounded-none bg-white/[0.04] border border-white/10">
-                  <svg
-                    className="w-6 h-6 fill-current text-[#5865F2]"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
-                  </svg>
-                </div>
-                <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500 bg-white/[0.03] px-2.5 py-1 rounded-none border border-white/[0.06]">
-                  Active Chat
-                </span>
-              </div>
+          <CommunityCard
+            isMobile={isMobile}
+            initialDesktop={{ opacity: 0, y: 50 }}
+            transitionDelay={0.08}
+            icon={
+              <svg
+                className="w-6 h-6 fill-current text-white"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+            }
+            buttonIcon={
+              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+            }
+            badge="Open Source"
+            title="GitHub Repository"
+            description="Star the project, report bugs, file feature requests, review RFC proposals, and submit pull requests directly to the core codebase."
+            buttonText="Explore GitHub"
+            buttonHref="https://github.com/raktim-yoddha/hiveory"
+          />
 
-              <h3 className="text-xl font-medium text-white mb-2 tracking-tight">
-                Discord Community
-              </h3>
-
-              <p className="text-sm text-zinc-400 leading-relaxed mb-8">
-                Chat with fellow developers, share custom agent routines, get help, and participate in weekly community office hours.
-              </p>
-            </div>
-
-            <a
-              href="https://discord.gg/sT8Maq6Cxs"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group/btn relative w-full inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98]"
-            >
-              {/* Outer Boundary Corner L-Brackets */}
-              <span className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -top-[1px] -right-[1px] w-2 h-2 border-t-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -bottom-[1px] -left-[1px] w-2 h-2 border-b-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-b-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
-
-              {/* Inner Expanding White Filler covering Discord icon */}
-              <span className="absolute inset-y-1 left-1 w-9 bg-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:w-[calc(100%-8px)] pointer-events-none rounded-none" />
-
-              <span className="relative z-10 flex items-center gap-3">
-                <span className="w-9 h-9 flex items-center justify-center text-black shrink-0 transition-colors duration-300">
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
-                  </svg>
-                </span>
-                <span className="text-sm font-semibold text-white group-hover/btn:text-black transition-colors duration-300">
-                  Join Discord Server
-                </span>
-              </span>
-
-              <span className="relative z-10 text-white/50 group-hover/btn:text-black group-hover/btn:translate-x-1 transition-all duration-300">
-                ↗
-              </span>
-            </a>
-          </motion.div>
-
-          {/* GitHub Card (Center: comes from bottom, triggers early on downward scroll) */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "0px 0px 250px 0px", amount: 0.1 }}
-            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
-            className="group relative rounded-none border border-white/[0.12] hover:border-white/30 bg-[#0c0c10]/90 hover:bg-[#111116] p-8 flex flex-col justify-between transition-all duration-300 shadow-xl"
-          >
-            <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-            <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-            <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-            <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-
-            <div>
-              <div className="flex items-center justify-between mb-6">
-                <div className="p-2.5 rounded-none bg-white/[0.04] border border-white/10">
-                  <svg
-                    className="w-6 h-6 fill-current text-white"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                  </svg>
-                </div>
-                <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500 bg-white/[0.03] px-2.5 py-1 rounded-none border border-white/[0.06]">
-                  Open Source
-                </span>
-              </div>
-
-              <h3 className="text-xl font-medium text-white mb-2 tracking-tight">
-                GitHub Repository
-              </h3>
-
-              <p className="text-sm text-zinc-400 leading-relaxed mb-8">
-                Star the project, report bugs, file feature requests, review RFC proposals, and submit pull requests directly to the core codebase.
-              </p>
-            </div>
-
-            <a
-              href="https://github.com/raktim-yoddha/hiveory"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group/btn relative w-full inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98]"
-            >
-              {/* Outer Boundary Corner L-Brackets */}
-              <span className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -top-[1px] -right-[1px] w-2 h-2 border-t-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -bottom-[1px] -left-[1px] w-2 h-2 border-b-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-b-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
-
-              {/* Inner Expanding White Filler covering GitHub icon */}
-              <span className="absolute inset-y-1 left-1 w-9 bg-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:w-[calc(100%-8px)] pointer-events-none rounded-none" />
-
-              <span className="relative z-10 flex items-center gap-3">
-                <span className="w-9 h-9 flex items-center justify-center text-black shrink-0 transition-colors duration-300">
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                  </svg>
-                </span>
-                <span className="text-sm font-semibold text-white group-hover/btn:text-black transition-colors duration-300">
-                  Explore GitHub
-                </span>
-              </span>
-
-              <span className="relative z-10 text-white/50 group-hover/btn:text-black group-hover/btn:translate-x-1 transition-all duration-300">
-                ↗
-              </span>
-            </a>
-          </motion.div>
-
-          {/* YouTube Card (Right: comes from right, triggers early on downward scroll) */}
-          <motion.div
-            initial={{ opacity: 0, x: 70 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "0px 0px 250px 0px", amount: 0.1 }}
-            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
-            className="group relative rounded-none border border-white/[0.12] hover:border-white/30 bg-[#0c0c10]/90 hover:bg-[#111116] p-8 flex flex-col justify-between transition-all duration-300 shadow-xl"
-          >
-            <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-            <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-            <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-            <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-
-            <div>
-              <div className="flex items-center justify-between mb-6">
-                <div className="p-2.5 rounded-none bg-white/[0.04] border border-white/10">
-                  <svg
-                    className="w-6 h-6 fill-current text-[#FF0000]"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                  </svg>
-                </div>
-                <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500 bg-white/[0.03] px-2.5 py-1 rounded-none border border-white/[0.06]">
-                  Video Guides
-                </span>
-              </div>
-
-              <h3 className="text-xl font-medium text-white mb-2 tracking-tight">
-                YouTube Channel
-              </h3>
-
-              <p className="text-sm text-zinc-400 leading-relaxed mb-8">
-                Watch deep-dive video tutorials, live coding demonstrations, architecture breakdowns, and feature walkthroughs by the creators.
-              </p>
-            </div>
-
-            <a
-              href="https://www.youtube.com/@ttcislive"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group/btn relative w-full inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98]"
-            >
-              {/* Outer Boundary Corner L-Brackets */}
-              <span className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -top-[1px] -right-[1px] w-2 h-2 border-t-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -bottom-[1px] -left-[1px] w-2 h-2 border-b-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
-              <span className="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-b-2 border-r-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
-
-              {/* Inner Expanding White Filler covering YouTube icon */}
-              <span className="absolute inset-y-1 left-1 w-9 bg-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:w-[calc(100%-8px)] pointer-events-none rounded-none" />
-
-              <span className="relative z-10 flex items-center gap-3">
-                <span className="w-9 h-9 flex items-center justify-center text-black shrink-0 transition-colors duration-300">
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                  </svg>
-                </span>
-                <span className="text-sm font-semibold text-white group-hover/btn:text-black transition-colors duration-300">
-                  Watch on YouTube
-                </span>
-              </span>
-
-              <span className="relative z-10 text-white/50 group-hover/btn:text-black group-hover/btn:translate-x-1 transition-all duration-300">
-                ↗
-              </span>
-            </a>
-          </motion.div>
+          <CommunityCard
+            isMobile={isMobile}
+            initialDesktop={{ opacity: 0, x: 70 }}
+            transitionDelay={0.12}
+            icon={
+              <svg
+                className="w-6 h-6 fill-current text-[#FF0000]"
+                viewBox="0 0 24 24"
+              >
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+              </svg>
+            }
+            buttonIcon={
+              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+              </svg>
+            }
+            badge="Video Guides"
+            title="YouTube Channel"
+            description="Watch deep-dive video tutorials, live coding demonstrations, architecture breakdowns, and feature walkthroughs by the creators."
+            buttonText="Watch on YouTube"
+            buttonHref="https://www.youtube.com/@ttcislive"
+          />
         </div>
       </section>
 
@@ -976,7 +976,7 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.2 }}
-              className="relative w-full max-w-lg rounded-none border border-white/15 bg-[#0e0e12] p-6 sm:p-8 shadow-2xl z-10 overflow-hidden"
+              className="relative w-full max-w-lg rounded-none border border-white/15 bg-[#0e0e12] p-5 sm:p-8 shadow-2xl z-10 max-h-[90vh] overflow-y-auto"
             >
               {/* Corner Brackets */}
               <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 pointer-events-none" />

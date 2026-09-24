@@ -272,7 +272,7 @@ const capabilitiesData: CapabilityData[] = [
 export default function CapabilitiesCardStack() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [bottomOffset, setBottomOffset] = useState<number>(1200);
-  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [isMobileOrTablet, setIsMobileOrTablet] = useState<boolean>(false);
 
   // Synchronized animation clock for the pipeline stream
   const streamTime = useTime();
@@ -281,7 +281,10 @@ export default function CapabilitiesCardStack() {
   useEffect(() => {
     const updateDimensions = () => {
       setBottomOffset(window.innerHeight + 150);
-      setIsMobile(window.innerWidth < 1024);
+      const isPortrait = window.innerHeight > window.innerWidth || window.matchMedia("(orientation: portrait)").matches;
+      const isTouchTablet = window.matchMedia("(pointer: coarse)").matches && window.innerWidth <= 1376;
+      const isSmall = window.innerWidth < 1024;
+      setIsMobileOrTablet(isSmall || isPortrait || isTouchTablet);
     };
     updateDimensions();
     window.addEventListener("resize", updateDimensions);
@@ -295,17 +298,17 @@ export default function CapabilitiesCardStack() {
 
   // CARD 0 (BYO CLI): In place from start (y: 0, zIndex: 10)
   // CARD 1 (Rust Host & SQLite WAL): Rises [0.08, 0.44]
-  const y1 = useTransform(scrollYProgress, [0.08, 0.44], [bottomOffset, 0]);
+  const y1 = useTransform(scrollYProgress, [0.08, 0.44], [bottomOffset, 0], { clamp: true });
 
   // CARD 2 (Git Worktree Concurrency): Rises [0.48, 0.84]
-  const y2 = useTransform(scrollYProgress, [0.48, 0.84], [bottomOffset, 0]);
+  const y2 = useTransform(scrollYProgress, [0.48, 0.84], [bottomOffset, 0], { clamp: true });
 
-  // "See More Details" Button: Appears after 3rd card lands [0.84, 0.90, 1.0]
-  // Stays locked at opacity 1 on scroll down, fades away on scroll up
-  const buttonOpacity = useTransform(scrollYProgress, [0.84, 0.90, 1.0], [0, 1, 1]);
-  const buttonY = useTransform(scrollYProgress, [0.84, 0.90, 1.0], [28, 0, 0]);
+  // "See More Details" Button: Appears after 3rd card has landed [0.82, 0.90]
+  // Strictly 0 before 0.82, reaches 1.0 at 0.90, and stays locked at 1.0 through the end and beyond
+  const buttonOpacity = useTransform(scrollYProgress, [0, 0.82, 0.90, 1.0], [0, 0, 1, 1]);
+  const buttonY = useTransform(scrollYProgress, [0.82, 0.90, 1.0], [24, 0, 0]);
   const buttonPointerEvents = useTransform(scrollYProgress, (pos) =>
-    pos >= 0.86 ? "auto" : "none"
+    pos >= 0.85 ? "auto" : "none"
   );
 
   return (
@@ -325,6 +328,33 @@ export default function CapabilitiesCardStack() {
           80.0% { transform: translate3d(196px, 242px, 0) rotate(1deg); opacity: 1; }
           90.0% { transform: translate3d(196px, 282px, 0) rotate(0deg); opacity: 1; }
           100.0% { transform: translate3d(196px, 315px, 0) rotate(0deg); opacity: 1; }
+        }
+        @keyframes cliConveyorLeftMobile {
+          0.0% { transform: translate3d(-89px, 122px, 0) rotate(-4deg); opacity: 1; }
+          10.0% { transform: translate3d(-52px, 90px, 0) rotate(-3deg); opacity: 1; }
+          20.0% { transform: translate3d(-12px, 68px, 0) rotate(-1deg); opacity: 1; }
+          28.0% { transform: translate3d(28px, 58px, 0) rotate(0deg); opacity: 1; }
+          36.0% { transform: translate3d(66px, 62px, 0) rotate(2deg); opacity: 1; }
+          44.0% { transform: translate3d(102px, 80px, 0) rotate(4deg); opacity: 1; }
+          52.0% { transform: translate3d(132px, 110px, 0) rotate(6deg); opacity: 1; }
+          61.0% { transform: translate3d(154px, 150px, 0) rotate(5deg); opacity: 1; }
+          70.0% { transform: translate3d(166px, 196px, 0) rotate(3deg); opacity: 1; }
+          80.0% { transform: translate3d(172px, 242px, 0) rotate(1deg); opacity: 1; }
+          90.0% { transform: translate3d(172px, 282px, 0) rotate(0deg); opacity: 1; }
+          100.0% { transform: translate3d(172px, 315px, 0) rotate(0deg); opacity: 1; }
+        }
+        .cap-conveyor-left-item {
+          animation: cliConveyorLeft 9.6s linear infinite;
+        }
+        @media (max-width: 767px) {
+          .cap-conveyor-left-item {
+            animation-name: cliConveyorLeftMobile !important;
+          }
+        }
+        @media (min-width: 768px) {
+          .cap-conveyor-left-item {
+            animation-name: cliConveyorLeft !important;
+          }
         }
         @keyframes cliConveyorRight {
           0.0% { transform: translate3d(497px, 122px, 0) rotate(4deg); opacity: 1; }
@@ -369,16 +399,16 @@ export default function CapabilitiesCardStack() {
         </p>
       </div>
 
-      {/* Overlapping Cards Container: On mobile, normal sequential flow without scroll-jacking; on desktop, sticky 320vh scroll stack */}
-      <section ref={sectionRef} className={isMobile ? "relative w-full h-auto py-6 sm:py-10 z-20" : "relative w-full h-[320vh] z-20"}>
+      {/* Overlapping Cards Container: On mobile & tablet, normal sequential flow without scroll-jacking; on desktop, sticky 350vh scroll stack */}
+      <section ref={sectionRef} className={isMobileOrTablet ? "relative w-full h-auto py-6 sm:py-10 z-20" : "relative w-full min-h-[2400px] h-[350vh] z-20"}>
         {/* Sticky/Relative Viewport Frame */}
-        <div className={isMobile ? "relative w-full flex flex-col items-center justify-start pb-6 px-4 sm:px-6 pointer-events-auto" : "sticky top-20 sm:top-[84px] lg:top-[88px] w-full flex flex-col items-center justify-start pb-8 sm:pb-10 px-4 sm:px-6 lg:px-8 pointer-events-none"}>
-          {/* Cards Area: Stacked vertically on mobile, single overlaid area on desktop */}
-          <div className={isMobile ? "relative w-full max-w-[1240px] flex flex-col gap-6 sm:gap-8 pointer-events-auto" : "relative w-full max-w-[1240px] h-[500px] sm:h-[520px] md:h-[535px] lg:h-[545px] pointer-events-auto"}>
+        <div className={isMobileOrTablet ? "relative w-full flex flex-col items-center justify-start pb-6 px-4 sm:px-6 pointer-events-auto" : "sticky top-16 sm:top-[74px] lg:top-[78px] w-full flex flex-col items-center justify-start pb-4 sm:pb-6 px-4 sm:px-6 lg:px-8 pointer-events-none"}>
+          {/* Cards Area: Stacked vertically on mobile & tablet, single overlaid area on desktop */}
+          <div className={isMobileOrTablet ? "relative w-full max-w-[1240px] flex flex-col gap-6 sm:gap-8 pointer-events-auto" : "relative w-full max-w-[1240px] h-[480px] sm:h-[500px] md:h-[520px] lg:h-[530px] max-h-[calc(100vh-165px)] pointer-events-auto"}>
             {/* CARD 0: Bring your own CLI */}
             <motion.div
-              style={isMobile ? { y: 0, zIndex: 1 } : { y: 0, zIndex: 10 }}
-              className={isMobile ? "group relative w-full rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95)] p-5 sm:p-7 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300 min-h-[460px]" : "group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-4 sm:p-5 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300"}
+              style={isMobileOrTablet ? { y: 0, zIndex: 1 } : { y: 0, zIndex: 10 }}
+              className={isMobileOrTablet ? "group relative w-full rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95)] p-5 sm:p-7 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300 min-h-[460px]" : "group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-4 sm:p-5 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300"}
             >
               {/* Corner boundary highlight brackets */}
               <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -386,9 +416,9 @@ export default function CapabilitiesCardStack() {
               <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
               <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
 
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center h-full">
+              <div className={isMobileOrTablet ? "flex flex-col gap-6 items-center w-full" : "grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center h-full"}>
                 {/* Left Side: Number, 1-Line Heading, 3-Line Description */}
-                <div className="lg:col-span-6 flex flex-col justify-center min-w-0 pr-4 lg:pr-8">
+                <div className={isMobileOrTablet ? "w-full flex flex-col justify-center min-w-0" : "lg:col-span-6 flex flex-col justify-center min-w-0 pr-4 lg:pr-8"}>
                   <div className="mb-4 sm:mb-5">
                     <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-none bg-white/[0.03] border border-white/10 text-xs font-mono tracking-wider text-zinc-400">
                       <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
@@ -406,8 +436,8 @@ export default function CapabilitiesCardStack() {
                 </div>
 
                 {/* Right Side: 3D Box Dipping Animation with 12 Verified CLI Logos - Balanced width, tight card edges */}
-                <div className="lg:col-span-6 flex items-center justify-end w-full h-full">
-                  <div className="relative w-full max-w-[540px] h-[330px] sm:h-[400px] md:h-[460px] lg:h-full lg:max-h-[530px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden select-none">
+                <div className={isMobileOrTablet ? "w-full flex items-center justify-center" : "lg:col-span-6 flex items-center justify-end w-full h-full"}>
+                  <div className={isMobileOrTablet ? "relative w-full max-w-[540px] h-[330px] sm:h-[400px] md:h-[460px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden select-none" : "relative w-full max-w-[540px] h-[330px] sm:h-[400px] md:h-[460px] lg:h-full lg:max-h-[530px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden select-none"}>
                     {/* Corner highlights */}
                     <div className="absolute -top-[1px] -left-[1px] w-3.5 h-3.5 border-t-2 border-l-2 border-white/50 pointer-events-none z-30" />
                     <div className="absolute -top-[1px] -right-[1px] w-3.5 h-3.5 border-t-2 border-r-2 border-white/50 pointer-events-none z-30" />
@@ -419,7 +449,7 @@ export default function CapabilitiesCardStack() {
 
                     {/* Scaled Animation Stage - Enclosing both conveyor & 3D box to scale animation proportionally with box */}
                     <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-                      <div className="relative w-[480px] h-[430px] scale-[0.68] xs:scale-[0.80] sm:scale-100 lg:scale-[1.12] origin-center">
+                      <div className="relative w-[480px] min-w-[480px] h-[430px] shrink-0 scale-[0.68] xs:scale-[0.80] sm:scale-100 lg:scale-[1.12] origin-center">
                         {/* Floating shadow under taller box */}
                         <div
                           style={{ animation: "byoShadowFloat 2.4s ease-in-out infinite" }}
@@ -477,11 +507,10 @@ export default function CapabilitiesCardStack() {
                               <div
                                 key={`cap-left-${item.id}-${idx}`}
                                 style={{
-                                  animation: "cliConveyorLeft 9.6s linear infinite",
                                   animationDelay: `-${delay}s`,
                                   willChange: "transform",
                                 }}
-                                className="absolute top-0 left-0 pointer-events-auto"
+                                className="absolute top-0 left-0 pointer-events-auto cap-conveyor-left-item"
                               >
                                 <div className="relative w-[48px] h-[48px] rounded-[13px] bg-[#f0f2f5] border border-zinc-300/80 shadow-[0_6px_18px_-2px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.9),inset_0_-1px_2px_rgba(0,0,0,0.05)] flex items-center justify-center p-2 transition-transform hover:scale-110 cursor-pointer">
                                   <div className="w-[24px] h-[24px] flex items-center justify-center">
@@ -561,17 +590,17 @@ export default function CapabilitiesCardStack() {
 
             {/* CARD 1: Privileged Rust Host & SQLite WAL */}
             <motion.div
-              style={isMobile ? { y: 0, zIndex: 2 } : { y: y1, zIndex: 20 }}
-              className={isMobile ? "group relative w-full rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95)] p-5 sm:p-7 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300 min-h-[460px]" : "group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-4 sm:p-5 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300"}
+              style={isMobileOrTablet ? { y: 0, zIndex: 2 } : { y: y1, zIndex: 20 }}
+              className={isMobileOrTablet ? "group relative w-full rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95)] p-5 sm:p-7 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300 min-h-[460px]" : "group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-4 sm:p-5 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300"}
             >
               <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
               <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
               <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
               <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
 
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center h-full">
+              <div className={isMobileOrTablet ? "flex flex-col gap-6 items-center w-full" : "grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center h-full"}>
                 {/* Left Side: Number, 1-Line Heading, 3-Line Description */}
-                <div className="lg:col-span-6 flex flex-col justify-center min-w-0 pr-4 lg:pr-8">
+                <div className={isMobileOrTablet ? "w-full flex flex-col justify-center min-w-0" : "lg:col-span-6 flex flex-col justify-center min-w-0 pr-4 lg:pr-8"}>
                   <div className="mb-4 sm:mb-5">
                     <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-none bg-white/[0.03] border border-white/10 text-xs font-mono tracking-wider text-zinc-400">
                       <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
@@ -589,8 +618,8 @@ export default function CapabilitiesCardStack() {
                 </div>
 
                 {/* Right Side: Interactive Synchronized Lead/Agent Stream Matching Reference Image */}
-                <div className="lg:col-span-6 flex items-center justify-end w-full h-full">
-                  <div className="relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] lg:h-full lg:max-h-[530px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] flex flex-col justify-center overflow-hidden select-none">
+                <div className={isMobileOrTablet ? "w-full flex items-center justify-center" : "lg:col-span-6 flex items-center justify-end w-full h-full"}>
+                  <div className={isMobileOrTablet ? "relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] flex flex-col justify-center overflow-hidden select-none" : "relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] lg:h-full lg:max-h-[530px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] flex flex-col justify-center overflow-hidden select-none"}>
                     {/* Outer Boundary Corner Highlights */}
                     <div className="absolute -top-[1px] -left-[1px] w-3.5 h-3.5 border-t-2 border-l-2 border-white/50 pointer-events-none z-40" />
                     <div className="absolute -top-[1px] -right-[1px] w-3.5 h-3.5 border-t-2 border-r-2 border-white/50 pointer-events-none z-40" />
@@ -700,17 +729,17 @@ export default function CapabilitiesCardStack() {
 
             {/* CARD 2: Git Worktree Isolation (Card 3/3) */}
             <motion.div
-              style={isMobile ? { y: 0, zIndex: 3 } : { y: y2, zIndex: 30 }}
-              className={isMobile ? "group relative w-full rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95)] p-5 sm:p-7 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300 min-h-[460px]" : "group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-4 sm:p-5 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300"}
+              style={isMobileOrTablet ? { y: 0, zIndex: 3 } : { y: y2, zIndex: 30 }}
+              className={isMobileOrTablet ? "group relative w-full rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95)] p-5 sm:p-7 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300 min-h-[460px]" : "group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-4 sm:p-5 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300"}
             >
               <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
               <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
               <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
               <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
 
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center h-full">
+              <div className={isMobileOrTablet ? "flex flex-col gap-6 items-center w-full" : "grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center h-full"}>
                 {/* Left Side: Number, 1-Line Heading, 3-Line Description */}
-                <div className="lg:col-span-6 flex flex-col justify-center min-w-0 pr-4 lg:pr-8">
+                <div className={isMobileOrTablet ? "w-full flex flex-col justify-center min-w-0" : "lg:col-span-6 flex flex-col justify-center min-w-0 pr-4 lg:pr-8"}>
                   <div className="mb-4 sm:mb-5">
                     <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-none bg-white/[0.03] border border-white/10 text-xs font-mono tracking-wider text-zinc-400">
                       <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
@@ -728,8 +757,8 @@ export default function CapabilitiesCardStack() {
                 </div>
 
                 {/* Right Side: Git Worktrees Multi-Branch Visualizer (Golden, Silver, White - No Top/Bottom Text) */}
-                <div className="lg:col-span-6 flex items-center justify-end w-full h-full">
-                  <div className="relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] lg:h-full lg:max-h-[530px] rounded-none border border-white/[0.12] bg-[#0b0b10]/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] p-6 flex flex-col justify-center overflow-hidden select-none">
+                <div className={isMobileOrTablet ? "w-full flex items-center justify-center" : "lg:col-span-6 flex items-center justify-end w-full h-full"}>
+                  <div className={isMobileOrTablet ? "relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] rounded-none border border-white/[0.12] bg-[#0b0b10]/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] p-6 flex flex-col justify-center overflow-hidden select-none" : "relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] lg:h-full lg:max-h-[530px] rounded-none border border-white/[0.12] bg-[#0b0b10]/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] p-6 flex flex-col justify-center overflow-hidden select-none"}>
                     <div className="absolute -top-[1px] -left-[1px] w-3.5 h-3.5 border-t-2 border-l-2 border-white/50 pointer-events-none z-30" />
                     <div className="absolute -top-[1px] -right-[1px] w-3.5 h-3.5 border-t-2 border-r-2 border-white/50 pointer-events-none z-30" />
                     <div className="absolute -bottom-[1px] -left-[1px] w-3.5 h-3.5 border-b-2 border-l-2 border-white/50 pointer-events-none z-30" />
@@ -773,18 +802,18 @@ export default function CapabilitiesCardStack() {
             </motion.div>
           </div>
 
-          {/* See More Details Button - Appears statically on mobile, on desktop appears after 3rd card lands */}
+          {/* See More Details Button - Appears statically on mobile & tablet, on desktop appears after 3rd card lands */}
           <motion.div
             style={
-              isMobile
+              isMobileOrTablet
                 ? { opacity: 1, y: 0, pointerEvents: "auto" }
                 : {
-                    opacity: buttonOpacity,
-                    y: buttonY,
-                    pointerEvents: buttonPointerEvents,
-                  }
+                  opacity: buttonOpacity,
+                  y: buttonY,
+                  pointerEvents: buttonPointerEvents,
+                }
             }
-            className="mt-6 sm:mt-10 lg:mt-12 mb-6 sm:mb-14 z-40 flex items-center justify-center"
+            className="mt-3 sm:mt-4 lg:mt-5 mb-3 sm:mb-6 z-40 flex items-center justify-center"
           >
             <Link
               href="/capabilities"

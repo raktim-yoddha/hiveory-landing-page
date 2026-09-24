@@ -146,7 +146,7 @@ export default function ByoCliSection() {
           <div className="lg:col-span-7 flex items-center justify-center w-full">
             {/* BOUNDARY BOX CONTAINER with unified technical corners */}
             <div className="relative w-full max-w-[480px] h-[380px] xs:h-[420px] sm:h-[460px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden select-none">
-              
+
               {/* Corner Boundary Highlight Brackets aligned with outer corners */}
               <div className="absolute -top-[1px] -left-[1px] w-3.5 h-3.5 border-t-2 border-l-2 border-white/50 pointer-events-none z-30" />
               <div className="absolute -top-[1px] -right-[1px] w-3.5 h-3.5 border-t-2 border-r-2 border-white/50 pointer-events-none z-30" />
@@ -158,257 +158,257 @@ export default function ByoCliSection() {
 
               {/* Scaled Inner 3D Box & Conveyor Stream for Narrow Viewports */}
               <div className="absolute inset-0 scale-[0.74] xs:scale-[0.84] sm:scale-100 origin-bottom">
-              {/* FLOATING SHADOW UNDER THE 3D PARCEL BOX */}
-              <div
-                style={{ animation: "byoShadowFloat 2.4s ease-in-out infinite" }}
-                className="absolute bottom-7 left-1/2 -translate-x-1/2 w-[240px] h-3.5 bg-black/60 blur-md rounded-full pointer-events-none z-0"
-              />
+                {/* FLOATING SHADOW UNDER THE 3D PARCEL BOX */}
+                <div
+                  style={{ animation: "byoShadowFloat 2.4s ease-in-out infinite" }}
+                  className="absolute bottom-7 left-1/2 -translate-x-1/2 w-[240px] h-3.5 bg-black/60 blur-md rounded-full pointer-events-none z-0"
+                />
 
-              {/* ==================================================================== */}
-              {/* LAYER 1: SOLID CARDBOARD REAR & INTERIOR CAVITY (z-0)                */}
-              {/* Box floats rapidly up & down (y: [-5, 4, -5]) for tangible 3D effect */}
-              {/* ==================================================================== */}
-              <div
-                style={{ animation: "byoBoxFloat 2.4s ease-in-out infinite" }}
-                className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[360px] h-[250px] pointer-events-none z-0"
-              >
-                <svg className="w-full h-full overflow-visible block" viewBox="0 0 360 250" fill="none">
-                  <defs>
-                    <linearGradient id="rearFlapTone" x1="180" y1="18" x2="180" y2="65" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stopColor="#a3a8b4" />
-                      <stop offset="100%" stopColor="#8c929e" />
-                    </linearGradient>
-                    <linearGradient id="leftFlapTone" x1="20" y1="30" x2="90" y2="120" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stopColor="#9ea3af" />
-                      <stop offset="100%" stopColor="#888e9a" />
-                    </linearGradient>
-                    <linearGradient id="rightFlapTone" x1="340" y1="30" x2="270" y2="120" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stopColor="#9ea3af" />
-                      <stop offset="100%" stopColor="#888e9a" />
-                    </linearGradient>
-                    <linearGradient id="innerCavityTone" x1="180" y1="65" x2="180" y2="122" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stopColor="#787d89" />
-                      <stop offset="100%" stopColor="#8a8f9b" />
-                    </linearGradient>
-                    <linearGradient id="innerFloorTone" x1="180" y1="110" x2="180" y2="125" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stopColor="#656a76" />
-                      <stop offset="100%" stopColor="#707582" />
-                    </linearGradient>
-                    <linearGradient id="innerSideTone" x1="0" y1="0" x2="1" y2="0">
-                      <stop offset="0%" stopColor="#5f6470" />
-                      <stop offset="100%" stopColor="#7b808d" />
-                    </linearGradient>
-                  </defs>
+                {/* ==================================================================== */}
+                {/* LAYER 1: SOLID CARDBOARD REAR & INTERIOR CAVITY (z-0)                */}
+                {/* Box floats rapidly up & down (y: [-5, 4, -5]) for tangible 3D effect */}
+                {/* ==================================================================== */}
+                <div
+                  style={{ animation: "byoBoxFloat 2.4s ease-in-out infinite" }}
+                  className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[360px] h-[250px] pointer-events-none z-0"
+                >
+                  <svg className="w-full h-full overflow-visible block" viewBox="0 0 360 250" fill="none">
+                    <defs>
+                      <linearGradient id="rearFlapTone" x1="180" y1="18" x2="180" y2="65" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stopColor="#a3a8b4" />
+                        <stop offset="100%" stopColor="#8c929e" />
+                      </linearGradient>
+                      <linearGradient id="leftFlapTone" x1="20" y1="30" x2="90" y2="120" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stopColor="#9ea3af" />
+                        <stop offset="100%" stopColor="#888e9a" />
+                      </linearGradient>
+                      <linearGradient id="rightFlapTone" x1="340" y1="30" x2="270" y2="120" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stopColor="#9ea3af" />
+                        <stop offset="100%" stopColor="#888e9a" />
+                      </linearGradient>
+                      <linearGradient id="innerCavityTone" x1="180" y1="65" x2="180" y2="122" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stopColor="#787d89" />
+                        <stop offset="100%" stopColor="#8a8f9b" />
+                      </linearGradient>
+                      <linearGradient id="innerFloorTone" x1="180" y1="110" x2="180" y2="125" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stopColor="#656a76" />
+                        <stop offset="100%" stopColor="#707582" />
+                      </linearGradient>
+                      <linearGradient id="innerSideTone" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stopColor="#5f6470" />
+                        <stop offset="100%" stopColor="#7b808d" />
+                      </linearGradient>
+                    </defs>
 
-                  {/* 1. Rear Upright Open Flap (folds backward & up) */}
-                  <polygon
-                    points="110,18 250,18 268,65 92,65"
-                    fill="url(#rearFlapTone)"
-                    stroke="rgba(255, 255, 255, 0.6)"
-                    strokeWidth="1"
-                  />
-
-                  {/* 2. Left Angled Flap (angled up and left ~45 deg) */}
-                  <polygon
-                    points="30,35 92,65 70,122 8,92"
-                    fill="url(#leftFlapTone)"
-                    stroke="rgba(255, 255, 255, 0.5)"
-                    strokeWidth="1"
-                  />
-
-                  {/* 3. Right Angled Flap (angled up and right ~45 deg) */}
-                  <polygon
-                    points="268,65 330,35 352,92 290,122"
-                    fill="url(#rightFlapTone)"
-                    stroke="rgba(255, 255, 255, 0.5)"
-                    strokeWidth="1"
-                  />
-
-                  {/* 4. SOLID CARDBOARD INTERIOR CAVITY (ZERO BLACK GAP / VOID) */}
-                  {/* Inside Back Wall */}
-                  <polygon
-                    points="92,65 268,65 255,110 105,110"
-                    fill="url(#innerCavityTone)"
-                    stroke="rgba(255, 255, 255, 0.15)"
-                    strokeWidth="0.5"
-                  />
-
-                  {/* Inside Left Wall */}
-                  <polygon
-                    points="92,65 105,110 70,122"
-                    fill="url(#innerSideTone)"
-                  />
-
-                  {/* Inside Right Wall */}
-                  <polygon
-                    points="268,65 255,110 290,122"
-                    fill="url(#innerSideTone)"
-                  />
-
-                  {/* Inside Cavity Floor */}
-                  <polygon
-                    points="105,110 255,110 290,122 70,122"
-                    fill="url(#innerFloorTone)"
-                  />
-                </svg>
-              </div>
-
-              {/* ==================================================================== */}
-              {/* LAYER 2: DENSE, CONTINUOUS CONVEYOR STREAM OF 3D WHITE SQUIRCLES     */}
-              {/* Hardware-accelerated CSS keyframes with native negative delays       */}
-              {/* Smoothly arches down and dips behind front flap into cavity floor    */}
-              {/* ==================================================================== */}
-              <div className="absolute inset-0 z-10 pointer-events-none">
-                
-                {/* LEFT-SIDE INCOMING STREAM (Pre-populated, already flowing on mount) */}
-                {leftStreamLogos.map((item, idx) => {
-                  const delay = leftDelays[idx];
-                  return (
-                    <div
-                      key={`left-${item.id}-${idx}`}
-                      style={{
-                        animation: "cliConveyorLeft 9.6s linear infinite",
-                        animationDelay: `-${delay}s`,
-                        willChange: "transform",
-                      }}
-                      className="absolute top-0 left-0 pointer-events-auto"
-                    >
-                      {/* GRAYISH TACTILE SQUARE BOX MATCHING CAPABILITIES CARDS */}
-                      <div className="relative w-[48px] h-[48px] rounded-[13px] bg-[#f0f2f5] border border-zinc-300/80 shadow-[0_6px_18px_-2px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.9),inset_0_-1px_2px_rgba(0,0,0,0.05)] flex items-center justify-center p-2 transition-transform hover:scale-110 cursor-pointer">
-                        <div className="w-[24px] h-[24px] flex items-center justify-center">
-                          {item.icon}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-
-                {/* RIGHT-SIDE INCOMING STREAM (Pre-populated, already flowing on mount) */}
-                {rightStreamLogos.map((item, idx) => {
-                  const delay = rightDelays[idx];
-                  return (
-                    <div
-                      key={`right-${item.id}-${idx}`}
-                      style={{
-                        animation: "cliConveyorRight 9.6s linear infinite",
-                        animationDelay: `-${delay}s`,
-                        willChange: "transform",
-                      }}
-                      className="absolute top-0 left-0 pointer-events-auto"
-                    >
-                      {/* GRAYISH TACTILE SQUARE BOX MATCHING CAPABILITIES CARDS */}
-                      <div className="relative w-[48px] h-[48px] rounded-[13px] bg-[#f0f2f5] border border-zinc-300/80 shadow-[0_6px_18px_-2px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.9),inset_0_-1px_2px_rgba(0,0,0,0.05)] flex items-center justify-center p-2 transition-transform hover:scale-110 cursor-pointer">
-                        <div className="w-[24px] h-[24px] flex items-center justify-center">
-                          {item.icon}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* ==================================================================== */}
-              {/* LAYER 3: 3D CARDBOARD FRONT FLAP & FRONT FACE (z-20)                 */}
-              {/* Oscillates in perfect sync with Layer 1                              */}
-              {/* Front flap covers entering tiles as they dip into the cavity floor   */}
-              {/* ==================================================================== */}
-              <div
-                style={{ animation: "byoBoxFloat 2.4s ease-in-out infinite" }}
-                className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[360px] h-[250px] pointer-events-none z-20"
-              >
-                <svg className="w-full h-full overflow-visible block" viewBox="0 0 360 250" fill="none">
-                  <defs>
-                    {/* Woven Herringbone Pattern on Front Face (Exact Goji Berry texture) */}
-                    <pattern id="herringbonePattern" width="16" height="16" patternUnits="userSpaceOnUse">
-                      <path d="M 0 8 L 8 0 L 16 8 L 8 16 Z" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="0.8" />
-                      <path d="M 8 0 L 8 16 M 0 8 L 16 8" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="0.5" />
-                    </pattern>
-
-                    <linearGradient id="cartonFaceGrad" x1="180" y1="122" x2="180" y2="245" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stopColor="#a8adb8" />
-                      <stop offset="100%" stopColor="#9398a4" />
-                    </linearGradient>
-
-                    <linearGradient id="frontFlapCarton" x1="180" y1="75" x2="180" y2="122" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stopColor="#bcc1cc" />
-                      <stop offset="100%" stopColor="#a7acb8" />
-                    </linearGradient>
-
-                    {/* Soft Drop shadow filter for front flap onto front face */}
-                    <filter id="frontFlapDropShadow" x="-10%" y="-10%" width="120%" height="150%">
-                      <feDropShadow dx="0" dy="6" stdDeviation="5" floodColor="#000000" floodOpacity="0.3" />
-                    </filter>
-                  </defs>
-
-                  {/* 1. Solid Front Vertical Face of the Box (Light cardboard tone) */}
-                  <rect
-                    x="70"
-                    y="122"
-                    width="220"
-                    height="124"
-                    fill="url(#cartonFaceGrad)"
-                    stroke="rgba(255, 255, 255, 0.5)"
-                    strokeWidth="1"
-                  />
-
-                  {/* 2. Geometric Herringbone Pattern on Front Face */}
-                  <rect
-                    x="70"
-                    y="122"
-                    width="220"
-                    height="124"
-                    fill="url(#herringbonePattern)"
-                    opacity="0.3"
-                  />
-
-                  {/* 3. Front Flap Folded DOWN & Toward Viewer (Exact Goji Berry forward fold) */}
-                  {/* Top edge is closer to camera (wider: x=38 to x=322 at y=75) */}
-                  {/* Bottom edge is hinge along front face top: x=70 to x=290 at y=122 */}
-                  <polygon
-                    points="38,75 322,75 290,122 70,122"
-                    fill="url(#frontFlapCarton)"
-                    stroke="rgba(255, 255, 255, 0.75)"
-                    strokeWidth="1"
-                    filter="url(#frontFlapDropShadow)"
-                  />
-
-                  {/* 4. Top Lip Highlight on Front Flap */}
-                  <line
-                    x1="38"
-                    y1="75"
-                    x2="322"
-                    y2="75"
-                    stroke="rgba(255, 255, 255, 0.95)"
-                    strokeWidth="1.5"
-                  />
-
-                  {/* 5. Centered Metallic Hiveory Bee Logo on Front Face */}
-                  <g transform="translate(156, 158)">
-                    <rect
-                      x="0"
-                      y="0"
-                      width="48"
-                      height="48"
-                      rx="12"
-                      fill="#121218"
-                      stroke="rgba(255,255,255,0.18)"
+                    {/* 1. Rear Upright Open Flap (folds backward & up) */}
+                    <polygon
+                      points="110,18 250,18 268,65 92,65"
+                      fill="url(#rearFlapTone)"
+                      stroke="rgba(255, 255, 255, 0.6)"
                       strokeWidth="1"
-                      filter="drop-shadow(0 4px 12px rgba(0,0,0,0.4))"
                     />
-                    <image href="/hiveory-logo.png" x="5" y="5" width="38" height="38" />
-                  </g>
 
-                  {/* 6. Bottom Edge Shadow of Box */}
-                  <line
-                    x1="70"
-                    y1="245"
-                    x2="290"
-                    y2="245"
-                    stroke="rgba(0, 0, 0, 0.25)"
-                    strokeWidth="1.5"
-                  />
-                </svg>
-              </div>
+                    {/* 2. Left Angled Flap (angled up and left ~45 deg) */}
+                    <polygon
+                      points="30,35 92,65 70,122 8,92"
+                      fill="url(#leftFlapTone)"
+                      stroke="rgba(255, 255, 255, 0.5)"
+                      strokeWidth="1"
+                    />
+
+                    {/* 3. Right Angled Flap (angled up and right ~45 deg) */}
+                    <polygon
+                      points="268,65 330,35 352,92 290,122"
+                      fill="url(#rightFlapTone)"
+                      stroke="rgba(255, 255, 255, 0.5)"
+                      strokeWidth="1"
+                    />
+
+                    {/* 4. SOLID CARDBOARD INTERIOR CAVITY (ZERO BLACK GAP / VOID) */}
+                    {/* Inside Back Wall */}
+                    <polygon
+                      points="92,65 268,65 255,110 105,110"
+                      fill="url(#innerCavityTone)"
+                      stroke="rgba(255, 255, 255, 0.15)"
+                      strokeWidth="0.5"
+                    />
+
+                    {/* Inside Left Wall */}
+                    <polygon
+                      points="92,65 105,110 70,122"
+                      fill="url(#innerSideTone)"
+                    />
+
+                    {/* Inside Right Wall */}
+                    <polygon
+                      points="268,65 255,110 290,122"
+                      fill="url(#innerSideTone)"
+                    />
+
+                    {/* Inside Cavity Floor */}
+                    <polygon
+                      points="105,110 255,110 290,122 70,122"
+                      fill="url(#innerFloorTone)"
+                    />
+                  </svg>
+                </div>
+
+                {/* ==================================================================== */}
+                {/* LAYER 2: DENSE, CONTINUOUS CONVEYOR STREAM OF 3D WHITE SQUIRCLES     */}
+                {/* Hardware-accelerated CSS keyframes with native negative delays       */}
+                {/* Smoothly arches down and dips behind front flap into cavity floor    */}
+                {/* ==================================================================== */}
+                <div className="absolute inset-0 z-10 pointer-events-none">
+
+                  {/* LEFT-SIDE INCOMING STREAM (Pre-populated, already flowing on mount) */}
+                  {leftStreamLogos.map((item, idx) => {
+                    const delay = leftDelays[idx];
+                    return (
+                      <div
+                        key={`left-${item.id}-${idx}`}
+                        style={{
+                          animation: "cliConveyorLeft 9.6s linear infinite",
+                          animationDelay: `-${delay}s`,
+                          willChange: "transform",
+                        }}
+                        className="absolute top-0 left-0 pointer-events-auto"
+                      >
+                        {/* GRAYISH TACTILE SQUARE BOX MATCHING CAPABILITIES CARDS */}
+                        <div className="relative w-[48px] h-[48px] rounded-[13px] bg-[#f0f2f5] border border-zinc-300/80 shadow-[0_6px_18px_-2px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.9),inset_0_-1px_2px_rgba(0,0,0,0.05)] flex items-center justify-center p-2 transition-transform hover:scale-110 cursor-pointer">
+                          <div className="w-[24px] h-[24px] flex items-center justify-center">
+                            {item.icon}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+
+                  {/* RIGHT-SIDE INCOMING STREAM (Pre-populated, already flowing on mount) */}
+                  {rightStreamLogos.map((item, idx) => {
+                    const delay = rightDelays[idx];
+                    return (
+                      <div
+                        key={`right-${item.id}-${idx}`}
+                        style={{
+                          animation: "cliConveyorRight 9.6s linear infinite",
+                          animationDelay: `-${delay}s`,
+                          willChange: "transform",
+                        }}
+                        className="absolute top-0 left-0 pointer-events-auto"
+                      >
+                        {/* GRAYISH TACTILE SQUARE BOX MATCHING CAPABILITIES CARDS */}
+                        <div className="relative w-[48px] h-[48px] rounded-[13px] bg-[#f0f2f5] border border-zinc-300/80 shadow-[0_6px_18px_-2px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.9),inset_0_-1px_2px_rgba(0,0,0,0.05)] flex items-center justify-center p-2 transition-transform hover:scale-110 cursor-pointer">
+                          <div className="w-[24px] h-[24px] flex items-center justify-center">
+                            {item.icon}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* ==================================================================== */}
+                {/* LAYER 3: 3D CARDBOARD FRONT FLAP & FRONT FACE (z-20)                 */}
+                {/* Oscillates in perfect sync with Layer 1                              */}
+                {/* Front flap covers entering tiles as they dip into the cavity floor   */}
+                {/* ==================================================================== */}
+                <div
+                  style={{ animation: "byoBoxFloat 2.4s ease-in-out infinite" }}
+                  className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[360px] h-[250px] pointer-events-none z-20"
+                >
+                  <svg className="w-full h-full overflow-visible block" viewBox="0 0 360 250" fill="none">
+                    <defs>
+                      {/* Woven Herringbone Pattern on Front Face (Exact Goji Berry texture) */}
+                      <pattern id="herringbonePattern" width="16" height="16" patternUnits="userSpaceOnUse">
+                        <path d="M 0 8 L 8 0 L 16 8 L 8 16 Z" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="0.8" />
+                        <path d="M 8 0 L 8 16 M 0 8 L 16 8" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="0.5" />
+                      </pattern>
+
+                      <linearGradient id="cartonFaceGrad" x1="180" y1="122" x2="180" y2="245" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stopColor="#a8adb8" />
+                        <stop offset="100%" stopColor="#9398a4" />
+                      </linearGradient>
+
+                      <linearGradient id="frontFlapCarton" x1="180" y1="75" x2="180" y2="122" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stopColor="#bcc1cc" />
+                        <stop offset="100%" stopColor="#a7acb8" />
+                      </linearGradient>
+
+                      {/* Soft Drop shadow filter for front flap onto front face */}
+                      <filter id="frontFlapDropShadow" x="-10%" y="-10%" width="120%" height="150%">
+                        <feDropShadow dx="0" dy="6" stdDeviation="5" floodColor="#000000" floodOpacity="0.3" />
+                      </filter>
+                    </defs>
+
+                    {/* 1. Solid Front Vertical Face of the Box (Light cardboard tone) */}
+                    <rect
+                      x="70"
+                      y="122"
+                      width="220"
+                      height="124"
+                      fill="url(#cartonFaceGrad)"
+                      stroke="rgba(255, 255, 255, 0.5)"
+                      strokeWidth="1"
+                    />
+
+                    {/* 2. Geometric Herringbone Pattern on Front Face */}
+                    <rect
+                      x="70"
+                      y="122"
+                      width="220"
+                      height="124"
+                      fill="url(#herringbonePattern)"
+                      opacity="0.3"
+                    />
+
+                    {/* 3. Front Flap Folded DOWN & Toward Viewer (Exact Goji Berry forward fold) */}
+                    {/* Top edge is closer to camera (wider: x=38 to x=322 at y=75) */}
+                    {/* Bottom edge is hinge along front face top: x=70 to x=290 at y=122 */}
+                    <polygon
+                      points="38,75 322,75 290,122 70,122"
+                      fill="url(#frontFlapCarton)"
+                      stroke="rgba(255, 255, 255, 0.75)"
+                      strokeWidth="1"
+                      filter="url(#frontFlapDropShadow)"
+                    />
+
+                    {/* 4. Top Lip Highlight on Front Flap */}
+                    <line
+                      x1="38"
+                      y1="75"
+                      x2="322"
+                      y2="75"
+                      stroke="rgba(255, 255, 255, 0.95)"
+                      strokeWidth="1.5"
+                    />
+
+                    {/* 5. Centered Metallic Hiveory Bee Logo on Front Face */}
+                    <g transform="translate(156, 158)">
+                      <rect
+                        x="0"
+                        y="0"
+                        width="48"
+                        height="48"
+                        rx="12"
+                        fill="#121218"
+                        stroke="rgba(255,255,255,0.18)"
+                        strokeWidth="1"
+                        filter="drop-shadow(0 4px 12px rgba(0,0,0,0.4))"
+                      />
+                      <image href="/hiveory-logo.png" x="5" y="5" width="38" height="38" />
+                    </g>
+
+                    {/* 6. Bottom Edge Shadow of Box */}
+                    <line
+                      x1="70"
+                      y1="245"
+                      x2="290"
+                      y2="245"
+                      stroke="rgba(0, 0, 0, 0.25)"
+                      strokeWidth="1.5"
+                    />
+                  </svg>
+                </div>
               </div>
 
             </div>

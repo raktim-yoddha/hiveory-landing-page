@@ -92,7 +92,7 @@ function CommunityCard({
   );
 
   const cardClasses =
-    "community-card-mobile-static group relative rounded-none border border-white/[0.12] sm:hover:border-white/30 bg-[#0c0c10]/90 sm:hover:bg-[#111116] p-6 sm:p-8 flex flex-col justify-between sm:transition-all sm:duration-300 shadow-xl max-md:![transform:none] max-md:![opacity:1] max-md:![transition:none]";
+    "community-card-mobile-static group relative rounded-none border border-white/[0.12] sm:hover:border-white/30 bg-[#0c0c10]/90 sm:hover:bg-[#111116] p-6 sm:p-8 flex flex-col justify-between sm:transition-all sm:duration-300 shadow-xl max-lg:![transform:none] max-lg:![opacity:1] max-lg:![transition:none] portrait:![transform:none] portrait:![opacity:1] portrait:![transition:none]";
 
   if (isMobile) {
     return (
@@ -130,7 +130,10 @@ export default function Home() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+      const isPortrait = window.innerHeight > window.innerWidth || window.matchMedia("(orientation: portrait)").matches;
+      const isTouchTablet = window.matchMedia("(pointer: coarse)").matches && window.innerWidth <= 1376;
+      const isSmall = window.innerWidth < 1024;
+      setIsMobile(isSmall || isPortrait || isTouchTablet);
     };
     handleResize();
     window.addEventListener("resize", handleResize);

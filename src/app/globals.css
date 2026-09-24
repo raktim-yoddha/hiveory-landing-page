@@ -21,7 +21,12 @@ body {
   color: #f4f4f5;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 500;
   letter-spacing: -0.025em;
 }
@@ -40,6 +45,7 @@ h1, h2, h3, h4, h5, h6 {
   0% {
     stroke-dashoffset: 0px;
   }
+
   100% {
     stroke-dashoffset: -2072.48px;
   }
@@ -71,19 +77,29 @@ h1, h2, h3, h4, h5, h6 {
 /* App window frame glow */
 .app-frame-glow {
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12),
-              0 24px 68px -12px rgba(0, 0, 0, 0.9),
-              0 0 100px -20px rgba(59, 130, 246, 0.08);
+    0 24px 68px -12px rgba(0, 0, 0, 0.9),
+    0 0 100px -20px rgba(59, 130, 246, 0.08);
 }
 
 /* Infinite Marquee Animations */
 @keyframes marquee-left {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes marquee-right {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0%); }
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
 }
 
 .animate-marquee-left {
@@ -135,47 +151,212 @@ html {
 
 /* 3D BYO-CLI Conveyor Stream Animations (GPU accelerated, zero hydration lag) */
 @keyframes cliConveyorLeft {
-  0.0% { transform: translate3d(-65px, 122px, 0) rotate(-4deg); opacity: 1; }
-  10.0% { transform: translate3d(-28px, 90px, 0) rotate(-3deg); opacity: 1; }
-  20.0% { transform: translate3d(12px, 68px, 0) rotate(-1deg); opacity: 1; }
-  28.0% { transform: translate3d(52px, 58px, 0) rotate(0deg); opacity: 1; }
-  36.0% { transform: translate3d(90px, 62px, 0) rotate(2deg); opacity: 1; }
-  44.0% { transform: translate3d(126px, 80px, 0) rotate(4deg); opacity: 1; }
-  52.0% { transform: translate3d(156px, 110px, 0) rotate(6deg); opacity: 1; }
-  61.0% { transform: translate3d(178px, 150px, 0) rotate(5deg); opacity: 1; }
-  70.0% { transform: translate3d(190px, 196px, 0) rotate(3deg); opacity: 1; }
-  80.0% { transform: translate3d(196px, 242px, 0) rotate(1deg); opacity: 1; }
-  90.0% { transform: translate3d(196px, 282px, 0) rotate(0deg); opacity: 1; }
-  100.0% { transform: translate3d(196px, 315px, 0) rotate(0deg); opacity: 1; }
+  0.0% {
+    transform: translate3d(-65px, 122px, 0) rotate(-4deg);
+    opacity: 1;
+  }
+
+  10.0% {
+    transform: translate3d(-28px, 90px, 0) rotate(-3deg);
+    opacity: 1;
+  }
+
+  20.0% {
+    transform: translate3d(12px, 68px, 0) rotate(-1deg);
+    opacity: 1;
+  }
+
+  28.0% {
+    transform: translate3d(52px, 58px, 0) rotate(0deg);
+    opacity: 1;
+  }
+
+  36.0% {
+    transform: translate3d(90px, 62px, 0) rotate(2deg);
+    opacity: 1;
+  }
+
+  44.0% {
+    transform: translate3d(126px, 80px, 0) rotate(4deg);
+    opacity: 1;
+  }
+
+  52.0% {
+    transform: translate3d(156px, 110px, 0) rotate(6deg);
+    opacity: 1;
+  }
+
+  61.0% {
+    transform: translate3d(178px, 150px, 0) rotate(5deg);
+    opacity: 1;
+  }
+
+  70.0% {
+    transform: translate3d(190px, 196px, 0) rotate(3deg);
+    opacity: 1;
+  }
+
+  80.0% {
+    transform: translate3d(196px, 242px, 0) rotate(1deg);
+    opacity: 1;
+  }
+
+  90.0% {
+    transform: translate3d(196px, 282px, 0) rotate(0deg);
+    opacity: 1;
+  }
+
+  100.0% {
+    transform: translate3d(196px, 315px, 0) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes cliConveyorLeftMobile {
+  0.0% { transform: translate3d(-89px, 122px, 0) rotate(-4deg); opacity: 1; }
+  10.0% { transform: translate3d(-52px, 90px, 0) rotate(-3deg); opacity: 1; }
+  20.0% { transform: translate3d(-12px, 68px, 0) rotate(-1deg); opacity: 1; }
+  28.0% { transform: translate3d(28px, 58px, 0) rotate(0deg); opacity: 1; }
+  36.0% { transform: translate3d(66px, 62px, 0) rotate(2deg); opacity: 1; }
+  44.0% { transform: translate3d(102px, 80px, 0) rotate(4deg); opacity: 1; }
+  52.0% { transform: translate3d(132px, 110px, 0) rotate(6deg); opacity: 1; }
+  61.0% { transform: translate3d(154px, 150px, 0) rotate(5deg); opacity: 1; }
+  70.0% { transform: translate3d(166px, 196px, 0) rotate(3deg); opacity: 1; }
+  80.0% { transform: translate3d(172px, 242px, 0) rotate(1deg); opacity: 1; }
+  90.0% { transform: translate3d(172px, 282px, 0) rotate(0deg); opacity: 1; }
+  100.0% { transform: translate3d(172px, 315px, 0) rotate(0deg); opacity: 1; }
+}
+
+.cap-conveyor-left-item {
+  animation: cliConveyorLeft 9.6s linear infinite;
+}
+
+@media (max-width: 767px) {
+  .cap-conveyor-left-item {
+    animation-name: cliConveyorLeftMobile !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .cap-conveyor-left-item {
+    animation-name: cliConveyorLeft !important;
+  }
 }
 
 @keyframes cliConveyorRight {
-  0.0% { transform: translate3d(497px, 122px, 0) rotate(4deg); opacity: 1; }
-  10.0% { transform: translate3d(460px, 90px, 0) rotate(3deg); opacity: 1; }
-  20.0% { transform: translate3d(420px, 68px, 0) rotate(1deg); opacity: 1; }
-  28.0% { transform: translate3d(380px, 58px, 0) rotate(0deg); opacity: 1; }
-  36.0% { transform: translate3d(342px, 62px, 0) rotate(-2deg); opacity: 1; }
-  44.0% { transform: translate3d(306px, 80px, 0) rotate(-4deg); opacity: 1; }
-  52.0% { transform: translate3d(276px, 110px, 0) rotate(-6deg); opacity: 1; }
-  61.0% { transform: translate3d(254px, 150px, 0) rotate(-5deg); opacity: 1; }
-  70.0% { transform: translate3d(242px, 196px, 0) rotate(-3deg); opacity: 1; }
-  80.0% { transform: translate3d(236px, 242px, 0) rotate(-1deg); opacity: 1; }
-  90.0% { transform: translate3d(236px, 282px, 0) rotate(0deg); opacity: 1; }
-  100.0% { transform: translate3d(236px, 315px, 0) rotate(0deg); opacity: 1; }
+  0.0% {
+    transform: translate3d(497px, 122px, 0) rotate(4deg);
+    opacity: 1;
+  }
+
+  10.0% {
+    transform: translate3d(460px, 90px, 0) rotate(3deg);
+    opacity: 1;
+  }
+
+  20.0% {
+    transform: translate3d(420px, 68px, 0) rotate(1deg);
+    opacity: 1;
+  }
+
+  28.0% {
+    transform: translate3d(380px, 58px, 0) rotate(0deg);
+    opacity: 1;
+  }
+
+  36.0% {
+    transform: translate3d(342px, 62px, 0) rotate(-2deg);
+    opacity: 1;
+  }
+
+  44.0% {
+    transform: translate3d(306px, 80px, 0) rotate(-4deg);
+    opacity: 1;
+  }
+
+  52.0% {
+    transform: translate3d(276px, 110px, 0) rotate(-6deg);
+    opacity: 1;
+  }
+
+  61.0% {
+    transform: translate3d(254px, 150px, 0) rotate(-5deg);
+    opacity: 1;
+  }
+
+  70.0% {
+    transform: translate3d(242px, 196px, 0) rotate(-3deg);
+    opacity: 1;
+  }
+
+  80.0% {
+    transform: translate3d(236px, 242px, 0) rotate(-1deg);
+    opacity: 1;
+  }
+
+  90.0% {
+    transform: translate3d(236px, 282px, 0) rotate(0deg);
+    opacity: 1;
+  }
+
+  100.0% {
+    transform: translate3d(236px, 315px, 0) rotate(0deg);
+    opacity: 1;
+  }
 }
 
 @keyframes byoBoxFloat {
-  0%, 100% { transform: translate3d(0, -5px, 0); }
-  50% { transform: translate3d(0, 4px, 0); }
+
+  0%,
+  100% {
+    transform: translate3d(0, -5px, 0);
+  }
+
+  50% {
+    transform: translate3d(0, 4px, 0);
+  }
 }
 
 @keyframes byoShadowFloat {
-  0%, 100% { transform: translate3d(-50%, 0, 0) scaleX(0.92); opacity: 0.2; }
-  50% { transform: translate3d(-50%, 0, 0) scaleX(1.08); opacity: 0.48; }
+
+  0%,
+  100% {
+    transform: translate3d(-50%, 0, 0) scaleX(0.92);
+    opacity: 0.2;
+  }
+
+  50% {
+    transform: translate3d(-50%, 0, 0) scaleX(1.08);
+    opacity: 0.48;
+  }
 }
 
-/* Disable all animations and transforms for community cards on mobile devices */
-@media (max-width: 767px) {
+/* Universal static navbar and responsive static styles for all mobile, tablet, and portrait devices */
+@media (max-width: 1023px), (orientation: portrait), (pointer: coarse) {
+  .site-header {
+    padding-top: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    transition: none !important;
+  }
+
+  .site-nav {
+    max-width: 100% !important;
+    border-radius: 0px !important;
+    background-color: rgba(7, 7, 9, 0.96) !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    border-top-color: transparent !important;
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+    border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+    transition: none !important;
+  }
+
+  .site-nav-inner {
+    max-width: 100% !important;
+  }
+
   .community-card-mobile-static {
     transform: none !important;
     opacity: 1 !important;
@@ -189,6 +370,3 @@ html {
     opacity: 1 !important;
   }
 }
-
-
-

@@ -12,19 +12,37 @@ export default function Navbar() {
   const [starCount, setStarCount] = useState<string>("Star");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isNavbarStatic, setIsNavbarStatic] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   // Monitor scroll position with high performance outside React render cycle
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    if (!isMobile) {
+    if (typeof window !== "undefined") {
+      const isPortrait = window.innerHeight > window.innerWidth || window.matchMedia("(orientation: portrait)").matches;
+      const isTouch = window.matchMedia("(pointer: coarse)").matches;
+      const isSmall = window.innerWidth < 1024;
+      if (isPortrait || isTouch || isSmall) {
+        if (isScrolled) setIsScrolled(false);
+        return;
+      }
       setIsScrolled(latest > 20);
     }
   });
 
   useEffect(() => {
     const handleResize = () => {
+      const isPortrait = window.innerHeight > window.innerWidth || window.matchMedia("(orientation: portrait)").matches;
+      const isTouch = window.matchMedia("(pointer: coarse)").matches;
+      const isSmall = window.innerWidth < 1024;
+      const isStatic = isPortrait || isTouch || isSmall;
+      setIsNavbarStatic(isStatic);
+
+      if (isStatic) {
+        setIsScrolled(false);
+      }
+
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
       if (!mobile) {
@@ -73,39 +91,39 @@ export default function Navbar() {
 
   return (
     <motion.header
-      className="fixed top-0 inset-x-0 z-50 w-full max-w-[1536px] mx-auto flex flex-col items-center pointer-events-none"
+      className="site-header fixed top-0 inset-x-0 z-50 w-full max-w-[1536px] mx-auto flex flex-col items-center pointer-events-none"
       initial={false}
       animate={{
-        paddingTop: isMobile ? 0 : isScrolled ? 0 : 10,
-        paddingLeft: isMobile ? 0 : isScrolled ? 0 : 16,
-        paddingRight: isMobile ? 0 : isScrolled ? 0 : 16,
+        paddingTop: isNavbarStatic ? 0 : isScrolled ? 0 : 10,
+        paddingLeft: isNavbarStatic ? 0 : isScrolled ? 0 : 16,
+        paddingRight: isNavbarStatic ? 0 : isScrolled ? 0 : 16,
       }}
       transition={{
-        duration: isMobile ? 0 : 0.35,
+        duration: isNavbarStatic ? 0 : 0.35,
         ease: [0.16, 1, 0.3, 1],
       }}
     >
       <motion.nav
-        className="w-full pointer-events-auto flex flex-col items-center justify-center backdrop-blur-xl px-3 sm:px-6 shadow-2xl"
+        className="site-nav w-full pointer-events-auto flex flex-col items-center justify-center backdrop-blur-xl px-3 sm:px-6 shadow-2xl"
         initial={false}
         animate={{
-          maxWidth: isMobile ? "100%" : isScrolled ? "1536px" : "920px",
-          borderRadius: isMobile || isScrolled ? "0px" : "16px",
-          backgroundColor: isMobile || isScrolled
+          maxWidth: isNavbarStatic ? "100%" : isScrolled ? "1536px" : "920px",
+          borderRadius: isNavbarStatic || isScrolled ? "0px" : "16px",
+          backgroundColor: isNavbarStatic || isScrolled
             ? "rgba(7, 7, 9, 0.96)"
             : "rgba(18, 18, 22, 0.8)",
-          paddingTop: isMobile ? "10px" : isScrolled ? "12px" : "9px",
-          paddingBottom: isMobile ? "10px" : isScrolled ? "12px" : "9px",
-          borderTopColor: isScrolled || isMobile
+          paddingTop: isNavbarStatic ? "10px" : isScrolled ? "12px" : "9px",
+          paddingBottom: isNavbarStatic ? "10px" : isScrolled ? "12px" : "9px",
+          borderTopColor: isScrolled || isNavbarStatic
             ? "rgba(255, 255, 255, 0)"
             : "rgba(255, 255, 255, 0.1)",
-          borderLeftColor: isScrolled || isMobile
+          borderLeftColor: isScrolled || isNavbarStatic
             ? "rgba(255, 255, 255, 0)"
             : "rgba(255, 255, 255, 0.1)",
-          borderRightColor: isScrolled || isMobile
+          borderRightColor: isScrolled || isNavbarStatic
             ? "rgba(255, 255, 255, 0)"
             : "rgba(255, 255, 255, 0.1)",
-          borderBottomColor: isScrolled || isMobile
+          borderBottomColor: isScrolled || isNavbarStatic
             ? "rgba(255, 255, 255, 0.08)"
             : "rgba(255, 255, 255, 0.1)",
         }}
@@ -114,15 +132,15 @@ export default function Navbar() {
           borderStyle: "solid",
         }}
         transition={{
-          duration: isMobile ? 0 : 0.35,
+          duration: isNavbarStatic ? 0 : 0.35,
           ease: [0.16, 1, 0.3, 1],
         }}
       >
         {/* Inner content container */}
         <div
-          className="relative w-full flex items-center justify-between"
+          className="site-nav-inner relative w-full flex items-center justify-between"
           style={{
-            maxWidth: isMobile ? "100%" : isScrolled ? "930px" : "900px",
+            maxWidth: isNavbarStatic ? "100%" : isScrolled ? "930px" : "900px",
           }}
         >
           {/* Left Brand */}
@@ -237,10 +255,12 @@ export default function Navbar() {
               <span>{starCount}</span>
             </a>
 
-            {/* Download Button */}
+            {/* Download Button (Hidden on mobiles, tablets, and all portrait devices) */}
             <button
               onClick={() => triggerLatestDownload()}
-              className="group/dlbtn relative flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 h-8 sm:h-9 rounded-none bg-[#EAEAEA] hover:bg-white text-black text-xs sm:text-sm font-semibold transition-all shadow-sm active:scale-95 cursor-pointer shrink-0 border border-zinc-400/40 hover:border-zinc-500"
+              className={`group/dlbtn relative items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 h-8 sm:h-9 rounded-none bg-[#EAEAEA] hover:bg-white text-black text-xs sm:text-sm font-semibold transition-all shadow-sm active:scale-95 cursor-pointer shrink-0 border border-zinc-400/40 hover:border-zinc-500 ${
+                isNavbarStatic ? "hidden" : "hidden lg:landscape:flex"
+              }`}
             >
               <span className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t-2 border-l-2 border-black/70 group-hover/dlbtn:border-black pointer-events-none" />
               <span className="absolute -top-[1px] -right-[1px] w-2 h-2 border-t-2 border-r-2 border-black/70 group-hover/dlbtn:border-black pointer-events-none" />

@@ -9,70 +9,17 @@ export const metadata = {
 };
 
 export default function CapabilitiesPage() {
+  // Same shape for every card: a short title and one sentence of similar length
   const capabilities = [
-    {
-      title: "Workspaces and Worktrees",
-      summary:
-        "Add a folder, create a repository or clone one. New Worktrees are isolated Git branches Hiveory creates and cleans up.",
-      details:
-        "Every Workspace has its Primary worktree, the folder itself. Linked worktrees Git already knows show up on their own, and Start worktree turns an issue into a branch named after it.",
-    },
-    {
-      title: "A board that follows real state",
-      summary:
-        "Cards move between Idle, Working and Waiting for you as agents work. You never drag them.",
-      details:
-        "Each card shows why an agent waits (permission, input, confirmation) and the model it is using right now. Two agents of the same CLI are separate cards with their own names.",
-    },
-    {
-      title: "Panes the way you like them",
-      summary:
-        "Split right or down, drag a pane to an edge, hold Space to swap two, or show them as tabs.",
-      details:
-        "Terminals, chats, editors and browser pages share the same layout. Ask Queen Bee to \"arrange them in a grid\" or \"make Milo the main pane\" and she does it.",
-    },
-    {
-      title: "Queen Bee, by voice or text",
-      summary:
-        "An assistant bar that opens agents, reports who is waiting, and runs app actions on request.",
-      details:
-        "Speech is transcribed on your computer. A model is optional: she handles plain commands without one, and with one she can only pick from her fixed set of actions.",
-    },
-    {
-      title: "A browser your agents can use",
-      summary:
-        "A real browser pane with profiles, device sizes and element picking, driven by agents with a visible cursor.",
-      details:
-        "Mark elements on a page and send them to an agent. Pages an agent opens appear next to it. Computer use is there too, off by default.",
-    },
-    {
-      title: "Skills, MCP servers and apps",
-      summary:
-        "Manage Agent Skills and MCP servers for every installed CLI in one place.",
-      details:
-        "Browse skills.sh and the MCP Registry, install for every CLI at once, and connect Gmail, Slack, GitHub, Notion and 1,000+ apps through your own Composio key.",
-    },
-    {
-      title: "Remote hosts and a headless server",
-      summary:
-        "Open Workspaces on SSH hosts, keep agents running on a Hiveory server, and reach your computers over Tailscale.",
-      details:
-        "Files, Git and agents stay on the remote machine. A dropped connection reconnects for five minutes and the same terminals carry on.",
-    },
-    {
-      title: "Your agents in your pocket",
-      summary:
-        "The phone app shows every agent that needs you, lets you type into terminals, and sends a notification when one waits.",
-      details:
-        "It talks only to your own computers over your Tailscale network. Deleting things, settings and accounts stay on the computer.",
-    },
-    {
-      title: "Keeps running",
-      summary:
-        "Closing the window leaves agents working in the tray. After a restart, terminal agents resume their conversations.",
-      details:
-        "The Sessions tab lists every Claude Code, Codex and Gemini CLI conversation on the computer, so you can pick any of them back up.",
-    },
+    { title: "Workspaces and Worktrees", summary: "Each task gets its own folder and branch, made for you." },
+    { title: "A live status board", summary: "See which agents are idle, working or waiting for you." },
+    { title: "Flexible panes", summary: "Split, drag, swap or tab agents, terminals and pages." },
+    { title: "Queen Bee", summary: "An assistant you talk to. Speech stays on your computer." },
+    { title: "Built-in browser", summary: "A real browser your agents can drive, cursor and all." },
+    { title: "Skills, MCP and apps", summary: "Skills and MCP servers for every CLI, plus 1,000+ apps." },
+    { title: "Remote machines", summary: "Run agents on SSH hosts or a server, over Tailscale." },
+    { title: "Phone app", summary: "See who needs you and reply to agents from anywhere." },
+    { title: "Keeps running", summary: "Agents keep working after you close the window or restart." },
   ];
 
   return (
@@ -90,7 +37,7 @@ export default function CapabilitiesPage() {
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-            Free, open source and on your computer. Here is the whole app, one part at a time.
+            The whole app, at a glance.
           </p>
         </div>
 
@@ -112,11 +59,8 @@ export default function CapabilitiesPage() {
                 <h2 className="text-xl font-medium text-white mb-2 tracking-tight">
                   {c.title}
                 </h2>
-                <p className="text-sm font-medium text-zinc-300 mb-3 leading-relaxed">
+                <p className="text-sm text-zinc-400 leading-relaxed">
                   {c.summary}
-                </p>
-                <p className="text-xs text-zinc-400 leading-relaxed">
-                  {c.details}
                 </p>
               </div>
             </div>
@@ -135,7 +79,7 @@ export default function CapabilitiesPage() {
             Want the full details?
           </h2>
           <p className="text-sm text-zinc-400 mb-6">
-            Read the guides, or see what changed in every release.
+            Read the docs and changelog.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link

@@ -214,20 +214,15 @@ export default function Home() {
 
           {/* Strictly Two-Line High-Impact Display Headline */}
           <h1 className="relative z-10 w-full text-center text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-[56px] xl:text-[62px] font-medium tracking-[-0.03em] text-white leading-[1.15] sm:leading-[1.08] mb-6 mx-auto">
-            <span className="block sm:whitespace-nowrap">Run every coding agent at once</span>
+            <span className="block sm:whitespace-nowrap">All your AI agents in one app</span>
             <span className="text-zinc-400 font-normal block mt-2 sm:mt-3 text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-[38px] xl:text-[44px] tracking-[-0.02em]">
-              Each in its own worktree, on one live board
+              Code, automate and chat
             </span>
           </h1>
 
           {/* Crisp Narrative Subtitle */}
-          <p className="relative z-10 max-w-[820px] mx-auto text-base sm:text-lg text-zinc-400/90 leading-relaxed font-normal mb-10">
-            <span className="lg:block">
-              Claude Code, Codex, Gemini CLI, OpenCode and 30+ more agent CLIs, side by side.
-            </span>{" "}
-            <span className="lg:block">
-              No collisions, no babysitting: the board shows who&apos;s working and who&apos;s waiting for you.
-            </span>
+          <p className="relative z-10 max-w-[640px] mx-auto text-base sm:text-lg text-zinc-400/90 leading-relaxed font-normal mb-10 text-balance">
+            Run Claude Code, Codex, Gemini CLI and 30+ more agents side by side, on your computer.
           </p>
 
           {/* Call to Action Buttons */}
@@ -318,7 +313,7 @@ export default function Home() {
 
             {/* Reassurance line: price, license, platforms, all downloads */}
             <p className="text-[12px] text-zinc-500 mt-4">
-              Free &amp; open source (MIT) · No account · Windows, macOS, Linux &amp; Android{version && ` · ${version}`} ·{" "}
+              Free &amp; open source · Windows, macOS, Linux &amp; Android{version && ` · ${version}`} ·{" "}
               <a
                 href={GITHUB_RELEASES_PAGE}
                 target="_blank"
@@ -410,10 +405,10 @@ export default function Home() {
       <section id="pricing" className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 py-24 sm:py-32 scroll-mt-20">
         <div className="text-center max-w-4xl mx-auto mb-16 sm:mb-20">
           <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-6xl font-medium tracking-[-0.025em] text-white leading-tight mb-4 sm:mb-6 sm:whitespace-nowrap">
-            Free for every developer
+            Simple pricing
           </h2>
           <p className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-            The whole app is free and open source, with no seat limits and no account. Teams that want it set up, extended or under their own brand can work with us directly.
+            The app is free. Pay only if you want our help.
           </p>
         </div>
 
@@ -427,17 +422,14 @@ export default function Home() {
             <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
 
             <div>
-              <div className="flex items-center justify-between mb-4">
+              <div className="mb-2">
                 <h3 className="text-2xl font-medium text-white tracking-tight">
                   Open Source
                 </h3>
-                <span className="text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-none border border-white/10 text-zinc-400 bg-white/[0.04]">
-                  Community
-                </span>
               </div>
 
               <p className="text-sm text-zinc-400 mb-6 leading-relaxed">
-                Everything Hiveory does, on your own computer.
+                The full app, for everyone.
               </p>
 
               <div className="mb-8 pb-6 border-b border-white/[0.06]">
@@ -453,11 +445,9 @@ export default function Home() {
 
               <ul className="space-y-3 mb-8">
                 {[
-                  "Work, Bots and Chat, with no limits",
-                  "Every agent CLI Hiveory detects",
-                  "Queen Bee voice assistant, speech on-device",
-                  "Phone app for Android, over your own Tailscale",
-                  "Community help on Discord and GitHub",
+                  "Work, Bots and Chat",
+                  "Desktop and phone apps",
+                  "Community support",
                 ].map((f, i) => (
                   <li
                     key={i}
@@ -521,24 +511,21 @@ export default function Home() {
             <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
 
             <div>
-              <div className="flex items-center justify-between mb-4">
+              <div className="mb-2">
                 <h3 className="text-2xl font-medium text-white tracking-tight">
                   Custom
                 </h3>
-                <span className="text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-none border border-white/10 text-zinc-400 bg-white/[0.04]">
-                  Tailored Setup
-                </span>
               </div>
 
               <p className="text-sm text-zinc-400 mb-6 leading-relaxed">
-                We set it up, build bots for you, or run it for you.
+                We set it up for your team.
               </p>
 
               <div className="mb-8 pb-6 border-b border-white/[0.06]">
                 <span className="text-4xl font-medium text-white tracking-tight">
                   Let&apos;s talk
                 </span>
-                <span className="text-xs text-zinc-500 ml-2">for your team</span>
+                <span className="text-xs text-zinc-500 ml-2">per project</span>
               </div>
 
               <div className="text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-4">
@@ -547,11 +534,9 @@ export default function Home() {
 
               <ul className="space-y-3 mb-8">
                 {[
-                  "Setup on your team's machines",
-                  "Bots and schedules built for your workflow",
-                  "A Hiveory server we run for you",
-                  "Priority help with integrations",
-                  "A direct line to the maintainer",
+                  "Setup and onboarding",
+                  "Custom bots and workflows",
+                  "Priority support",
                 ].map((f, i) => (
                   <li
                     key={i}
@@ -616,24 +601,21 @@ export default function Home() {
             <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-amber-400 pointer-events-none" />
 
             <div>
-              <div className="flex items-center justify-between mb-4">
+              <div className="mb-2">
                 <h3 className="text-2xl font-medium text-white tracking-tight">
                   Enterprise
                 </h3>
-                <span className="text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-none border border-amber-400/50 text-amber-400 bg-amber-400/[0.06]">
-                  Organizations
-                </span>
               </div>
 
               <p className="text-sm text-zinc-400 mb-6 leading-relaxed">
-                White-label it, embed it, or deploy it in-house.
+                Hiveory under your brand.
               </p>
 
               <div className="mb-8 pb-6 border-b border-white/[0.06]">
                 <span className="text-4xl font-medium text-white tracking-tight">
                   Let&apos;s talk
                 </span>
-                <span className="text-xs text-zinc-500 ml-2">for organization</span>
+                <span className="text-xs text-zinc-500 ml-2">per project</span>
               </div>
 
               <div className="text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-4">
@@ -642,11 +624,9 @@ export default function Home() {
 
               <ul className="space-y-3 mb-8">
                 {[
-                  "White-label builds under your brand",
-                  "Embedded in your existing product",
-                  "Self-hosted or air-gapped deployment",
-                  "SSO, security review, and compliance",
-                  "SLA-backed response times",
+                  "White-label builds",
+                  "Self-hosted deployment",
+                  "Security review and SLA",
                 ].map((f, i) => (
                   <li
                     key={i}
@@ -712,16 +692,16 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
             {[
               {
-                title: "Runs on your computer",
-                body: "No Hiveory account and no Hiveory server. Your code, terminals and agents stay on your machines.",
+                title: "Runs locally",
+                body: "Your code never leaves your machines.",
               },
               {
-                title: "Your keys stay yours",
-                body: "Service keys are checked, encrypted on your computer and sent only to that service. SSH passwords live in memory until you quit.",
+                title: "No account",
+                body: "No sign-up and no Hiveory server.",
               },
               {
-                title: "Open source, MIT",
-                body: "Read every line on GitHub, build it yourself, and see each release's changes in the changelog.",
+                title: "Open source",
+                body: "MIT licensed. Read every line.",
               },
             ].map((item) => (
               <div key={item.title}>
@@ -743,8 +723,7 @@ export default function Home() {
             Build it with us
           </h2>
           <p className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-            Hiveory ships new versions every few days, shaped by the people who use it.
-            Tell us what slows you down.
+            New releases every few days, shaped by you.
           </p>
         </div>
 
@@ -768,8 +747,8 @@ export default function Home() {
             }
             badge="Chat"
             title="Discord"
-            description="Ask questions, share presets and bots, and tell us what to build next."
-            buttonText="Join the Discord"
+            description="Ask questions and share ideas."
+            buttonText="Join Discord"
             buttonHref="https://discord.gg/sT8Maq6Cxs"
           />
 
@@ -792,8 +771,8 @@ export default function Home() {
             }
             badge="Open source"
             title="GitHub"
-            description="Report a bug, request a feature, read the code, or send a pull request."
-            buttonText="Open the repository"
+            description="Report bugs and send pull requests."
+            buttonText="Open GitHub"
             buttonHref="https://github.com/raktim-yoddha/hiveory"
           />
 
@@ -816,7 +795,7 @@ export default function Home() {
             }
             badge="Videos"
             title="YouTube"
-            description="Walkthroughs of new features and real work sessions with many agents at once."
+            description="Watch features and real sessions."
             buttonText="Watch on YouTube"
             buttonHref="https://www.youtube.com/@ttcislive"
           />
@@ -836,11 +815,11 @@ export default function Home() {
           <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
 
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium text-white tracking-tight mb-4">
-            Give every agent its own lane
+            Start in a minute
           </h2>
 
           <p className="text-sm sm:text-base text-zinc-400 max-w-xl mx-auto mb-8 leading-relaxed">
-            Install Hiveory, open a folder, and start your first agents in a minute. It finds the CLIs you already have.
+            Install, open a folder, start your agents.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -971,8 +950,8 @@ export default function Home() {
                   </h3>
                   <p className="text-sm text-zinc-400 mt-1 leading-relaxed">
                     {demoTier === "custom"
-                      ? "Setup for your team, bots built for your workflow, or a Hiveory server we run for you."
-                      : "White-label builds, embedding in your product, self-hosted or air-gapped installs, and security reviews."}
+                      ? "Setup, custom bots and priority support."
+                      : "White-label, self-hosted, security review."}
                   </p>
                 </div>
                 <button

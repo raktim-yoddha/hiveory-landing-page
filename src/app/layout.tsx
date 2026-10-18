@@ -14,9 +14,9 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
 });
 
-const title = "Hiveory — Run every coding agent at once";
+const title = "Hiveory — All your AI agents in one app";
 const description =
-  "Free, open-source desktop app that runs Claude Code, Codex, Gemini CLI, OpenCode and 30+ agent CLIs side by side, each in its own Git worktree, with a live board of who's working and who's waiting for you.";
+  "Code, automate and chat with Claude Code, Codex, Gemini CLI and 30+ more agents, side by side on your own computer. Free and open source.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://hiveory.com"),

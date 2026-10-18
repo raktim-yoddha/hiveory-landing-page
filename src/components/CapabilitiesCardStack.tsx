@@ -115,21 +115,22 @@ const hostStreamTasks: BoardAgent[] = [
 // Unified 15-item array (3 cycles of 5 items) for a mathematically seamless infinite loop
 const streamTasks = [...hostStreamTasks, ...hostStreamTasks, ...hostStreamTasks];
 
+// Same length on purpose: three short sentences of similar size per card
 const capabilitiesData = [
   {
-    title: "Every agent CLI you already use",
+    title: "Every agent CLI you use",
     subtitle:
-      "Hiveory finds Claude Code, Codex, Gemini CLI, OpenCode, Copilot, Cursor and 30+ other CLIs on your computer and runs them in real terminals or as chats. Pull requests and issues from GitHub, GitLab, Jira and Linear sit in each Workspace's Dashboard.",
+      "Claude Code, Codex, Gemini CLI, OpenCode and 30+ more. Hiveory finds them on your computer. Run them as terminals or chats.",
   },
   {
     title: "A board that knows who needs you",
     subtitle:
-      "Every agent is a card that moves by its real state: Idle, Working or Waiting for you, with the reason it waits and the model it's using. Queen Bee tells you out loud when one finishes or needs you, and the phone app pings you away from your desk.",
+      "Every agent shows as Idle, Working or Waiting for you. Queen Bee tells you when one is done. Your phone pings you when one waits.",
   },
   {
-    title: "Worktrees without the Git chores",
+    title: "Worktrees without Git chores",
     subtitle:
-      "Each piece of work gets its own Worktree: a separate folder and branch that Hiveory creates and cleans up for you. Agents never overwrite each other, and you can start one straight from an issue.",
+      "Each task gets its own folder and branch. Hiveory creates and cleans them up. Agents never overwrite each other.",
   },
 ];
 
@@ -257,10 +258,10 @@ export default function CapabilitiesCardStack() {
       {/* Section Header (In normal document flow) */}
       <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-2 sm:pb-4 text-center">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-medium tracking-[-0.025em] text-white leading-tight mb-3">
-          Built for many agents at once
+          Built for many agents
         </h2>
         <p className="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-          The parts that make running five agents feel calmer than running one.
+          Five agents should feel as calm as one.
         </p>
       </div>
 

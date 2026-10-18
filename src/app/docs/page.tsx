@@ -17,17 +17,17 @@ export default function DocsPage() {
       items: [
         {
           title: "Install",
-          desc: "Installers for Windows, macOS (Apple Silicon), Linux (x64 and arm64) and Android. The desktop app updates itself.",
+          desc: "Installers for every platform.",
           href: GITHUB_RELEASES_PAGE,
         },
         {
           title: "Build from source",
-          desc: "Needs Node.js 24, pnpm 11 and Git. Clone, pnpm install, pnpm dev.",
+          desc: "Node.js 24, pnpm 11 and Git.",
           href: `${GITHUB_URL}#build-from-source`,
         },
         {
           title: "Keyboard shortcuts",
-          desc: "Ctrl 1, 2, 3 for Work, Bots, Chat · Ctrl Shift Space for Queen Bee · Ctrl , for Settings (⌘ and ⌥ Space on macOS). All can be changed.",
+          desc: "All shortcuts, all changeable.",
           href: blob("adr/0047-keyboard-shortcuts.md"),
         },
       ],
@@ -36,18 +36,18 @@ export default function DocsPage() {
       category: "How it works",
       items: [
         {
-          title: "Workspaces, Worktrees and the board",
-          desc: "What a Worktree is, how agents get their names, and how cards move between Idle, Working and Waiting for you.",
+          title: "Work and the board",
+          desc: "Workspaces, Worktrees and status.",
           href: blob("product-spec.md"),
         },
         {
-          title: "Bots, schedules and triggers",
-          desc: "Teams, the Chief of Staff, the work board, schedules, app triggers and approvals.",
+          title: "Bots",
+          desc: "Teams, schedules and approvals.",
           href: blob("product-spec.md"),
         },
         {
           title: "Every screen",
-          desc: "A map of each screen, tab and Settings section in the app.",
+          desc: "A map of every screen.",
           href: blob("ui-map.md"),
         },
       ],
@@ -57,17 +57,17 @@ export default function DocsPage() {
       items: [
         {
           title: "Changelog",
-          desc: "What changed in each release, newest first.",
+          desc: "What changed in each release.",
           href: blob("CHANGELOG.md"),
         },
         {
           title: "Architecture",
-          desc: "The Electron main process, the terminal host, the typed bridge and the React UI.",
+          desc: "How the app is put together.",
           href: blob("architecture.md"),
         },
         {
           title: "Contributing",
-          desc: "The engineering rules for people and coding agents, and the decision records behind them.",
+          desc: "Rules for people and agents.",
           href: blob("AGENTS.md"),
         },
       ],
@@ -89,8 +89,7 @@ export default function DocsPage() {
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-            Install it, learn the shortcuts, and see exactly how each part of the app behaves.
-            The full docs live with the code on GitHub.
+            Install, build and learn the app.
           </p>
         </div>
 

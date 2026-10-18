@@ -12,41 +12,42 @@ interface ModeCard {
   keyPoints: string[];
 }
 
+// Every card has the same shape: a one-line subtitle and four one-line points
 const modesData: ModeCard[] = [
   {
     id: "work",
     stepIndex: "Work",
-    title: "Agents in parallel",
-    subtitle: "Coding agents in real terminals, each Worktree on its own branch",
+    title: "Code in parallel",
+    subtitle: "Many coding agents side by side",
     keyPoints: [
-      "Open several agents of any CLI at once",
-      "Worktrees created and cleaned up for you",
-      "A live board: Idle, Working, Waiting for you",
-      "Split, drag and swap panes, or show them as tabs",
+      "Any CLI, many at once",
+      "A Worktree per task",
+      "Live status board",
+      "Split, swap or tab panes",
     ],
   },
   {
     id: "bots",
     stepIndex: "Bots",
-    title: "Teammates that keep going",
-    subtitle: "Bots with their own brief, memory, schedules and triggers",
+    title: "Automate with bots",
+    subtitle: "Bots that work on their own",
     keyPoints: [
-      "Run on a schedule or when an app event arrives",
-      "Teams with a Chief of Staff who hands out work",
-      "Ask before sending or changing things in your apps",
-      "Their own browser and, if you want, a Linux computer",
+      "Schedules and app triggers",
+      "Teams with a lead bot",
+      "Ask before acting for you",
+      "Own browser and computer",
     ],
   },
   {
     id: "chat",
     stepIndex: "Chat",
-    title: "Chat with any CLI",
-    subtitle: "Pick a CLI, then its model and effort, and just talk",
+    title: "Chat with any model",
+    subtitle: "Every CLI's models in one place",
     keyPoints: [
-      "Uses the CLIs and plans you already pay for",
-      "Queue your next message while it answers",
-      "Saved prompts in every message box",
-      "Scheduled chats that run on their own",
+      "Pick CLI, model and effort",
+      "Queue your next message",
+      "Saved prompts",
+      "Scheduled chats",
     ],
   },
 ];
@@ -170,10 +171,10 @@ export default function ProductCardStack() {
       {/* SECTION HEADER */}
       <div className="relative z-10 w-full max-w-4xl mx-auto text-center mb-12 sm:mb-16">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-medium tracking-[-0.025em] text-white leading-tight mb-3">
-          Three ways to work, one app
+          One app, three modes
         </h2>
         <p className="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-          Work, Bots and Chat sit one shortcut apart (Ctrl 1, 2, 3; ⌘ on Mac). Agents keep running while you switch.
+          Switch with Ctrl 1, 2, 3. Everything keeps running.
         </p>
       </div>
 
@@ -283,7 +284,7 @@ export default function ProductCardStack() {
                 onMouseLeave={() => setHoveredCard(null)}
                 className={`group relative rounded-none border transition-all duration-300 bg-[#0c0c11] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.06)] flex flex-col p-6 sm:p-7 ${
                   isHovered
-                    ? "border-white/40 shadow-[0_25px_80px_-10px_rgba(0,0,0,0.95),0_0_20px_-5px_rgba(255,255,255,0.1)] -translate-y-1"
+                    ? "border-white/40 shadow-[0_25px_80px_-10px_rgba(0,0,0,0.95),0_0_20px_-5px_rgba(255,255,255,0.1)]"
                     : "border-white/[0.12] hover:border-white/30"
                 }`}
               >
@@ -398,7 +399,7 @@ export default function ProductCardStack() {
                 </svg>
               </span>
               <span className="text-xs sm:text-sm font-semibold text-white group-hover/btn:text-black tracking-wide transition-colors duration-300">
-                See everything it does
+                See all modes
               </span>
             </span>
 

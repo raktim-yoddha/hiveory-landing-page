@@ -1,63 +1,74 @@
 import Navbar from "@/components/Navbar";
 import HoverFooter from "@/components/ui/hover-footer";
+import { GITHUB_RELEASES_PAGE, GITHUB_URL } from "@/lib/download";
 
 export const metadata = {
-  title: "Documentation — Hiveory | Developer Guides & Reference",
+  title: "Docs — Hiveory | Install, shortcuts and guides",
   description:
-    "Quickstarts, architecture references, and setup guides for Hiveory's agent super app and terminal-first ADE.",
+    "Install Hiveory, build it from source, learn the keyboard shortcuts, and read how Work, Bots and Chat behave.",
 };
+
+const blob = (path: string) => `${GITHUB_URL}/blob/main/${path}`;
 
 export default function DocsPage() {
   const sections = [
     {
-      category: "Getting Started",
+      category: "Getting started",
       items: [
         {
-          title: "Quickstart Guide",
-          desc: "Clone the repo, install pnpm dependencies, and launch with pnpm app:dev.",
-          code: "git clone https://github.com/raktim-yoddha/hiveory.git\npnpm install\npnpm app:dev",
+          title: "Install",
+          desc: "Installers for Windows, macOS (Apple Silicon), Linux (x64 and arm64) and Android. The desktop app updates itself.",
+          href: GITHUB_RELEASES_PAGE,
         },
         {
-          title: "Prerequisites & Toolchain",
-          desc: "Node.js & pnpm 10.12.1, Rust MSVC toolchain, C++ Build Tools, WebView2 Runtime, and Git.",
+          title: "Build from source",
+          desc: "Needs Node.js 24, pnpm 11 and Git. Clone, pnpm install, pnpm dev.",
+          href: `${GITHUB_URL}#build-from-source`,
         },
         {
-          title: "Keybindings & Shortcuts",
-          desc: "Ctrl+1 (Agent), Ctrl+2 (Code), Ctrl+3 (Chat), Ctrl+K (Palette), Ctrl+B (Sidebar), Ctrl+, (Settings).",
+          title: "Keyboard shortcuts",
+          desc: "Ctrl 1, 2, 3 for Work, Bots, Chat · Ctrl Shift Space for Queen Bee · Ctrl , for Settings (⌘ and ⌥ Space on macOS). All can be changed.",
+          href: blob("adr/0047-keyboard-shortcuts.md"),
         },
       ],
     },
     {
-      category: "Application Modes",
+      category: "How it works",
       items: [
         {
-          title: "Agent Mode (Ctrl+1)",
-          desc: "Named agents, folder grants, approval policies, OpenAI Responses API (store: false), and routine scheduler.",
+          title: "Workspaces, Worktrees and the board",
+          desc: "What a Worktree is, how agents get their names, and how cards move between Idle, Working and Waiting for you.",
+          href: blob("product-spec.md"),
         },
         {
-          title: "Code Mode (Ctrl+2)",
-          desc: "Multi-pane canvas (CMD, PowerShell, Git Bash), coding CLIs, Monaco SHA-256 fingerprints, and Git worktrees.",
+          title: "Bots, schedules and triggers",
+          desc: "Teams, the Chief of Staff, the work board, schedules, app triggers and approvals.",
+          href: blob("product-spec.md"),
         },
         {
-          title: "Chat Mode (Ctrl+3)",
-          desc: "Independent streaming conversations, reasoning events, branching, retry, drafts, and sanitized archive export.",
+          title: "Every screen",
+          desc: "A map of each screen, tab and Settings section in the app.",
+          href: blob("ui-map.md"),
         },
       ],
     },
     {
-      category: "Architecture & Plugins",
+      category: "Project",
       items: [
         {
-          title: "Privileged Rust Host & Security",
-          desc: "Rust owns privileged operations, OS keyring credentials, explicit trust sandboxing, and SQLite WAL.",
+          title: "Changelog",
+          desc: "What changed in each release, newest first.",
+          href: blob("CHANGELOG.md"),
         },
         {
-          title: "Declarative HTTPS Plugins",
-          desc: "Connecting GitHub, Linear, Slack, Supabase, Vercel, Stripe, or custom JSON manifests with host allow-lists.",
+          title: "Architecture",
+          desc: "The Electron main process, the terminal host, the typed bridge and the React UI.",
+          href: blob("architecture.md"),
         },
         {
-          title: "Skills (SKILL.md) Ecosystem",
-          desc: "Authoring and managing local SKILL.md instruction packages with frontmatter validation and conflict resolution.",
+          title: "Contributing",
+          desc: "The engineering rules for people and coding agents, and the decision records behind them.",
+          href: blob("AGENTS.md"),
         },
       ],
     },
@@ -74,12 +85,12 @@ export default function DocsPage() {
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h1 className="text-4xl sm:text-6xl font-medium tracking-[-0.03em] text-white leading-tight mb-6">
-            Hiveory Documentation
+            Hiveory docs
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-            Everything you need to orchestrate autonomous agents, configure
-            multi-pane ADE workspaces, author custom skills, and build production desktop releases.
+            Install it, learn the shortcuts, and see exactly how each part of the app behaves.
+            The full docs live with the code on GitHub.
           </p>
         </div>
 
@@ -92,38 +103,36 @@ export default function DocsPage() {
           <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 pointer-events-none" />
 
           <div className="flex items-center justify-between border-b border-white/[0.06] pb-3 mb-4 text-xs font-mono text-zinc-400 gap-2">
-            <span className="flex items-center gap-2 min-w-0">
-              <span className="w-2.5 h-2.5 rounded-none bg-red-500/80 shrink-0" />
-              <span className="w-2.5 h-2.5 rounded-none bg-yellow-500/80 shrink-0" />
-              <span className="w-2.5 h-2.5 rounded-none bg-emerald-500/80 shrink-0" />
-              <span className="ml-1 sm:ml-2 text-zinc-300 truncate">Terminal Quickstart (Windows PowerShell)</span>
-            </span>
-            <span className="text-zinc-500 shrink-0 hidden xs:inline">powershell</span>
+            <span className="text-zinc-300 truncate">Build from source</span>
+            <span className="text-zinc-500 shrink-0">Node.js 24 · pnpm 11 · Git</span>
           </div>
           <pre className="font-mono text-sm text-zinc-300 leading-relaxed overflow-x-auto">
             <code>
               <span className="text-zinc-500"># 1. Clone the repository</span>
-              {"\n"}git clone https://github.com/raktim-yoddha/hiveory.git{"\n\n"}
+              {"\n"}git clone {GITHUB_URL}.git{"\n"}cd hiveory{"\n\n"}
               <span className="text-zinc-500"># 2. Install dependencies</span>
               {"\n"}pnpm install{"\n\n"}
-              <span className="text-zinc-500"># 3. Launch native development application</span>
-              {"\n"}pnpm app:dev
+              <span className="text-zinc-500"># 3. Run the app with hot reload</span>
+              {"\n"}pnpm dev
             </code>
           </pre>
         </div>
 
         {/* Documentation Sections */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-          {sections.map((sec, i) => (
-            <div key={i} className="flex flex-col gap-4">
+          {sections.map((sec) => (
+            <div key={sec.category} className="flex flex-col gap-4">
               <h2 className="text-sm font-semibold uppercase tracking-wider font-mono text-zinc-400 border-b border-white/[0.08] pb-2">
                 {sec.category}
               </h2>
               <div className="space-y-3">
-                {sec.items.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="relative rounded-none border border-white/[0.08] bg-[#0c0c10]/80 p-5 hover:border-white/25 hover:bg-[#121217] transition-all cursor-pointer group shadow-sm"
+                {sec.items.map((item) => (
+                  <a
+                    key={item.title}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block relative rounded-none border border-white/[0.08] bg-[#0c0c10]/80 p-5 hover:border-white/25 hover:bg-[#121217] transition-all group shadow-sm"
                   >
                     {/* Corner Brackets - Sitting directly on the boundary */}
                     <div className="absolute -top-[1px] -left-[1px] w-3 h-3 border-t-2 border-l-2 border-white/40 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -131,16 +140,16 @@ export default function DocsPage() {
                     <div className="absolute -bottom-[1px] -left-[1px] w-3 h-3 border-b-2 border-l-2 border-white/40 group-hover:border-white transition-colors duration-300 pointer-events-none" />
                     <div className="absolute -bottom-[1px] -right-[1px] w-3 h-3 border-b-2 border-r-2 border-white/40 group-hover:border-white transition-colors duration-300 pointer-events-none" />
 
-                    <h3 className="text-base font-semibold text-white group-hover:text-zinc-200 transition-colors mb-1.5 flex items-center justify-between">
+                    <h3 className="text-base font-semibold text-white group-hover:text-zinc-200 transition-colors mb-1.5 flex items-center justify-between gap-2">
                       <span>{item.title}</span>
-                      <span className="text-zinc-500 text-xs group-hover:translate-x-0.5 transition-transform">
-                        →
+                      <span className="text-zinc-500 text-xs group-hover:translate-x-0.5 transition-transform" aria-hidden="true">
+                        ↗
                       </span>
                     </h3>
                     <p className="text-xs text-zinc-400 leading-relaxed">
                       {item.desc}
                     </p>
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>
@@ -150,15 +159,15 @@ export default function DocsPage() {
         {/* Help / GitHub Anchor */}
         <div className="text-center">
           <p className="text-sm text-zinc-400 mb-4">
-            Looking for something specific or want to contribute to the docs?
+            Something missing or unclear?
           </p>
           <a
-            href="https://github.com/raktim-yoddha/hiveory"
+            href={`${GITHUB_URL}/issues/new`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm text-white font-medium hover:text-zinc-300 underline underline-offset-4"
           >
-            View Hiveory Docs on GitHub →
+            Tell us on GitHub →
           </a>
         </div>
       </main>

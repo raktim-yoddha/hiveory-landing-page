@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform, useTime } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform, useTime } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -19,10 +20,10 @@ import {
   GithubIcon,
   LinearIcon,
   JiraIcon,
-  VercelIcon,
+  OpenCodeIcon,
 } from "./CliIcons";
 
-// 16 Verified CLI Coding Agent & Platform Logos for Card 01 (Including GitHub, Linear, Jira, Vercel)
+// 16 logos for card 01: agent CLIs Hiveory detects, plus the code hosts and trackers it connects to
 const allBrandLogos = [
   { id: "claude", name: "Claude Code", icon: <ClaudeCodeIcon className="w-6 h-6" /> },
   { id: "github", name: "GitHub", icon: <GithubIcon className="w-6 h-6 text-black" /> },
@@ -31,7 +32,7 @@ const allBrandLogos = [
   { id: "codex", name: "OpenAI Codex", icon: <CodexIcon className="w-6 h-6" /> },
   { id: "jira", name: "Jira", icon: <JiraIcon className="w-6 h-6" /> },
   { id: "antigravity", name: "Antigravity", icon: <AntigravityIcon className="w-6 h-6" /> },
-  { id: "vercel", name: "Vercel", icon: <VercelIcon className="w-6 h-6 text-black" /> },
+  { id: "opencode", name: "OpenCode", icon: <OpenCodeIcon className="w-6 h-6 text-black" /> },
   { id: "gemini", name: "Gemini CLI", icon: <GeminiCLIIcon className="w-6 h-6" /> },
   { id: "copilot", name: "GitHub Copilot", icon: <GithubCopilotIcon className="w-6 h-6 text-black" /> },
   { id: "devin", name: "Devin", icon: <DevinIcon className="w-6 h-6" /> },
@@ -48,224 +49,87 @@ const rightStreamLogos = allBrandLogos.slice(8, 16);
 const leftDelays = [0, 1.2, 2.4, 3.6, 4.8, 6.0, 7.2, 8.4];
 const rightDelays = [0.6, 1.8, 3.0, 4.2, 5.4, 6.6, 7.8, 9.0];
 
-// Card 02 Agent Tasks tailored specifically to Hiveory ADE
-interface HostStreamTask {
+// Card 02: agent cards as they appear on the board (pet name, CLI, live status, model)
+interface BoardAgent {
   id: string;
   name: string;
-  role: string;
-  cmd: string;
+  cli: string;
+  detail: string;
   icon: React.ReactNode;
-  badge: string;
-  badgeColor: string;
-  score: string;
+  status: string;
+  statusColor: string;
 }
 
-const hostStreamTasks: HostStreamTask[] = [
+const STATUS_WORKING = "bg-sky-50 text-sky-700 border-sky-200/90";
+const STATUS_WAITING = "bg-amber-50 text-amber-800 border-amber-200/90";
+const STATUS_IDLE = "bg-zinc-100 text-zinc-600 border-zinc-200/90";
+
+const hostStreamTasks: BoardAgent[] = [
   {
-    id: "claude",
-    name: "Claude Code",
-    role: "Anthropic Sub-Agent",
-    cmd: "fs:write_file(src/kernel.rs)",
+    id: "milo",
+    name: "Milo",
+    cli: "Claude Code",
+    detail: "feature/login · Opus",
     icon: <ClaudeCodeIcon className="w-4 h-4" />,
-    badge: "ACID Stored",
-    badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200/90",
-    score: "98%",
+    status: "Working",
+    statusColor: STATUS_WORKING,
   },
   {
-    id: "codex",
-    name: "OpenAI Codex",
-    role: "Autonomous Worker",
-    cmd: "pty:spawn(cargo test --lib)",
+    id: "luna",
+    name: "Luna",
+    cli: "Codex",
+    detail: "Waiting for permission",
     icon: <CodexIcon className="w-4 h-4" />,
-    badge: "Host Granted",
-    badgeColor: "bg-blue-50 text-blue-700 border-blue-200/90",
-    score: "96%",
+    status: "Needs you",
+    statusColor: STATUS_WAITING,
   },
   {
-    id: "gemini",
-    name: "Gemini CLI",
-    role: "DAG Task Planner",
-    cmd: "ipc:eval_dag(pipeline_v2)",
+    id: "kai",
+    name: "Kai",
+    cli: "Gemini CLI",
+    detail: "fix/billing · Gemini Pro",
     icon: <GeminiCLIIcon className="w-4 h-4" />,
-    badge: "WAL Committed",
-    badgeColor: "bg-purple-50 text-purple-700 border-purple-200/90",
-    score: "99%",
+    status: "Working",
+    statusColor: STATUS_WORKING,
   },
   {
-    id: "cursor",
-    name: "Cursor Agent",
-    role: "Isolated Git Worker",
-    cmd: "worktree:create(feat-auth)",
+    id: "nova",
+    name: "Nova",
+    cli: "OpenCode",
+    detail: "Finished, back to Idle",
+    icon: <OpenCodeIcon className="w-4 h-4 text-black" />,
+    status: "Idle",
+    statusColor: STATUS_IDLE,
+  },
+  {
+    id: "ruby",
+    name: "Ruby",
+    cli: "Cursor CLI",
+    detail: "Waiting for input",
     icon: <CursorIcon className="w-4 h-4 text-black" />,
-    badge: "Worktree Clean",
-    badgeColor: "bg-cyan-50 text-cyan-700 border-cyan-200/90",
-    score: "94%",
-  },
-  {
-    id: "antigravity",
-    name: "Antigravity CLI",
-    role: "Local Host Runner",
-    cmd: "secret:get(ANTHROPIC_KEY)",
-    icon: <AntigravityIcon className="w-4 h-4" />,
-    badge: "Keyring Vault",
-    badgeColor: "bg-amber-50 text-amber-800 border-amber-200/90",
-    score: "100%",
+    status: "Needs you",
+    statusColor: STATUS_WAITING,
   },
 ];
 
 // Unified 15-item array (3 cycles of 5 items) for a mathematically seamless infinite loop
 const streamTasks = [...hostStreamTasks, ...hostStreamTasks, ...hostStreamTasks];
 
-interface FeatureItem {
-  title: string;
-  desc: string;
-  icon: React.ReactNode;
-}
-
-interface CapabilityData {
-  id: string;
-  tagIndex: string;
-  tagLabel: string;
-  title: string;
-  subtitle: string;
-  buttonText: string;
-  buttonHref: string;
-  features: FeatureItem[];
-}
-
-const capabilitiesData: CapabilityData[] = [
+const capabilitiesData = [
   {
-    id: "byo-cli",
-    tagIndex: "1/3",
-    tagLabel: "Unified Tooling",
-    title: "All agentic tools & platforms in one app",
+    title: "Every agent CLI you already use",
     subtitle:
-      "Run Claude Code, OpenAI Codex, Antigravity, OpenCode, and native terminals alongside GitHub, Linear, Jira, and Vercel in a unified desktop workspace.",
-    buttonText: "Explore Integrations",
-    buttonHref: "/capabilities",
-    features: [
-      {
-        title: "Native PTY Multiplexing",
-        desc: "High-frequency pseudo-terminal streaming with zero UI lag",
-        icon: (
-          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polyline points="4 17 10 11 4 5" />
-            <line x1="12" y1="19" x2="20" y2="19" />
-          </svg>
-        ),
-      },
-      {
-        title: "Direct Provider Auth",
-        desc: "Bring your own Anthropic, OpenAI, GitHub & Linear credentials",
-        icon: (
-          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" />
-          </svg>
-        ),
-      },
-      {
-        title: "Side-by-Side Concurrency",
-        desc: "Spawn multiple agent processes operating simultaneously",
-        icon: (
-          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <rect x="3" y="3" width="18" height="18" rx="2" />
-            <path d="M12 3v18" />
-          </svg>
-        ),
-      },
-    ],
+      "Hiveory finds Claude Code, Codex, Gemini CLI, OpenCode, Copilot, Cursor and 30+ other CLIs on your computer and runs them in real terminals or as chats. Pull requests and issues from GitHub, GitLab, Jira and Linear sit in each Workspace's Dashboard.",
   },
   {
-    id: "host-authority",
-    tagIndex: "2/3",
-    tagLabel: "Privileged Host Authority",
-    title: "Local-first Rust host & SQLite WAL",
+    title: "A board that knows who needs you",
     subtitle:
-      "Privileged operations run in an authoritative Rust host with zero cloud server. SQLite WAL mode and OS-keyring storage keep state, agent runs, and credentials local.",
-    buttonText: "Explore Architecture",
-    buttonHref: "/capabilities",
-    features: [
-      {
-        title: "Privileged Host Authority",
-        desc: "Privileged execution with no Hiveory-hosted backend",
-        icon: (
-          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <rect x="4" y="4" width="16" height="16" rx="2" />
-            <rect x="9" y="9" width="6" height="6" />
-            <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3" />
-          </svg>
-        ),
-      },
-      {
-        title: "SQLite WAL Persistence",
-        desc: "ACID state durability with interrupted run recovery",
-        icon: (
-          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <ellipse cx="12" cy="5" rx="9" ry="3" />
-            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-            <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
-          </svg>
-        ),
-      },
-      {
-        title: "OS Keyring Secret Storage",
-        desc: "Secure Windows Credential Manager integration",
-        icon: (
-          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="18" cy="5" r="3" />
-            <circle cx="6" cy="12" r="3" />
-            <circle cx="18" cy="19" r="3" />
-            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
-          </svg>
-        ),
-      },
-    ],
+      "Every agent is a card that moves by its real state: Idle, Working or Waiting for you, with the reason it waits and the model it's using. Queen Bee tells you out loud when one finishes or needs you, and the phone app pings you away from your desk.",
   },
   {
-    id: "worktrees",
-    tagIndex: "3/3",
-    tagLabel: "Parallel Code Runs",
-    title: "Git worktrees & durable task DAGs",
+    title: "Worktrees without the Git chores",
     subtitle:
-      "Coding agents execute concurrent tasks in isolated Git worktrees. Run parallel feature branches with zero index locking, dirty workspace errors, or file collisions.",
-    buttonText: "Explore Worktrees",
-    buttonHref: "/capabilities",
-    features: [
-      {
-        title: "Isolated Git Worktrees",
-        desc: "Dedicated worktree instances prevent git staging contention",
-        icon: (
-          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <line x1="6" y1="3" x2="6" y2="15" />
-            <circle cx="18" cy="6" r="3" />
-            <circle cx="6" cy="18" r="3" />
-            <path d="M18 9a9 9 0 0 1-9 9" />
-          </svg>
-        ),
-      },
-      {
-        title: "Durable Task DAG Proposals",
-        desc: "Structured dependency graphs with worker leases & checkpoints",
-        icon: (
-          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polyline points="16 3 21 3 21 8" />
-            <line x1="4" y1="20" x2="21" y2="3" />
-            <polyline points="21 16 21 21 16 21" />
-            <line x1="15" y1="15" x2="21" y2="21" />
-          </svg>
-        ),
-      },
-      {
-        title: "Coordination & Decision Gates",
-        desc: "Durable participant mailboxes with non-interactive fan-in",
-        icon: (
-          <svg className="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
-          </svg>
-        ),
-      },
-    ],
+      "Each piece of work gets its own Worktree: a separate folder and branch that Hiveory creates and cleans up for you. Agents never overwrite each other, and you can start one straight from an issue.",
   },
 ];
 
@@ -276,7 +140,8 @@ export default function CapabilitiesCardStack() {
 
   // Synchronized animation clock for the pipeline stream
   const streamTime = useTime();
-  const streamY = useTransform(streamTime, (t) => -320 + ((t % 14000) / 14000) * 320);
+  const reduceMotion = useReducedMotion();
+  const streamY = useTransform(streamTime, (t) => (reduceMotion ? -160 : -320 + ((t % 14000) / 14000) * 320));
 
   useEffect(() => {
     const updateDimensions = () => {
@@ -392,10 +257,10 @@ export default function CapabilitiesCardStack() {
       {/* Section Header (In normal document flow) */}
       <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-2 sm:pb-4 text-center">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-medium tracking-[-0.025em] text-white leading-tight mb-3">
-          Core Architectural Capabilities
+          Built for many agents at once
         </h2>
         <p className="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-          Engineered from the kernel up for multi-agent concurrency, native desktop process authority, and local-first execution.
+          The parts that make running five agents feel calmer than running one.
         </p>
       </div>
 
@@ -405,7 +270,7 @@ export default function CapabilitiesCardStack() {
         <div className={isMobileOrTablet ? "relative w-full flex flex-col items-center justify-start pb-6 px-4 sm:px-6 pointer-events-auto" : "sticky top-16 sm:top-[74px] lg:top-[78px] w-full flex flex-col items-center justify-start pb-4 sm:pb-6 px-4 sm:px-6 lg:px-8 pointer-events-none"}>
           {/* Cards Area: Stacked vertically on mobile & tablet, single overlaid area on desktop */}
           <div className={isMobileOrTablet ? "relative w-full max-w-[1240px] flex flex-col gap-6 sm:gap-8 pointer-events-auto" : "relative w-full max-w-[1240px] h-[480px] sm:h-[500px] md:h-[520px] lg:h-[530px] max-h-[calc(100vh-165px)] pointer-events-auto"}>
-            {/* CARD 0: Bring your own CLI */}
+            {/* CARD 0: Every agent CLI */}
             <motion.div
               style={isMobileOrTablet ? { y: 0, zIndex: 1 } : { y: 0, zIndex: 10 }}
               className={isMobileOrTablet ? "group relative w-full rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95)] p-5 sm:p-7 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300 min-h-[460px]" : "group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-4 sm:p-5 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300"}
@@ -421,7 +286,7 @@ export default function CapabilitiesCardStack() {
                 <div className={isMobileOrTablet ? "w-full flex flex-col justify-center min-w-0" : "lg:col-span-6 flex flex-col justify-center min-w-0 pr-4 lg:pr-8"}>
                   <div className="mb-4 sm:mb-5">
                     <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-none bg-white/[0.03] border border-white/10 text-xs font-mono tracking-wider text-zinc-400">
-                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-white" />
                       <span className="text-white font-semibold">1/3</span>
                     </span>
                   </div>
@@ -437,7 +302,7 @@ export default function CapabilitiesCardStack() {
 
                 {/* Right Side: 3D Box Dipping Animation with 12 Verified CLI Logos - Balanced width, tight card edges */}
                 <div className={isMobileOrTablet ? "w-full flex items-center justify-center" : "lg:col-span-6 flex items-center justify-end w-full h-full"}>
-                  <div className={isMobileOrTablet ? "relative w-full max-w-[540px] h-[330px] sm:h-[400px] md:h-[460px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden select-none" : "relative w-full max-w-[540px] h-[330px] sm:h-[400px] md:h-[460px] lg:h-full lg:max-h-[530px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden select-none"}>
+                  <div className={isMobileOrTablet ? "relative w-full max-w-[540px] h-[330px] sm:h-[400px] md:h-[460px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden select-none" : "relative w-full max-w-[540px] h-[330px] sm:h-[400px] md:h-[460px] lg:h-full lg:max-h-[530px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden select-none"} aria-hidden="true">
                     {/* Corner highlights */}
                     <div className="absolute -top-[1px] -left-[1px] w-3.5 h-3.5 border-t-2 border-l-2 border-white/50 pointer-events-none z-30" />
                     <div className="absolute -top-[1px] -right-[1px] w-3.5 h-3.5 border-t-2 border-r-2 border-white/50 pointer-events-none z-30" />
@@ -588,7 +453,7 @@ export default function CapabilitiesCardStack() {
               </div>
             </motion.div>
 
-            {/* CARD 1: Privileged Rust Host & SQLite WAL */}
+            {/* CARD 1: The live board */}
             <motion.div
               style={isMobileOrTablet ? { y: 0, zIndex: 2 } : { y: y1, zIndex: 20 }}
               className={isMobileOrTablet ? "group relative w-full rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95)] p-5 sm:p-7 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300 min-h-[460px]" : "group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-4 sm:p-5 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300"}
@@ -603,7 +468,7 @@ export default function CapabilitiesCardStack() {
                 <div className={isMobileOrTablet ? "w-full flex flex-col justify-center min-w-0" : "lg:col-span-6 flex flex-col justify-center min-w-0 pr-4 lg:pr-8"}>
                   <div className="mb-4 sm:mb-5">
                     <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-none bg-white/[0.03] border border-white/10 text-xs font-mono tracking-wider text-zinc-400">
-                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-white" />
                       <span className="text-white font-semibold">2/3</span>
                     </span>
                   </div>
@@ -619,7 +484,7 @@ export default function CapabilitiesCardStack() {
 
                 {/* Right Side: Interactive Synchronized Lead/Agent Stream Matching Reference Image */}
                 <div className={isMobileOrTablet ? "w-full flex items-center justify-center" : "lg:col-span-6 flex items-center justify-end w-full h-full"}>
-                  <div className={isMobileOrTablet ? "relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] flex flex-col justify-center overflow-hidden select-none" : "relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] lg:h-full lg:max-h-[530px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] flex flex-col justify-center overflow-hidden select-none"}>
+                  <div className={isMobileOrTablet ? "relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] flex flex-col justify-center overflow-hidden select-none" : "relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] lg:h-full lg:max-h-[530px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] flex flex-col justify-center overflow-hidden select-none"} aria-hidden="true">
                     {/* Outer Boundary Corner Highlights */}
                     <div className="absolute -top-[1px] -left-[1px] w-3.5 h-3.5 border-t-2 border-l-2 border-white/50 pointer-events-none z-40" />
                     <div className="absolute -top-[1px] -right-[1px] w-3.5 h-3.5 border-t-2 border-r-2 border-white/50 pointer-events-none z-40" />
@@ -656,7 +521,7 @@ export default function CapabilitiesCardStack() {
                                     {item.name}
                                   </div>
                                   <div className="text-[10px] font-mono text-zinc-500 leading-tight truncate mt-0.5">
-                                    {item.role}
+                                    {item.cli}
                                   </div>
                                 </div>
                               </div>
@@ -670,9 +535,11 @@ export default function CapabilitiesCardStack() {
 
                       {/* Hiveory Icon Badge - Centered on top of the line without outer square box */}
                       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex items-center justify-center pointer-events-none">
-                        <img
+                        <Image
                           src="/hiveory-logo.png"
-                          alt="Hiveory"
+                          alt=""
+                          width={44}
+                          height={44}
                           className="w-11 h-11 object-contain rounded-xl drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] border border-white/20 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
                         />
                       </div>
@@ -702,18 +569,18 @@ export default function CapabilitiesCardStack() {
                                     <span className="text-[13px] font-semibold text-zinc-900 truncate">
                                       {item.name}
                                     </span>
-                                    <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full shrink-0 leading-none border ${item.badgeColor}`}>
-                                      {item.badge}
+                                    <span className="text-[10px] font-mono text-zinc-500 truncate">
+                                      {item.cli}
                                     </span>
                                   </div>
                                   <div className="text-[10px] font-mono text-zinc-500 leading-normal truncate mt-0.5">
-                                    {item.cmd}
+                                    {item.detail}
                                   </div>
                                 </div>
                               </div>
                               <div className="flex items-center gap-2 shrink-0 ml-2">
-                                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full leading-none bg-[#ffedd5] text-[#ea580c]">
-                                  {item.score}
+                                <span className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full leading-none border ${item.statusColor}`}>
+                                  {item.status}
                                 </span>
                                 <span className="text-zinc-400 text-xs font-light">›</span>
                               </div>
@@ -742,7 +609,7 @@ export default function CapabilitiesCardStack() {
                 <div className={isMobileOrTablet ? "w-full flex flex-col justify-center min-w-0" : "lg:col-span-6 flex flex-col justify-center min-w-0 pr-4 lg:pr-8"}>
                   <div className="mb-4 sm:mb-5">
                     <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-none bg-white/[0.03] border border-white/10 text-xs font-mono tracking-wider text-zinc-400">
-                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-white" />
                       <span className="text-white font-semibold">3/3</span>
                     </span>
                   </div>
@@ -758,7 +625,7 @@ export default function CapabilitiesCardStack() {
 
                 {/* Right Side: Git Worktrees Multi-Branch Visualizer (Golden, Silver, White - No Top/Bottom Text) */}
                 <div className={isMobileOrTablet ? "w-full flex items-center justify-center" : "lg:col-span-6 flex items-center justify-end w-full h-full"}>
-                  <div className={isMobileOrTablet ? "relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] rounded-none border border-white/[0.12] bg-[#0b0b10]/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] p-6 flex flex-col justify-center overflow-hidden select-none" : "relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] lg:h-full lg:max-h-[530px] rounded-none border border-white/[0.12] bg-[#0b0b10]/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] p-6 flex flex-col justify-center overflow-hidden select-none"}>
+                  <div className={isMobileOrTablet ? "relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] rounded-none border border-white/[0.12] bg-[#0b0b10]/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] p-6 flex flex-col justify-center overflow-hidden select-none" : "relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] lg:h-full lg:max-h-[530px] rounded-none border border-white/[0.12] bg-[#0b0b10]/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] p-6 flex flex-col justify-center overflow-hidden select-none"} aria-hidden="true">
                     <div className="absolute -top-[1px] -left-[1px] w-3.5 h-3.5 border-t-2 border-l-2 border-white/50 pointer-events-none z-30" />
                     <div className="absolute -top-[1px] -right-[1px] w-3.5 h-3.5 border-t-2 border-r-2 border-white/50 pointer-events-none z-30" />
                     <div className="absolute -bottom-[1px] -left-[1px] w-3.5 h-3.5 border-b-2 border-l-2 border-white/50 pointer-events-none z-30" />
@@ -781,19 +648,19 @@ export default function CapabilitiesCardStack() {
                         <circle cx="90" cy="105" r="5" fill="#121218" stroke="#ffffff" strokeWidth="2" />
                         <circle cx="210" cy="105" r="5" fill="#121218" stroke="#ffffff" strokeWidth="2" />
                         <circle cx="310" cy="105" r="6" fill="#ffffff" stroke="#d4d4d8" strokeWidth="1.5" />
-                        <text x="310" y="92" textAnchor="middle" fill="#ffffff" fontSize="7.5" fontWeight="600" fontFamily="monospace">main (HEAD)</text>
+                        <text x="310" y="92" textAnchor="middle" fill="#ffffff" fontSize="7.5" fontWeight="600" fontFamily="monospace">main · Primary</text>
 
                         {/* Branch 1 commits (Golden) */}
                         <circle cx="170" cy="50" r="4.5" fill="#121218" stroke="#f59e0b" strokeWidth="2" />
                         <circle cx="220" cy="50" r="4.5" fill="#fbbf24" stroke="#f59e0b" strokeWidth="2" />
                         <circle cx="270" cy="50" r="5" fill="#f59e0b" stroke="#ffffff" strokeWidth="1.5" />
-                        <text x="270" y="38" textAnchor="middle" fill="#ffffff" fontSize="7.5" fontFamily="monospace">worktree-claude: 9fa1c</text>
+                        <text x="270" y="38" textAnchor="middle" fill="#ffffff" fontSize="7.5" fontFamily="monospace">feature/login · Milo</text>
 
                         {/* Branch 2 commits (Silver & Platinum) */}
                         <circle cx="200" cy="160" r="4.5" fill="#121218" stroke="#d4d4d8" strokeWidth="2" />
                         <circle cx="250" cy="160" r="4.5" fill="#121218" stroke="#e4e4e7" strokeWidth="2" />
                         <circle cx="290" cy="160" r="5" fill="#e4e4e7" stroke="#ffffff" strokeWidth="1.5" />
-                        <text x="290" y="178" textAnchor="middle" fill="#ffffff" fontSize="7.5" fontFamily="monospace">worktree-codex: 3b40e</text>
+                        <text x="290" y="178" textAnchor="middle" fill="#ffffff" fontSize="7.5" fontFamily="monospace">fix/billing · Luna</text>
                       </svg>
                     </div>
                   </div>
@@ -836,7 +703,7 @@ export default function CapabilitiesCardStack() {
                   </svg>
                 </span>
                 <span className="text-xs sm:text-sm font-semibold text-white group-hover/btn:text-black tracking-wide transition-colors duration-300">
-                  See More Details
+                  See every feature
                 </span>
               </span>
 

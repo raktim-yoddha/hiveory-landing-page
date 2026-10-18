@@ -3,60 +3,75 @@ import HoverFooter from "@/components/ui/hover-footer";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Capabilities — Hiveory | Architecture & Foundation",
+  title: "Features — Hiveory | Everything in the app",
   description:
-    "Explore Hiveory's core technical capabilities: Privileged Rust host authority, capability-scoped trust sandboxing, native ConPTY multiplexing, and Git worktree isolation.",
+    "Every Hiveory feature: Workspaces and Worktrees, a live agent board, panes, a built-in browser, Queen Bee, skills and MCP servers, remote SSH hosts and the phone app.",
 };
 
 export default function CapabilitiesPage() {
   const capabilities = [
     {
-      title: "Privileged Rust Host & Local-First Authority",
-      icon: "⚙️",
+      title: "Workspaces and Worktrees",
       summary:
-        "Filesystem access, process execution, credentials, persistence, and networking are owned exclusively by the Rust desktop host.",
+        "Add a folder, create a repository or clone one. New Worktrees are isolated Git branches Hiveory creates and cleans up.",
       details:
-        "The React renderer cannot access disk, retrieve stored secrets, or run arbitrary processes. All operations pass through typed Tauri IPC commands validated by the host with SQLite WAL persistence.",
+        "Every Workspace has its Primary worktree, the folder itself. Linked worktrees Git already knows show up on their own, and Start worktree turns an issue into a branch named after it.",
     },
     {
-      title: "Explicit Workspace Trust & Path Sandboxing",
-      icon: "🛡️",
+      title: "A board that follows real state",
       summary:
-        "Untrusted workspaces open read-only. Privileged operations require explicit user trust before file writes or process launches.",
+        "Cards move between Idle, Working and Waiting for you as agents work. You never drag them.",
       details:
-        "Rejects absolute paths, path traversal, symlinks, and stale file fingerprints. Monaco Editor uses optimistic SHA-256 fingerprinting so external edits trigger a conflict instead of an overwrite.",
+        "Each card shows why an agent waits (permission, input, confirmation) and the model it is using right now. Two agents of the same CLI are separate cards with their own names.",
     },
     {
-      title: "Multi-Pane Canvas & Native ConPTY Terminals",
-      icon: "⚡",
+      title: "Panes the way you like them",
       summary:
-        "Recursive horizontal and vertical splits multiplex native shells, coding agents, and embedded browser panes.",
+        "Split right or down, drag a pane to an edge, hold Space to swap two, or show them as tabs.",
       details:
-        "Terminal sessions run through native PTY/ConPTY (CMD, PowerShell, Git Bash) with bounded scrollback and snapshot resynchronization on sequence gaps. Live processes stay alive across re-renders.",
+        "Terminals, chats, editors and browser pages share the same layout. Ask Queen Bee to \"arrange them in a grid\" or \"make Milo the main pane\" and she does it.",
     },
     {
-      title: "Git Worktrees, Task DAGs & Coordination",
-      icon: "🌿",
+      title: "Queen Bee, by voice or text",
       summary:
-        "Durable code runs execute dependency-ready tasks in application-managed Git worktrees with zero index collisions.",
+        "An assistant bar that opens agents, reports who is waiting, and runs app actions on request.",
       details:
-        "Structured DAG proposals track worker leases, checkpoints, reviews, and non-interactive fan-in. The Coordination pane provides durable participant mailboxes and decision gates.",
+        "Speech is transcribed on your computer. A model is optional: she handles plain commands without one, and with one she can only pick from her fixed set of actions.",
     },
     {
-      title: "Declarative HTTPS Plugins & SKILL.md",
-      icon: "🔌",
+      title: "A browser your agents can use",
       summary:
-        "Host-executed declarative HTTPS integrations with strict host allow-lists, plus 20+ built-in SKILL.md packages.",
+        "A real browser pane with profiles, device sizes and element picking, driven by agents with a visible cursor.",
       details:
-        "Pre-built catalog includes GitHub, Linear, Gmail, Slack, Notion, Cloudflare, Supabase, Vercel, Stripe, and Shopify. Supports custom JSON manifests and per-agent skill conflict resolution.",
+        "Mark elements on a page and send them to an agent. Pages an agent opens appear next to it. Computer use is there too, off by default.",
     },
     {
-      title: "On-Device Automations & Workspace Board",
-      icon: "📋",
+      title: "Skills, MCP servers and apps",
       summary:
-        "Local cron scheduling via hiveory-routine-scheduler paired with a unified Kanban board for GitHub, Jira, and Linear.",
+        "Manage Agent Skills and MCP servers for every installed CLI in one place.",
       details:
-        "Schedules evaluate on-device with concurrency and approval-timeout limits. The full-screen workspace board connects local code run tasks with GitHub (gh CLI), Jira Cloud, and Linear tasks.",
+        "Browse skills.sh and the MCP Registry, install for every CLI at once, and connect Gmail, Slack, GitHub, Notion and 1,000+ apps through your own Composio key.",
+    },
+    {
+      title: "Remote hosts and a headless server",
+      summary:
+        "Open Workspaces on SSH hosts, keep agents running on a Hiveory server, and reach your computers over Tailscale.",
+      details:
+        "Files, Git and agents stay on the remote machine. A dropped connection reconnects for five minutes and the same terminals carry on.",
+    },
+    {
+      title: "Your agents in your pocket",
+      summary:
+        "The phone app shows every agent that needs you, lets you type into terminals, and sends a notification when one waits.",
+      details:
+        "It talks only to your own computers over your Tailscale network. Deleting things, settings and accounts stay on the computer.",
+    },
+    {
+      title: "Keeps running",
+      summary:
+        "Closing the window leaves agents working in the tray. After a restart, terminal agents resume their conversations.",
+      details:
+        "The Sessions tab lists every Claude Code, Codex and Gemini CLI conversation on the computer, so you can pick any of them back up.",
     },
   ];
 
@@ -71,13 +86,11 @@ export default function CapabilitiesPage() {
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
           <h1 className="text-4xl sm:text-6xl font-medium tracking-[-0.03em] text-white leading-tight mb-6">
-            Built for multi-agent reliability
+            Everything Hiveory does
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-            Concurrent agent engineering requires deep system foundations.
-            Explore Hiveory&apos;s architectural pillars designed for
-            collision-free, sandboxed local development.
+            Free, open source and on your computer. Here is the whole app, one part at a time.
           </p>
         </div>
 
@@ -95,7 +108,7 @@ export default function CapabilitiesPage() {
               <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
 
               <div>
-                <div className="text-3xl mb-4">{c.icon}</div>
+                <div className="text-xs font-mono text-zinc-500 mb-4">{String(i + 1).padStart(2, "0")}</div>
                 <h2 className="text-xl font-medium text-white mb-2 tracking-tight">
                   {c.title}
                 </h2>
@@ -119,10 +132,10 @@ export default function CapabilitiesPage() {
           <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
 
           <h2 className="text-xl font-medium text-white mb-2">
-            Want to inspect the complete architecture specification?
+            Want the full details?
           </h2>
           <p className="text-sm text-zinc-400 mb-6">
-            Read our technical whitepapers and documentation on GitHub.
+            Read the guides, or see what changed in every release.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
@@ -170,7 +183,7 @@ export default function CapabilitiesPage() {
                   </svg>
                 </span>
                 <span className="text-[14px] sm:text-[15px] font-medium text-white group-hover/btn:text-black transition-colors duration-300">
-                  Explore Home
+                  Back to home
                 </span>
               </span>
 

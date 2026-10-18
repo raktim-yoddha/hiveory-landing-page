@@ -14,46 +14,45 @@ interface ModeCard {
 
 const modesData: ModeCard[] = [
   {
-    id: "agent",
-    stepIndex: "01",
-    title: "Agent Mode",
-    subtitle: "Durable AI assistants with granular skills",
+    id: "work",
+    stepIndex: "Work",
+    title: "Agents in parallel",
+    subtitle: "Coding agents in real terminals, each Worktree on its own branch",
     keyPoints: [
-      "Named agents with strict runtime limits",
-      "Folder grants without full disk access",
-      "Over 20 practical built-in skill packages",
-      "Local routines & SQLite WAL persistence",
+      "Open several agents of any CLI at once",
+      "Worktrees created and cleaned up for you",
+      "A live board: Idle, Working, Waiting for you",
+      "Split, drag and swap panes, or show them as tabs",
     ],
   },
   {
-    id: "code",
-    stepIndex: "02",
-    title: "Code Mode",
-    subtitle: "Multi-pane canvas with native terminals",
+    id: "bots",
+    stepIndex: "Bots",
+    title: "Teammates that keep going",
+    subtitle: "Bots with their own brief, memory, schedules and triggers",
     keyPoints: [
-      "Multi-pane canvas with ConPTY shells",
-      "Dedicated Git worktrees for zero collisions",
-      "Monaco editor with SHA-256 fingerprinting",
-      "Durable task DAG proposals & mailboxes",
+      "Run on a schedule or when an app event arrives",
+      "Teams with a Chief of Staff who hands out work",
+      "Ask before sending or changing things in your apps",
+      "Their own browser and, if you want, a Linux computer",
     ],
   },
   {
     id: "chat",
-    stepIndex: "03",
-    title: "Chat Mode",
-    subtitle: "Streaming AI chat with branching & drafts",
+    stepIndex: "Chat",
+    title: "Chat with any CLI",
+    subtitle: "Pick a CLI, then its model and effort, and just talk",
     keyPoints: [
-      "Streaming text turns with zero telemetry",
-      "Conversation branching & local draft states",
-      "Local attachments for PDF, images & text",
-      "Sanitized portable archive exports",
+      "Uses the CLIs and plans you already pay for",
+      "Queue your next message while it answers",
+      "Saved prompts in every message box",
+      "Scheduled chats that run on their own",
     ],
   },
 ];
 
 export default function ProductCardStack() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   // References to compute exact trajectory contact points with zero gap
   const topBoxRef = useRef<HTMLDivElement>(null);
@@ -74,15 +73,6 @@ export default function ProductCardStack() {
     width: number;
     height: number;
   } | null>(null);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   useEffect(() => {
     const updateCoords = () => {
@@ -180,10 +170,10 @@ export default function ProductCardStack() {
       {/* SECTION HEADER */}
       <div className="relative z-10 w-full max-w-4xl mx-auto text-center mb-12 sm:mb-16">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-medium tracking-[-0.025em] text-white leading-tight mb-3">
-          One Super App. Three Modes.
+          Three ways to work, one app
         </h2>
         <p className="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-          Switch seamlessly between Agent Mode (Ctrl+1), Code Mode (Ctrl+2), and Chat Mode (Ctrl+3) inside one local-first desktop workspace.
+          Work, Bots and Chat sit one shortcut apart (Ctrl 1, 2, 3; ⌘ on Mac). Agents keep running while you switch.
         </p>
       </div>
 
@@ -209,7 +199,7 @@ export default function ProductCardStack() {
             <div className="relative w-full h-full flex items-center justify-center">
               <Image
                 src="/hiveory-logo.png"
-                alt="Hiveory Host Engine"
+                alt=""
                 width={56}
                 height={56}
                 className="w-full h-full object-contain filter brightness-110 contrast-125 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)]"
@@ -324,13 +314,13 @@ export default function ProductCardStack() {
                   {/* Step Pill Tag (Only the number as requested) */}
                   <div className="flex items-center mb-3">
                     <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-none bg-white/[0.03] border border-white/10 text-[11px] font-mono tracking-wider text-zinc-400">
-                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-white" />
                       <span className="text-white font-semibold">{mode.stepIndex}</span>
                     </span>
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-xl sm:text-2xl font-medium text-white tracking-tight mb-2 truncate">
+                  <h3 className="text-xl sm:text-2xl font-medium text-white tracking-tight mb-2">
                     {mode.title}
                   </h3>
 
@@ -352,6 +342,7 @@ export default function ProductCardStack() {
                         {/* White tick bullet mark */}
                         <svg
                           className="w-4 h-4 text-white shrink-0 mt-0.5 sm:mt-0"
+                          aria-hidden="true"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
@@ -407,7 +398,7 @@ export default function ProductCardStack() {
                 </svg>
               </span>
               <span className="text-xs sm:text-sm font-semibold text-white group-hover/btn:text-black tracking-wide transition-colors duration-300">
-                See More Details
+                See everything it does
               </span>
             </span>
 

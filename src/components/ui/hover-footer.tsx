@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { MapPin, Globe } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const TextHoverEffect = ({
@@ -277,20 +277,21 @@ export function HoverFooter() {
     {
       title: "Product",
       links: [
-        { label: "Agent Mode", href: "/product" },
-        { label: "Code Mode", href: "/product" },
-        { label: "Chat Mode", href: "/product" },
-        { label: "Bring your own CLI", href: "/#byok" },
+        { label: "Work", href: "/product#work" },
+        { label: "Bots", href: "/product#bots" },
+        { label: "Chat", href: "/product#chat" },
+        { label: "All features", href: "/capabilities" },
       ],
     },
     {
       title: "Resources",
       links: [
-        { label: "Documentation", href: "/docs" },
-        { label: "Capabilities", href: "/capabilities" },
-        { label: "Prices", href: "/#price" },
+        { label: "Docs", href: "/docs" },
+        { label: "Download", href: "https://github.com/raktim-yoddha/hiveory/releases/latest" },
+        { label: "Changelog", href: "https://github.com/raktim-yoddha/hiveory/blob/main/CHANGELOG.md" },
+        { label: "Pricing", href: "/#pricing" },
         {
-          label: "Community Hub",
+          label: "Community",
           href: "/#community",
           pulse: true,
         },
@@ -362,20 +363,6 @@ export function HoverFooter() {
       label: "YouTube",
       href: "https://www.youtube.com/@ttcislive",
     },
-    {
-      icon: (
-        <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-        </svg>
-      ),
-      label: "Twitter",
-      href: "https://twitter.com",
-    },
-    {
-      icon: <Globe size={18} />,
-      label: "Website",
-      href: "https://hiveory.com",
-    },
   ];
 
   return (
@@ -388,7 +375,7 @@ export function HoverFooter() {
               <div className="relative w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center p-0.5 shadow-[0_0_12px_rgba(255,255,255,0.15)] group-hover:scale-105 transition-transform">
                 <Image
                   src="/hiveory-logo.png"
-                  alt="Hiveory Logo"
+                  alt=""
                   width={32}
                   height={32}
                   className="w-full h-full object-contain rounded-md"
@@ -399,7 +386,7 @@ export function HoverFooter() {
               </span>
             </Link>
             <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-              A local-first desktop super app uniting autonomous agents, a multi-CLI development environment, and isolated AI chat threads over your own files.
+              Run every coding agent at once, each in its own worktree, on one live board. Free, open source, and on your own computer.
             </p>
           </div>
 
@@ -411,7 +398,7 @@ export function HoverFooter() {
               </h4>
               <ul className="space-y-2.5 sm:space-y-3 pointer-events-auto">
                 {section.links.map((link) => (
-                  <li key={link.label} className="relative">
+                  <li key={link.label} className="relative w-fit">
                     {link.href.startsWith("http") ? (
                       <a
                         href={link.href}
@@ -471,7 +458,7 @@ export function HoverFooter() {
 
         {/* Bottom copyright and social icons bar */}
         <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-4 pt-6 text-xs text-zinc-500 pointer-events-auto">
-          <p>&copy; {new Date().getFullYear()} Hiveory. Open Source under MIT License.</p>
+          <p>&copy; {new Date().getFullYear()} Hiveory. Open source under the MIT License.</p>
           <div className="flex items-center gap-4">
             {socialLinks.map((item, idx) => (
               <a

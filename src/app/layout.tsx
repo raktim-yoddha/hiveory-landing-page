@@ -14,11 +14,14 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
 });
 
+const title = "Hiveory — Run every coding agent at once";
+const description =
+  "Free, open-source desktop app that runs Claude Code, Codex, Gemini CLI, OpenCode and 30+ agent CLIs side by side, each in its own Git worktree, with a live board of who's working and who's waiting for you.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://hiveory.com"),
-  title: "Hiveory — Local-First Agent Super App & ADE",
-  description:
-    "A local-first desktop workspace uniting persistent named agents, an agentic development environment (ADE) with recursive split panes, and isolated AI chat threads over your own folders.",
+  title,
+  description,
   icons: {
     icon: [
       { url: "/hiveory-logo.png?v=hiveory", type: "image/png" },
@@ -28,18 +31,16 @@ export const metadata: Metadata = {
     apple: [{ url: "/hiveory-logo.png?v=hiveory" }],
   },
   openGraph: {
-    title: "Hiveory — Local-First Agent Super App & ADE",
-    description:
-      "Run autonomous agents, an agentic development environment (ADE), and standalone chat side by side with host-authoritative local security.",
-    images: ["/hiveory-logo.png"],
+    title,
+    description,
+    images: [{ url: "/work.webp", width: 1440, height: 900, alt: "Hiveory's Work view with agents side by side" }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hiveory — Local-First Agent Super App & ADE",
-    description:
-      "Run autonomous agents, an agentic development environment (ADE), and standalone chat side by side.",
-    images: ["/hiveory-logo.png"],
+    title,
+    description,
+    images: ["/work.webp"],
   },
 };
 

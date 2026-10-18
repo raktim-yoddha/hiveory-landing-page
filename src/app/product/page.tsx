@@ -1,69 +1,81 @@
 import Navbar from "@/components/Navbar";
 import HoverFooter from "@/components/ui/hover-footer";
 import Image from "next/image";
-import Link from "next/link";
+import { GITHUB_RELEASES_PAGE, GITHUB_URL } from "@/lib/download";
 
 export const metadata = {
-  title: "Product — Hiveory | The 3 Isolated Modes",
+  title: "Product — Hiveory | Work, Bots and Chat",
   description:
-    "Explore Hiveory's three isolated desktop modes: Agent Mode, Code Mode (ADE), and Standalone AI Chat.",
+    "What Hiveory does: run coding-agent CLIs side by side in their own Git worktrees, keep bots working on schedules, and chat with any CLI's models.",
 };
 
 export default function ProductPage() {
-  const modes = [
+  const modes: {
+    id: string;
+    tag: string;
+    title: string;
+    headline: string;
+    description: string;
+    imageSrc?: string;
+    imageAlt?: string;
+    features: string[];
+    badge: string;
+  }[] = [
     {
-      id: "agent",
-      tag: "Ctrl+1 · Autonomous Agency",
-      title: "Agent Mode",
-      headline: "Durable, reusable AI assistants with explicit policies & skills",
+      id: "work",
+      tag: "Ctrl 1 · Work",
+      title: "Work",
+      headline: "Coding agents side by side, each in its own Worktree",
       description:
-        "Create named agents configured with custom prompt instructions, runtime limits, and approval policies. Grant specific local folders instead of exposing the whole filesystem, with SQLite WAL persistence and direct OpenAI Responses API integration (store: false).",
-      imageSrc: "/agent-mode.png",
+        "Add a folder, create a repository or clone one. Open as many agents as you like in each Worktree, in real terminals or as chats, and watch them on a board that moves by their real state.",
+      imageSrc: "/work.webp",
+      imageAlt: "Work view with two agents open side by side and the board listing every agent",
       features: [
-        "Named agents with folder grants & approval policies",
-        "Over 20 built-in SKILL.md packages & conflict resolution",
-        "Declarative HTTPS plugins with host allow-lists",
-        "Local routine automations & durable run recovery",
-        "Direct OpenAI Responses API calls (store: false)",
-        "Durable conversations, memories, and generated artifacts",
+        "Claude Code, Codex, Gemini CLI, OpenCode and 30+ more CLIs",
+        "Worktrees on their own branches, created and cleaned up for you",
+        "Board: Idle, Working, Waiting for you, with the reason it waits",
+        "Split right or down, drag to an edge, swap, or show as tabs",
+        "Presets open your usual set of agents in one click",
+        "Pull requests and issues from GitHub, GitLab, Jira and Linear",
+        "A built-in browser your agents can drive, with a visible cursor",
       ],
-      badge: "Autonomous Assistants",
+      badge: "Parallel agents",
     },
     {
-      id: "code",
-      tag: "Ctrl+2 · Terminal-First ADE",
-      title: "Code Mode",
-      headline: "Multi-pane development workbench with native terminals & coding agents",
+      id: "bots",
+      tag: "Ctrl 2 · Bots",
+      title: "Bots",
+      headline: "Teammates with a brief, a memory and a schedule",
       description:
-        "Work on local repositories in a flexible multi-pane canvas. Multiplex native PTY terminals, Claude Code, Codex, Antigravity, OpenCode, and embedded browsers. Isolated Git worktrees prevent staging collisions while optimistic SHA-256 fingerprints protect file edits.",
-      imageSrc: "/demo.png",
+        "Give a bot a job and it keeps doing it. Bots run on schedules or when something happens in a connected app, work in teams under a Chief of Staff, and ask you before they send or change anything as you.",
       features: [
-        "Recursive multi-pane canvas (CMD, PowerShell, Git Bash)",
-        "Coding agent CLIs (Claude Code, Codex, Antigravity, OpenCode)",
-        "Git worktree isolation & durable task DAG orchestration",
-        "Monaco editor with optimistic SHA-256 edit fingerprints",
-        "Coordination pane with mailboxes & decision gates",
-        "GitHub issues and pull requests via authenticated gh CLI",
+        "A brief, model and memory carried into every conversation",
+        "Schedules (once, every few minutes, or on a calendar rule)",
+        "Triggers from connected apps, run read-only",
+        "Teams with a Chief of Staff and a work board",
+        "Asks before acting in your apps; you allow or decline",
+        "Its own browser profile and, optionally, a Linux computer",
       ],
-      badge: "Local-First ADE",
+      badge: "Always-on work",
     },
     {
       id: "chat",
-      tag: "Ctrl+3 · Standalone AI Chat",
-      title: "Chat Mode",
-      headline: "Independent streaming conversations with branching & rich attachments",
+      tag: "Ctrl 3 · Chat",
+      title: "Chat",
+      headline: "Talk to any CLI's models, on the plans you already have",
       description:
-        "Hold standalone AI conversations independent from Code workspaces and agent tools. Stream text and reasoning events, retry turns, edit messages, branch conversations, preserve drafts, and import bounded PDF, image, text, and Markdown attachments into app-managed storage.",
-      imageSrc: "/chat-mode.png",
+        "Pick a CLI Hiveory found, then a model and an effort level, and chat. Attach images and files, queue your next message while the answer streams, and keep chats running while you work elsewhere.",
+      imageSrc: "/chat.webp",
+      imageAlt: "Chat view with Codex selected and its model and effort pickers",
       features: [
-        "Streaming text & reasoning event inspection",
-        "Conversation branching, retry & local drafts",
-        "Bounded attachments in application-managed storage",
-        "Sanitized portable archive export & Markdown rendering",
-        "Independent from Code workspaces & agent permissions",
-        "Model gateway credentials secured in OS keyring",
+        "Searchable model picker and effort per chat",
+        "Images, files and long text by paste or drop",
+        "Queue the next message while the answer streams",
+        "Saved prompts in every message box",
+        "Scheduled chats that start on their own",
+        "Keeps running while you are in Work or Bots",
       ],
-      badge: "Isolated AI Chat",
+      badge: "Any model",
     },
   ];
 
@@ -78,12 +90,12 @@ export default function ProductPage() {
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
           <h1 className="text-4xl sm:text-6xl font-medium tracking-[-0.03em] text-white leading-tight mb-6">
-            Engineered for agents, code & standalone chat
+            Work, Bots and Chat in one app
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-            Hiveory keeps three distinct modes separate so each one has a clear capability
-            boundary. Powered by a privileged Rust host and Tauri with zero cloud dependency.
+            Hiveory runs the agent CLIs you already use and keeps them out of each other&apos;s way.
+            Everything happens on your computer: no account, no Hiveory server.
           </p>
         </div>
 
@@ -123,7 +135,8 @@ export default function ProductPage() {
                   {m.description}
                 </p>
 
-                {/* UI Demo Screenshot Preview */}
+                {/* Screenshot of the current app, when there is one */}
+                {m.imageSrc && (
                 <div className="relative w-full aspect-[16/10] mb-6 rounded-none border border-white/15 bg-[#08080c] shadow-lg group/img flex items-center justify-center overflow-hidden">
                   <span className="absolute -top-[1px] -left-[1px] w-2.5 h-2.5 border-t-2 border-l-2 border-white/40 pointer-events-none z-10" />
                   <span className="absolute -top-[1px] -right-[1px] w-2.5 h-2.5 border-t-2 border-r-2 border-white/40 pointer-events-none z-10" />
@@ -132,7 +145,7 @@ export default function ProductPage() {
 
                   <Image
                     src={m.imageSrc}
-                    alt={`${m.title} interface preview`}
+                    alt={m.imageAlt ?? ""}
                     fill
                     sizes="(max-width: 1024px) 100vw, 420px"
                     className="object-contain block transition-transform duration-500 group-hover/img:scale-[1.02] filter grayscale contrast-125"
@@ -141,12 +154,13 @@ export default function ProductPage() {
 
                   <div className="absolute inset-0 pointer-events-none shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]" />
                 </div>
+                )}
               </div>
 
               {/* Detailed Capabilities List with White Tick Bullets */}
               <div className="border-t border-white/[0.08] pt-6 mt-auto">
                 <div className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500 mb-3.5">
-                  Detailed Capabilities
+                  What it does
                 </div>
                 <ul className="space-y-2.5">
                   {m.features.map((f, i) => (
@@ -185,15 +199,16 @@ export default function ProductPage() {
           <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
 
           <h2 className="text-2xl sm:text-3xl font-medium text-white mb-4">
-            Ready to experience concurrent agent development?
+            Try it on your next task
           </h2>
           <p className="text-sm sm:text-base text-zinc-400 max-w-xl mx-auto mb-8">
-            Download Hiveory today or explore the open-source repository on
-            GitHub.
+            Free and open source. Install it, open a folder and start your first agents.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/"
+            <a
+              href={GITHUB_RELEASES_PAGE}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group/btn relative inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-lg"
             >
               <span className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
@@ -205,22 +220,22 @@ export default function ProductPage() {
 
               <span className="relative z-10 flex items-center gap-3">
                 <span className="w-9 h-9 flex items-center justify-center text-black shrink-0 transition-colors">
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                   </svg>
                 </span>
                 <span className="text-[14px] sm:text-[15px] font-semibold text-white group-hover/btn:text-black transition-colors duration-300">
-                  Back to Home
+                  Download free
                 </span>
               </span>
 
               <span className="relative z-10 text-white/50 group-hover/btn:text-black group-hover/btn:translate-x-1 transition-all duration-300 pl-3">
                 →
               </span>
-            </Link>
+            </a>
 
             <a
-              href="https://github.com/raktim-yoddha/hiveory"
+              href={GITHUB_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="group/btn relative inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-sm"
@@ -239,7 +254,7 @@ export default function ProductPage() {
                   </svg>
                 </span>
                 <span className="text-[14px] sm:text-[15px] font-medium text-white group-hover/btn:text-black transition-colors duration-300">
-                  GitHub Repository
+                  View on GitHub
                 </span>
               </span>
 

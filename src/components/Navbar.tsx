@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
-import { triggerLatestDownload } from "@/lib/download";
+import { GITHUB_URL, getStarCount, triggerLatestDownload } from "@/lib/download";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -13,7 +13,6 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isNavbarStatic, setIsNavbarStatic] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
   // Monitor scroll position with high performance outside React render cycle
   const { scrollY } = useScroll();
@@ -43,9 +42,7 @@ export default function Navbar() {
         setIsScrolled(false);
       }
 
-      const mobile = window.innerWidth < 768;
-      setIsMobile(mobile);
-      if (!mobile) {
+      if (window.innerWidth >= 768) {
         setIsMobileMenuOpen(false);
       }
     };
@@ -55,27 +52,15 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    // Fetch GitHub stars for raktim-yoddha/hiveory
-    fetch("https://api.github.com/repos/raktim-yoddha/hiveory")
-      .then((res) => res.json())
-      .then((data) => {
-        if (typeof data.stargazers_count === "number") {
-          setStarCount(
-            data.stargazers_count >= 1000
-              ? `${(data.stargazers_count / 1000).toFixed(1)}k`
-              : `${data.stargazers_count}`
-          );
-        }
-      })
-      .catch(() => {});
+    getStarCount().then((count) => count && setStarCount(count));
   }, []);
 
   const navLinks = [
     { label: "Product", href: "/#product-modes" },
-    { label: "Capabilities", href: "/#capabilities" },
+    { label: "Features", href: "/#capabilities" },
     { label: "Docs", href: "/docs" },
     { label: "Community", href: "/#community" },
-    { label: "Prices", href: "/#price" },
+    { label: "Pricing", href: "/#pricing" },
   ];
 
   const handleNavClick = (href: string) => {
@@ -158,7 +143,7 @@ export default function Navbar() {
             <div className="relative w-6 h-6 sm:w-7 sm:h-7 rounded-lg overflow-hidden flex items-center justify-center p-0.5 shadow-[0_0_12px_rgba(255,255,255,0.15)] group-hover:scale-105 transition-transform duration-300">
               <Image
                 src="/hiveory-logo.png"
-                alt="Hiveory Logo"
+                alt=""
                 width={28}
                 height={28}
                 className="w-full h-full object-contain rounded-md"
@@ -237,9 +222,10 @@ export default function Navbar() {
 
             {/* GitHub Stars Button */}
             <a
-              href="https://github.com/raktim-yoddha/hiveory"
+              href={GITHUB_URL}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Star Hiveory on GitHub"
               className="relative flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3.5 sm:py-2 h-8 sm:h-9 rounded-none bg-[#141418] border border-white/20 hover:border-white/40 text-xs sm:text-sm font-medium text-white transition-all shadow-sm group cursor-pointer shrink-0"
             >
               <span className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t-2 border-l-2 border-white/50 group-hover:border-white pointer-events-none" />
@@ -280,7 +266,7 @@ export default function Navbar() {
                 <polyline points="7 10 12 15 17 10" />
                 <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
-              <span>Download</span>
+              <span>Download free</span>
             </button>
 
             {/* Mobile Hamburger Toggle Button */}

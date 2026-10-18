@@ -112,8 +112,8 @@ const hostStreamTasks: BoardAgent[] = [
   },
 ];
 
-// Unified 15-item array (3 cycles of 5 items) for a mathematically seamless infinite loop
-const streamTasks = [...hostStreamTasks, ...hostStreamTasks, ...hostStreamTasks];
+// 20 items (4 cycles of 5) so the loop stays seamless and fills the tallest panel
+const streamTasks = [...hostStreamTasks, ...hostStreamTasks, ...hostStreamTasks, ...hostStreamTasks];
 
 // Same length on purpose: three short sentences of similar size per card
 const capabilitiesData = [
@@ -268,9 +268,9 @@ export default function CapabilitiesCardStack() {
       {/* Overlapping Cards Container: On mobile & tablet, normal sequential flow without scroll-jacking; on desktop, sticky 350vh scroll stack */}
       <section ref={sectionRef} className={isMobileOrTablet ? "relative w-full h-auto py-6 sm:py-10 z-20" : "relative w-full min-h-[2400px] h-[350vh] z-20"}>
         {/* Sticky/Relative Viewport Frame */}
-        <div className={isMobileOrTablet ? "relative w-full flex flex-col items-center justify-start pb-6 px-4 sm:px-6 pointer-events-auto" : "sticky top-16 sm:top-[74px] lg:top-[78px] w-full flex flex-col items-center justify-start pb-4 sm:pb-6 px-4 sm:px-6 lg:px-8 pointer-events-none"}>
+        <div className={isMobileOrTablet ? "relative w-full flex flex-col items-center justify-start pb-6 px-4 sm:px-6 pointer-events-auto" : "sticky top-[78px] h-[calc(100vh-78px)] w-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 pointer-events-none"}>
           {/* Cards Area: Stacked vertically on mobile & tablet, single overlaid area on desktop */}
-          <div className={isMobileOrTablet ? "relative w-full max-w-[1240px] flex flex-col gap-6 sm:gap-8 pointer-events-auto" : "relative w-full max-w-[1240px] h-[480px] sm:h-[500px] md:h-[520px] lg:h-[530px] max-h-[calc(100vh-165px)] pointer-events-auto"}>
+          <div className={isMobileOrTablet ? "relative w-full max-w-[1240px] flex flex-col gap-6 sm:gap-8 pointer-events-auto" : "relative w-full max-w-[1240px] h-[calc(100vh-200px)] min-h-[480px] max-h-[760px] pointer-events-auto"}>
             {/* CARD 0: Every agent CLI */}
             <motion.div
               style={isMobileOrTablet ? { y: 0, zIndex: 1 } : { y: 0, zIndex: 10 }}
@@ -303,7 +303,7 @@ export default function CapabilitiesCardStack() {
 
                 {/* Right Side: 3D Box Dipping Animation with 12 Verified CLI Logos - Balanced width, tight card edges */}
                 <div className={isMobileOrTablet ? "w-full flex items-center justify-center" : "lg:col-span-6 flex items-center justify-end w-full h-full"}>
-                  <div className={isMobileOrTablet ? "relative w-full max-w-[540px] h-[330px] sm:h-[400px] md:h-[460px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden select-none" : "relative w-full max-w-[540px] h-[330px] sm:h-[400px] md:h-[460px] lg:h-full lg:max-h-[530px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden select-none"} aria-hidden="true">
+                  <div className={isMobileOrTablet ? "relative w-full max-w-[540px] h-[330px] sm:h-[400px] md:h-[460px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden select-none" : "relative w-full max-w-[540px] h-[330px] sm:h-[400px] md:h-[460px] lg:h-full rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden select-none"} aria-hidden="true">
                     {/* Corner highlights */}
                     <div className="absolute -top-[1px] -left-[1px] w-3.5 h-3.5 border-t-2 border-l-2 border-white/50 pointer-events-none z-30" />
                     <div className="absolute -top-[1px] -right-[1px] w-3.5 h-3.5 border-t-2 border-r-2 border-white/50 pointer-events-none z-30" />
@@ -485,7 +485,7 @@ export default function CapabilitiesCardStack() {
 
                 {/* Right Side: Interactive Synchronized Lead/Agent Stream Matching Reference Image */}
                 <div className={isMobileOrTablet ? "w-full flex items-center justify-center" : "lg:col-span-6 flex items-center justify-end w-full h-full"}>
-                  <div className={isMobileOrTablet ? "relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] flex flex-col justify-center overflow-hidden select-none" : "relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] lg:h-full lg:max-h-[530px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] flex flex-col justify-center overflow-hidden select-none"} aria-hidden="true">
+                  <div className={isMobileOrTablet ? "relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] flex flex-col justify-center overflow-hidden select-none" : "relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] lg:h-full rounded-none border border-white/[0.12] bg-[#0b0b10]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] flex flex-col justify-center overflow-hidden select-none"} aria-hidden="true">
                     {/* Outer Boundary Corner Highlights */}
                     <div className="absolute -top-[1px] -left-[1px] w-3.5 h-3.5 border-t-2 border-l-2 border-white/50 pointer-events-none z-40" />
                     <div className="absolute -top-[1px] -right-[1px] w-3.5 h-3.5 border-t-2 border-r-2 border-white/50 pointer-events-none z-40" />
@@ -626,7 +626,7 @@ export default function CapabilitiesCardStack() {
 
                 {/* Right Side: Git Worktrees Multi-Branch Visualizer (Golden, Silver, White - No Top/Bottom Text) */}
                 <div className={isMobileOrTablet ? "w-full flex items-center justify-center" : "lg:col-span-6 flex items-center justify-end w-full h-full"}>
-                  <div className={isMobileOrTablet ? "relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] rounded-none border border-white/[0.12] bg-[#0b0b10]/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] p-6 flex flex-col justify-center overflow-hidden select-none" : "relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] lg:h-full lg:max-h-[530px] rounded-none border border-white/[0.12] bg-[#0b0b10]/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] p-6 flex flex-col justify-center overflow-hidden select-none"} aria-hidden="true">
+                  <div className={isMobileOrTablet ? "relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] rounded-none border border-white/[0.12] bg-[#0b0b10]/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] p-6 flex flex-col justify-center overflow-hidden select-none" : "relative w-full max-w-[540px] h-[370px] sm:h-[420px] md:h-[460px] lg:h-full rounded-none border border-white/[0.12] bg-[#0b0b10]/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.8)] p-6 flex flex-col justify-center overflow-hidden select-none"} aria-hidden="true">
                     <div className="absolute -top-[1px] -left-[1px] w-3.5 h-3.5 border-t-2 border-l-2 border-white/50 pointer-events-none z-30" />
                     <div className="absolute -top-[1px] -right-[1px] w-3.5 h-3.5 border-t-2 border-r-2 border-white/50 pointer-events-none z-30" />
                     <div className="absolute -bottom-[1px] -left-[1px] w-3.5 h-3.5 border-b-2 border-l-2 border-white/50 pointer-events-none z-30" />
@@ -681,7 +681,12 @@ export default function CapabilitiesCardStack() {
                   pointerEvents: buttonPointerEvents,
                 }
             }
-            className="mt-3 sm:mt-4 lg:mt-5 mb-3 sm:mb-6 z-40 flex items-center justify-center"
+            className={
+              isMobileOrTablet
+                ? "mt-3 sm:mt-4 mb-3 sm:mb-6 z-40 flex items-center justify-center"
+                : // out of flow so the cards stay vertically centered; sits in the gap under them
+                  "absolute bottom-3 inset-x-0 z-40 flex items-center justify-center"
+            }
           >
             <Link
               href="/capabilities"

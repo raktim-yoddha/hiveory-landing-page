@@ -14,9 +14,9 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
 });
 
-const title = "Hiveory — All your AI agents in one app";
+const title = "Hiveory — Code, automate and chat with every AI agent";
 const description =
-  "Code, automate and chat with Claude Code, Codex, Gemini CLI and 30+ more agents, side by side on your own computer. Free and open source.";
+  "Coding agents side by side, bots that run on their own, and chat with any model. Free, open source, on your computer.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://hiveory.com"),

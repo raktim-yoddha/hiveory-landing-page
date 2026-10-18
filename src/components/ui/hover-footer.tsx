@@ -385,7 +385,7 @@ export function HoverFooter() {
               </span>
             </Link>
             <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-              All your AI agents in one app. Free and open source.
+              Code, automate and chat with every AI agent. Free and open source.
             </p>
           </div>
 

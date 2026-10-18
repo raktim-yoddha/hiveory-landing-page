@@ -214,15 +214,15 @@ export default function Home() {
 
           {/* Strictly Two-Line High-Impact Display Headline */}
           <h1 className="relative z-10 w-full text-center text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-[56px] xl:text-[62px] font-medium tracking-[-0.03em] text-white leading-[1.15] sm:leading-[1.08] mb-6 mx-auto">
-            <span className="block sm:whitespace-nowrap">All your AI agents in one app</span>
+            <span className="block sm:whitespace-nowrap">Code, automate and chat</span>
             <span className="text-zinc-400 font-normal block mt-2 sm:mt-3 text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-[38px] xl:text-[44px] tracking-[-0.02em]">
-              Code, automate and chat
+              With every AI agent, in one app
             </span>
           </h1>
 
           {/* Crisp Narrative Subtitle */}
-          <p className="relative z-10 max-w-[640px] mx-auto text-base sm:text-lg text-zinc-400/90 leading-relaxed font-normal mb-10 text-balance">
-            Run Claude Code, Codex, Gemini CLI and 30+ more agents side by side, on your computer.
+          <p className="relative z-10 max-w-[760px] mx-auto text-base sm:text-lg text-zinc-400/90 leading-relaxed font-normal mb-10 text-balance">
+            Coding agents side by side. Bots that run on their own. Chat with any model.
           </p>
 
           {/* Call to Action Buttons */}

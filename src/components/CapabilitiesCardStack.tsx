@@ -178,7 +178,7 @@ export default function CapabilitiesCardStack() {
   );
 
   return (
-    <div id="capabilities" className="relative w-full">
+    <div id="capabilities" className="relative w-full pb-16 sm:pb-24">
       {/* Embedded GPU-accelerated keyframe styles for conveyor & parcel box */}
       <style>{`
         @keyframes cliConveyorLeft {
@@ -270,7 +270,7 @@ export default function CapabilitiesCardStack() {
         {/* Sticky/Relative Viewport Frame */}
         <div className={isMobileOrTablet ? "relative w-full flex flex-col items-center justify-start pb-6 px-4 sm:px-6 pointer-events-auto" : "sticky top-[78px] h-[calc(100vh-78px)] w-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 pointer-events-none"}>
           {/* Cards Area: Stacked vertically on mobile & tablet, single overlaid area on desktop */}
-          <div className={isMobileOrTablet ? "relative w-full max-w-[1240px] flex flex-col gap-6 sm:gap-8 pointer-events-auto" : "relative w-full max-w-[1240px] h-[calc(100vh-200px)] min-h-[480px] max-h-[760px] pointer-events-auto"}>
+          <div className={isMobileOrTablet ? "relative w-full max-w-[1240px] flex flex-col gap-6 sm:gap-8 pointer-events-auto" : "relative w-full max-w-[1240px] h-[calc(100vh-290px)] min-h-[460px] max-h-[720px] pointer-events-auto"}>
             {/* CARD 0: Every agent CLI */}
             <motion.div
               style={isMobileOrTablet ? { y: 0, zIndex: 1 } : { y: 0, zIndex: 10 }}
@@ -684,8 +684,8 @@ export default function CapabilitiesCardStack() {
             className={
               isMobileOrTablet
                 ? "mt-3 sm:mt-4 mb-3 sm:mb-6 z-40 flex items-center justify-center"
-                : // out of flow so the cards stay vertically centered; sits in the gap under them
-                  "absolute bottom-3 inset-x-0 z-40 flex items-center justify-center"
+                : // in flow, so cards and button are centered together with clear space between them
+                  "mt-8 z-40 flex items-center justify-center"
             }
           >
             <Link

@@ -31,7 +31,6 @@ function Row({ a, waiting }: { a: (typeof WORKING)[number]; waiting: boolean }) 
 export default function PhoneMockup({ className }: { className?: string }) {
   return (
     <figure className={cn("relative w-[280px] shrink-0", className)}>
-      <div aria-hidden="true" className="absolute -inset-10 bg-amber-400/[0.07] blur-3xl rounded-full" />
       <div aria-hidden="true" className="relative rounded-[2.6rem] border border-white/15 bg-[#0b0b0e] p-2.5 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.9)]">
         <div className="relative rounded-[2.1rem] overflow-hidden bg-[#0f0f12] h-[560px] flex flex-col">
           <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-20 h-5 rounded-full bg-black" />
@@ -40,13 +39,13 @@ export default function PhoneMockup({ className }: { className?: string }) {
             <span className="text-[10px] font-mono text-zinc-500">my-desktop</span>
           </div>
           <div className="px-3.5 flex-1 overflow-hidden">
-            <div className="text-[10px] font-mono uppercase tracking-[0.12em] text-amber-400 px-1 mb-2">Needs you · 2</div>
+            <div className="text-[11px] font-medium text-zinc-300 px-1 mb-2">Needs you · 2</div>
             <div className="space-y-2 mb-4">
               {NEEDS_YOU.map((a) => (
                 <Row key={a.name} a={a} waiting />
               ))}
             </div>
-            <div className="text-[10px] font-mono uppercase tracking-[0.12em] text-zinc-500 px-1 mb-2">Working · 3</div>
+            <div className="text-[11px] font-medium text-zinc-500 px-1 mb-2">Working · 3</div>
             <div className="space-y-2">
               {WORKING.map((a) => (
                 <Row key={a.name} a={a} waiting={false} />

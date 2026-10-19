@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Bot, Download, MessageSquare, SquareTerminal } from "lucide-react";
-import { ActionLink, IconTile, PageHeader, PageShell, Panel } from "@/components/ui/kit";
+import { ActionLink, IconTile, PageHeader, PageShell, Panel, Tag } from "@/components/ui/kit";
 
 export const metadata = {
   title: "Product — Hiveory | Work, Bots and Chat",
@@ -38,7 +38,7 @@ const MODES = [
 /** Screenshot framed as an app window. */
 function Screen({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="relative border border-white/15 bg-[#0b0b0e] shadow-[0_40px_120px_-30px_rgba(0,0,0,0.9)]">
+    <div className="relative border border-white/15 card-surface">
       <div aria-hidden="true" className="flex items-center gap-1.5 px-4 h-9 border-b border-white/[0.08]">
         <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
         <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
@@ -55,7 +55,6 @@ export default function ProductPage() {
   return (
     <PageShell>
       <PageHeader
-        eyebrow="Product"
         title="One app, three modes"
         sub="Code, automate and chat with the agents you already use."
       >
@@ -75,8 +74,10 @@ export default function ProductPage() {
               <IconTile>{m.icon}</IconTile>
               <kbd className="font-mono text-[11px] text-zinc-400 border border-white/10 bg-white/[0.03] px-2 py-1">Ctrl {m.key}</kbd>
             </div>
-            <div className="mt-6 font-mono text-[11px] uppercase tracking-[0.14em] text-amber-400">{m.title}</div>
-            <h2 className="mt-1.5 text-2xl font-medium text-white tracking-tight">{m.headline}</h2>
+            <div className="mt-6">
+              <Tag>{m.title}</Tag>
+            </div>
+            <h2 className="mt-4 text-2xl font-medium text-white tracking-tight">{m.headline}</h2>
             <p className="mt-2 text-sm text-zinc-400 leading-relaxed">{m.description}</p>
             <ul className="mt-6 pt-6 border-t border-white/[0.08] space-y-2.5">
               {m.features.map((f) => (
@@ -92,8 +93,8 @@ export default function ProductPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
         <div>
-          <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-amber-400">Chat</div>
-          <h2 className="mt-2 text-3xl sm:text-4xl font-medium text-white tracking-tight">Any CLI, any model</h2>
+          <Tag>Chat</Tag>
+          <h2 className="mt-4 text-3xl sm:text-4xl font-medium text-white tracking-tight">Any CLI, any model</h2>
           <p className="mt-4 text-zinc-400 leading-relaxed max-w-md">
             Pick a CLI Hiveory found, then its model and effort. Chats keep running while you work.
           </p>

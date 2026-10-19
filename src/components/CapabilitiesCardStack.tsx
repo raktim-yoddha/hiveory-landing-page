@@ -274,7 +274,7 @@ export default function CapabilitiesCardStack() {
             {/* CARD 0: Every agent CLI */}
             <motion.div
               style={isMobileOrTablet ? { y: 0, zIndex: 1 } : { y: 0, zIndex: 10 }}
-              className={isMobileOrTablet ? "group relative w-full rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95)] p-5 sm:p-7 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300 min-h-[460px]" : "group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-4 sm:p-5 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300"}
+              className={isMobileOrTablet ? "group relative w-full rounded-none border border-white/[0.15] hover:border-white/30 card-surface p-5 sm:p-7 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300 min-h-[460px]" : "group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 card-surface p-4 sm:p-5 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300"}
             >
               {/* Corner boundary highlight brackets */}
               <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -457,7 +457,7 @@ export default function CapabilitiesCardStack() {
             {/* CARD 1: The live board */}
             <motion.div
               style={isMobileOrTablet ? { y: 0, zIndex: 2 } : { y: y1, zIndex: 20 }}
-              className={isMobileOrTablet ? "group relative w-full rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95)] p-5 sm:p-7 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300 min-h-[460px]" : "group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-4 sm:p-5 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300"}
+              className={isMobileOrTablet ? "group relative w-full rounded-none border border-white/[0.15] hover:border-white/30 card-surface p-5 sm:p-7 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300 min-h-[460px]" : "group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 card-surface p-4 sm:p-5 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300"}
             >
               <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
               <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -598,7 +598,7 @@ export default function CapabilitiesCardStack() {
             {/* CARD 2: Git Worktree Isolation (Card 3/3) */}
             <motion.div
               style={isMobileOrTablet ? { y: 0, zIndex: 3 } : { y: y2, zIndex: 30 }}
-              className={isMobileOrTablet ? "group relative w-full rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95)] p-5 sm:p-7 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300 min-h-[460px]" : "group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 bg-[#0c0c11] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.08)] p-4 sm:p-5 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300"}
+              className={isMobileOrTablet ? "group relative w-full rounded-none border border-white/[0.15] hover:border-white/30 card-surface p-5 sm:p-7 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300 min-h-[460px]" : "group absolute inset-0 rounded-none border border-white/[0.15] hover:border-white/30 card-surface p-4 sm:p-5 lg:py-4 lg:pr-4 lg:pl-10 flex flex-col justify-center transition-colors duration-300"}
             >
               <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
               <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />

@@ -1,5 +1,5 @@
 import { BookOpen, Bot, Download, FileText, GitBranch, History, LayoutGrid, Wrench } from "lucide-react";
-import { ActionLink, IconTile, PageHeader, PageShell, Panel, SectionLabel } from "@/components/ui/kit";
+import { ActionLink, IconTile, PageHeader, PageShell, Panel, SectionLabel, Tag } from "@/components/ui/kit";
 import { GITHUB_URL } from "@/lib/download";
 
 export const metadata = {
@@ -50,7 +50,7 @@ function Keys({ keys }: { keys: string[] }) {
 export default function DocsPage() {
   return (
     <PageShell>
-      <PageHeader eyebrow="Docs" title="Kickstart guide" sub="From download to your first agents in a few minutes.">
+      <PageHeader title="Kickstart guide" sub="From download to your first agents in a few minutes.">
         <ActionLink href="/download" icon={<Download size={16} />}>
           Download free
         </ActionLink>
@@ -61,10 +61,9 @@ export default function DocsPage() {
         <SectionLabel>Start here</SectionLabel>
         <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {START.map((s, i) => (
-            <li key={s.title} className="relative border-t-2 border-white/15 pt-6">
-              <span aria-hidden="true" className="absolute -top-px left-0 w-10 h-0.5 bg-amber-400" />
-              <span className="font-mono text-xs text-amber-400">0{i + 1}</span>
-              <h3 className="mt-2 text-lg font-medium text-white">{s.title}</h3>
+            <li key={s.title}>
+              <Tag>0{i + 1}</Tag>
+              <h3 className="mt-4 text-lg font-medium text-white">{s.title}</h3>
               <p className="mt-1.5 text-sm text-zinc-400">{s.body}</p>
             </li>
           ))}
@@ -78,7 +77,7 @@ export default function DocsPage() {
           <p className="text-sm text-zinc-500 mb-5">Change any of them in Settings › Keyboard.</p>
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-left font-mono text-[11px] uppercase tracking-[0.12em] text-zinc-500">
+              <tr className="text-left text-xs text-zinc-500">
                 <th className="font-normal pb-3">Action</th>
                 <th className="font-normal pb-3">Windows · Linux</th>
                 <th className="font-normal pb-3 hidden sm:table-cell">macOS</th>

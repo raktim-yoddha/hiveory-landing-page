@@ -14,10 +14,10 @@ export default function RecommendedDownload({ files, version }: { files: Record<
   if (!file) return null;
 
   return (
-    <div className="relative max-w-3xl mx-auto mb-20 border border-white/15 bg-[#0c0c10] p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+    <div className="relative max-w-3xl mx-auto mb-20 border border-white/15 card-surface p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
       <Corners tone="border-white/70" />
       <div>
-        <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-amber-400 mb-2">Recommended for you</div>
+        <div className="text-sm text-zinc-400 mb-1">Recommended for your computer</div>
         <div className="text-2xl font-medium text-white">Hiveory for {OS_LABEL[os]}</div>
         <div className="text-sm text-zinc-400 mt-1">
           {file.kind}

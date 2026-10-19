@@ -25,8 +25,8 @@ export function Panel({ className, children, accent = false, id }: { className?:
     <div
       id={id}
       className={cn(
-        "group relative border bg-[#0c0c10]/90 transition-colors duration-300",
-        accent ? "border-amber-400/40 hover:border-amber-400" : "border-white/[0.1] hover:border-white/25",
+        "group relative border card-surface",
+        accent ? "border-amber-400/40 hover:border-amber-400" : "border-white/[0.12] hover:border-white/30",
         className,
       )}
     >
@@ -45,12 +45,12 @@ export function IconTile({ children, className }: { children: React.ReactNode; c
   );
 }
 
-/** Mono label above headings, e.g. "03 · Docs". */
-export function Eyebrow({ children }: { children: React.ReactNode }) {
+/** The site's small tag: white dot and a short mono label, e.g. "• 01" or "• Work". */
+export function Tag({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2 px-2.5 py-1 border border-white/10 bg-white/[0.03] font-mono text-[11px] uppercase tracking-[0.14em] text-zinc-400">
-      <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-      {children}
+    <span className="inline-flex items-center gap-2 px-2.5 py-1 bg-white/[0.03] border border-white/10 font-mono text-[11px] tracking-wider text-zinc-400">
+      <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-white" />
+      <span className="text-white font-semibold">{children}</span>
     </span>
   );
 }
@@ -108,15 +108,11 @@ export function ActionLink({
   );
 }
 
-/** Navbar, vignette, a faint grid behind the header, and the footer. */
+/** Navbar, vignette and footer around a page. */
 export function PageShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="bg-[#060608] relative min-h-screen w-full flex flex-col justify-between overflow-x-clip selection:bg-white/20 selection:text-white">
       <div aria-hidden="true" className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(6,6,8,0.5)_65%,#060608_100%)] z-0" />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-[640px] z-0 opacity-60 [background-image:linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_at_top,black_20%,transparent_70%)]"
-      />
       <Navbar />
       <main className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-32 sm:pt-40 pb-24 flex-1">{children}</main>
       <HoverFooter />
@@ -124,23 +120,17 @@ export function PageShell({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function PageHeader({ eyebrow, title, sub, children }: { eyebrow: string; title: React.ReactNode; sub: React.ReactNode; children?: React.ReactNode }) {
+export function PageHeader({ title, sub, children }: { title: React.ReactNode; sub: React.ReactNode; children?: React.ReactNode }) {
   return (
     <header className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-      <Eyebrow>{eyebrow}</Eyebrow>
-      <h1 className="mt-6 text-4xl sm:text-6xl font-medium tracking-[-0.03em] text-white leading-[1.05]">{title}</h1>
+      <h1 className="text-4xl sm:text-6xl font-medium tracking-[-0.03em] text-white leading-[1.05]">{title}</h1>
       <p className="mt-5 text-base sm:text-lg text-zinc-400 leading-relaxed">{sub}</p>
       {children && <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">{children}</div>}
     </header>
   );
 }
 
-/** Mono section label with a rule, e.g. "Start here ———". */
+/** Section heading inside a page. */
 export function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex items-center gap-4 mb-6">
-      <h2 className="font-mono text-xs uppercase tracking-[0.16em] text-zinc-400 shrink-0">{children}</h2>
-      <span aria-hidden="true" className="h-px flex-1 bg-white/[0.08]" />
-    </div>
-  );
+  return <h2 className="text-2xl sm:text-3xl font-medium tracking-[-0.02em] text-white mb-8">{children}</h2>;
 }

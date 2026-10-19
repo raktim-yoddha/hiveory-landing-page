@@ -1,6 +1,6 @@
 import { Bell, Download, Inbox, Keyboard, LayoutGrid, MessageSquare, Palette, ShieldCheck } from "lucide-react";
 import PhoneMockup from "@/components/PhoneMockup";
-import { ActionLink, Eyebrow, IconTile, PageShell, Panel, SectionLabel } from "@/components/ui/kit";
+import { ActionLink, IconTile, PageShell, Panel, SectionLabel, Tag } from "@/components/ui/kit";
 
 export const metadata = {
   title: "Phone app — Hiveory",
@@ -28,8 +28,7 @@ export default function MobilePage() {
       {/* Hero: copy left, phone right */}
       <section className="grid grid-cols-1 lg:grid-cols-[1fr_auto] items-center gap-14 lg:gap-20 mb-24 sm:mb-32">
         <div className="text-center lg:text-left">
-          <Eyebrow>Phone app · Android</Eyebrow>
-          <h1 className="mt-6 text-4xl sm:text-6xl font-medium tracking-[-0.03em] text-white leading-[1.05]">
+          <h1 className="text-4xl sm:text-6xl font-medium tracking-[-0.03em] text-white leading-[1.05]">
             Your agents,
             <br />
             in your pocket
@@ -66,10 +65,9 @@ export default function MobilePage() {
         <SectionLabel>Pair in three steps</SectionLabel>
         <ol className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {STEPS.map((s, i) => (
-            <li key={s.title} className="relative border-t-2 border-white/15 pt-6">
-              <span aria-hidden="true" className="absolute -top-px left-0 w-10 h-0.5 bg-amber-400" />
-              <span className="font-mono text-xs text-amber-400">0{i + 1}</span>
-              <h3 className="mt-2 text-lg font-medium text-white">{s.title}</h3>
+            <li key={s.title}>
+              <Tag>0{i + 1}</Tag>
+              <h3 className="mt-4 text-lg font-medium text-white">{s.title}</h3>
               <p className="mt-1.5 text-sm text-zinc-400">{s.body}</p>
             </li>
           ))}

@@ -282,9 +282,9 @@ export default function ProductCardStack() {
                 ref={cardRef}
                 onMouseEnter={() => setHoveredCard(index)}
                 onMouseLeave={() => setHoveredCard(null)}
-                className={`group relative rounded-none border transition-all duration-300 bg-[#0c0c11] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.06)] flex flex-col p-6 sm:p-7 ${
+                className={`group relative rounded-none border transition-all duration-300 card-surface flex flex-col p-6 sm:p-7 ${
                   isHovered
-                    ? "border-white/40 shadow-[0_25px_80px_-10px_rgba(0,0,0,0.95),0_0_20px_-5px_rgba(255,255,255,0.1)]"
+                    ? "border-white/40"
                     : "border-white/[0.12] hover:border-white/30"
                 }`}
               >

@@ -45,13 +45,13 @@ const GROUPS = [
 export default function FeaturesPage() {
   return (
     <PageShell>
-      <PageHeader eyebrow="Features" title="Everything Hiveory does" sub="The whole app, at a glance." />
+      <PageHeader title="Everything Hiveory does" sub="The whole app, at a glance." />
 
       {/* Stats strip: four equal cells */}
-      <dl className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.1] border border-white/[0.1] mb-20 sm:mb-24">
+      <dl className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.1] border border-white/[0.12] mb-20 sm:mb-24">
         {STATS.map((s) => (
-          <div key={s.label} className="bg-[#060608] p-6 text-center flex flex-col-reverse">
-            <dt className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-zinc-500">{s.label}</dt>
+          <div key={s.label} className="card-surface p-6 text-center flex flex-col-reverse">
+            <dt className="mt-1 text-sm text-zinc-500">{s.label}</dt>
             <dd className="text-3xl sm:text-4xl font-medium text-white tracking-tight">{s.value}</dd>
           </div>
         ))}

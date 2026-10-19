@@ -334,7 +334,7 @@ export function HoverFooter() {
   ];
 
   return (
-    <footer className="bg-[#0F0F11]/40 border border-white/[0.08] relative h-fit rounded-2xl sm:rounded-3xl overflow-hidden m-3 sm:m-8 z-20 shadow-2xl backdrop-blur-xl">
+    <footer className="card-surface border border-white/[0.08] relative h-fit rounded-2xl sm:rounded-3xl overflow-hidden m-3 sm:m-8 z-20">
       <div className="max-w-7xl mx-auto p-6 sm:p-14 z-40 relative pointer-events-none">
         <div className="grid grid-cols-2 xl:grid-cols-4 gap-x-6 gap-y-10 lg:gap-x-16 pb-8 sm:pb-12">
           {/* Brand section */}

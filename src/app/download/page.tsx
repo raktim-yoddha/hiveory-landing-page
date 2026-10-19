@@ -1,6 +1,6 @@
 import { Apple, Download, Monitor, Smartphone, Terminal } from "lucide-react";
 import RecommendedDownload from "@/components/RecommendedDownload";
-import { ActionLink, IconTile, PageHeader, PageShell, Panel, SectionLabel } from "@/components/ui/kit";
+import { ActionLink, IconTile, PageHeader, PageShell, Panel, SectionLabel, Tag } from "@/components/ui/kit";
 import { GITHUB_RELEASES_PAGE, OS_LABEL, type Os } from "@/lib/download";
 import { getRelease } from "@/lib/release";
 
@@ -25,9 +25,8 @@ export default async function DownloadPage() {
   return (
     <PageShell>
       <PageHeader
-        eyebrow={release ? `${release.version} · ${release.date}` : "Latest release"}
         title="Download Hiveory"
-        sub="Free and open source. Every file comes straight from the latest GitHub release."
+        sub={release ? `Version ${release.version.replace(/^v/, "")}, released ${release.date}. Free and open source.` : "Free and open source."}
       />
 
       {!release ? (
@@ -90,9 +89,9 @@ export default async function DownloadPage() {
               { step: "02", title: "Add an agent CLI", body: "Claude Code, Codex or Gemini CLI. Hiveory finds it." },
               { step: "03", title: "Open a folder", body: "Then open agents in your first Worktree." },
             ].map((s) => (
-              <div key={s.step} className="border-t border-white/[0.1] pt-5">
-                <div className="font-mono text-xs text-amber-400 mb-2">{s.step}</div>
-                <div className="text-lg font-medium text-white mb-1">{s.title}</div>
+              <div key={s.step}>
+                <Tag>{s.step}</Tag>
+                <div className="mt-4 text-lg font-medium text-white mb-1">{s.title}</div>
                 <p className="text-sm text-zinc-400">{s.body}</p>
               </div>
             ))}

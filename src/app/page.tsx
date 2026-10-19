@@ -96,7 +96,7 @@ function CommunityCard({
   );
 
   const cardClasses =
-    "community-card-mobile-static group relative rounded-none border border-white/[0.12] sm:hover:border-white/30 bg-[#0c0c10]/90 sm:hover:bg-[#111116] p-6 sm:p-8 flex flex-col justify-between sm:transition-all sm:duration-300 shadow-xl max-lg:![transform:none] max-lg:![opacity:1] max-lg:![transition:none] portrait:![transform:none] portrait:![opacity:1] portrait:![transition:none]";
+    "community-card-mobile-static group relative rounded-none border border-white/[0.12] sm:hover:border-white/30 card-surface p-6 sm:p-8 flex flex-col justify-between sm:transition-all sm:duration-300 max-lg:![transform:none] max-lg:![opacity:1] max-lg:![transition:none] portrait:![transform:none] portrait:![opacity:1] portrait:![transition:none]";
 
   if (isMobile) {
     return (
@@ -443,7 +443,7 @@ export default function Home() {
         {/* Tier Cards Grid - 3 Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-16 sm:mb-20">
           {/* Open Source Tier */}
-          <div className="group relative rounded-none border border-white/10 hover:border-white/30 bg-[#0c0c10]/90 hover:bg-[#111116] p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 shadow-2xl">
+          <div className="group relative rounded-none border border-white/10 hover:border-white/30 card-surface p-8 sm:p-10 flex flex-col justify-between transition-all duration-300">
             <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
             <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
             <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -531,7 +531,7 @@ export default function Home() {
           </div>
 
           {/* Custom Tier */}
-          <div className="group relative rounded-none border border-white/10 hover:border-white/30 bg-[#0c0c10]/90 hover:bg-[#111116] p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 shadow-2xl">
+          <div className="group relative rounded-none border border-white/10 hover:border-white/30 card-surface p-8 sm:p-10 flex flex-col justify-between transition-all duration-300">
             <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
             <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
             <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -620,7 +620,7 @@ export default function Home() {
           </div>
 
           {/* Enterprise Tier - Clean Matte Yellow Theme without glossy ambient blur */}
-          <div className="group relative rounded-none border border-amber-400/40 hover:border-amber-400 bg-[#0c0c10]/95 hover:bg-[#101014] p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 shadow-2xl">
+          <div className="group relative rounded-none border border-amber-400/40 hover:border-amber-400 card-surface p-8 sm:p-10 flex flex-col justify-between transition-all duration-300">
             {/* Matte Yellow Corner Brackets */}
             <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-amber-400 pointer-events-none" />
             <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-amber-400 pointer-events-none" />
@@ -711,7 +711,7 @@ export default function Home() {
         </div>
 
         {/* Security & Compliance Callout */}
-        <div className="group relative rounded-none border border-white/10 hover:border-white/30 bg-[#0c0c10]/60 hover:bg-[#0f0f14] p-8 sm:p-10 max-w-7xl mx-auto shadow-xl transition-all duration-300">
+        <div className="group relative rounded-none border border-white/10 hover:border-white/30 card-surface p-8 sm:p-10 max-w-7xl mx-auto transition-all duration-300">
           <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
           <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
           <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -834,7 +834,7 @@ export default function Home() {
 
       {/* SECTION: Final CTA Card (Matching User's Design) */}
       <section className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 my-16 sm:my-24">
-        <div className="group relative rounded-none border border-white/10 hover:border-white/30 bg-[#0c0c10]/80 backdrop-blur-xl p-8 sm:p-14 text-center shadow-2xl overflow-hidden transition-all duration-300">
+        <div className="group relative rounded-none border border-white/10 hover:border-white/30 card-surface p-8 sm:p-14 text-center overflow-hidden transition-all duration-300">
           {/* Corner Brackets */}
           <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
           <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -952,7 +952,7 @@ export default function Home() {
               role="dialog"
               aria-modal="true"
               aria-labelledby="contact-title"
-              className="relative w-full max-w-lg rounded-none border border-white/15 bg-[#0e0e12] p-5 sm:p-8 shadow-2xl z-10 max-h-[90vh] overflow-y-auto"
+              className="relative w-full max-w-lg rounded-none border border-white/15 card-surface p-5 sm:p-8 z-10 max-h-[90vh] overflow-y-auto"
             >
               {/* Corner Brackets */}
               <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 pointer-events-none" />

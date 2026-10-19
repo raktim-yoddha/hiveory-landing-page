@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
-import { GITHUB_URL, getStarCount, triggerLatestDownload } from "@/lib/download";
+import { GITHUB_URL, getStarCount } from "@/lib/download";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -59,6 +59,7 @@ export default function Navbar() {
     { label: "Product", href: "/#product-modes" },
     { label: "Features", href: "/#capabilities" },
     { label: "Docs", href: "/docs" },
+    { label: "Mobile", href: "/mobile" },
     { label: "Community", href: "/#community" },
     { label: "Pricing", href: "/#pricing" },
   ];
@@ -242,8 +243,8 @@ export default function Navbar() {
             </a>
 
             {/* Download Button (Hidden on mobiles, tablets, and all portrait devices) */}
-            <button
-              onClick={() => triggerLatestDownload()}
+            <Link
+              href="/download"
               className={`group/dlbtn relative items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 h-8 sm:h-9 rounded-none bg-[#EAEAEA] hover:bg-white text-black text-xs sm:text-sm font-semibold transition-all shadow-sm active:scale-95 cursor-pointer shrink-0 border border-zinc-400/40 hover:border-zinc-500 ${
                 isNavbarStatic ? "hidden" : "hidden lg:landscape:flex"
               }`}
@@ -267,7 +268,7 @@ export default function Navbar() {
                 <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
               <span>Download free</span>
-            </button>
+            </Link>
 
             {/* Mobile Hamburger Toggle Button */}
             <button

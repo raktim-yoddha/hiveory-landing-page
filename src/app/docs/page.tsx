@@ -1,178 +1,155 @@
-import Navbar from "@/components/Navbar";
-import HoverFooter from "@/components/ui/hover-footer";
-import { GITHUB_RELEASES_PAGE, GITHUB_URL } from "@/lib/download";
+import { BookOpen, Bot, Download, FileText, GitBranch, History, LayoutGrid, Wrench } from "lucide-react";
+import { ActionLink, IconTile, PageHeader, PageShell, Panel, SectionLabel } from "@/components/ui/kit";
+import { GITHUB_URL } from "@/lib/download";
 
 export const metadata = {
-  title: "Docs — Hiveory | Install, shortcuts and guides",
-  description:
-    "Install Hiveory, build it from source, learn the keyboard shortcuts, and read how Work, Bots and Chat behave.",
+  title: "Docs — Hiveory | Kickstart guide, shortcuts and references",
+  description: "Get started with Hiveory in four steps, learn the keyboard shortcuts, build it from source and read the full guides.",
 };
 
 const blob = (path: string) => `${GITHUB_URL}/blob/main/${path}`;
 
-export default function DocsPage() {
-  const sections = [
-    {
-      category: "Getting started",
-      items: [
-        {
-          title: "Install",
-          desc: "Installers for every platform.",
-          href: GITHUB_RELEASES_PAGE,
-        },
-        {
-          title: "Build from source",
-          desc: "Node.js 24, pnpm 11 and Git.",
-          href: `${GITHUB_URL}#build-from-source`,
-        },
-        {
-          title: "Keyboard shortcuts",
-          desc: "All shortcuts, all changeable.",
-          href: blob("adr/0047-keyboard-shortcuts.md"),
-        },
-      ],
-    },
-    {
-      category: "How it works",
-      items: [
-        {
-          title: "Work and the board",
-          desc: "Workspaces, Worktrees and status.",
-          href: blob("product-spec.md"),
-        },
-        {
-          title: "Bots",
-          desc: "Teams, schedules and approvals.",
-          href: blob("product-spec.md"),
-        },
-        {
-          title: "Every screen",
-          desc: "A map of every screen.",
-          href: blob("ui-map.md"),
-        },
-      ],
-    },
-    {
-      category: "Project",
-      items: [
-        {
-          title: "Changelog",
-          desc: "What changed in each release.",
-          href: blob("CHANGELOG.md"),
-        },
-        {
-          title: "Architecture",
-          desc: "How the app is put together.",
-          href: blob("architecture.md"),
-        },
-        {
-          title: "Contributing",
-          desc: "Rules for people and agents.",
-          href: blob("AGENTS.md"),
-        },
-      ],
-    },
-  ];
+const START = [
+  { title: "Download", body: "Install Hiveory for your system." },
+  { title: "Add an agent CLI", body: "Claude Code, Codex or Gemini CLI. Hiveory finds it." },
+  { title: "Open a folder", body: "Add a Workspace: a folder, a new repo or a clone." },
+  { title: "Start agents", body: "Open agents or load a preset in a Worktree." },
+];
 
+// ADR 0047: platform-standard keys; every one can be changed in Settings › Keyboard
+const SHORTCUTS = [
+  { action: "Go to Work, Bots, Chat", win: ["Ctrl", "1 · 2 · 3"], mac: ["⌘", "1 · 2 · 3"] },
+  { action: "Call Queen Bee", win: ["Ctrl", "Shift", "Space"], mac: ["⌥", "Space"] },
+  { action: "Open Settings", win: ["Ctrl", ","], mac: ["⌘", ","] },
+  { action: "Show or hide the sidebar", win: ["Ctrl", "Shift", "B"], mac: ["⌘", "B"] },
+  { action: "Show or hide the side panel", win: ["Ctrl", "Shift", "J"], mac: ["⌘", "J"] },
+  { action: "New chat or new bot", win: ["Ctrl", "N"], mac: ["⌘", "N"] },
+];
+
+const GUIDES = [
+  { icon: <LayoutGrid size={18} />, title: "Work and the board", body: "Workspaces, Worktrees and agent status.", href: blob("product-spec.md") },
+  { icon: <Bot size={18} />, title: "Bots", body: "Teams, schedules, triggers and approvals.", href: blob("product-spec.md") },
+  { icon: <FileText size={18} />, title: "Every screen", body: "A map of each screen and setting.", href: blob("ui-map.md") },
+  { icon: <History size={18} />, title: "Changelog", body: "What changed in each release.", href: blob("CHANGELOG.md") },
+  { icon: <Wrench size={18} />, title: "Architecture", body: "How the app is put together.", href: blob("architecture.md") },
+  { icon: <GitBranch size={18} />, title: "Contributing", body: "Rules for people and coding agents.", href: blob("AGENTS.md") },
+];
+
+function Keys({ keys }: { keys: string[] }) {
   return (
-    <div className="bg-[#060608] relative min-h-screen w-full flex flex-col justify-between overflow-x-hidden selection:bg-white/20 selection:text-white">
-      {/* Subtle vignette border gradient overlay */}
-      <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(6,6,8,0.5)_65%,#060608_100%)] z-0" />
+    <span className="inline-flex items-center gap-1">
+      {keys.map((k) => (
+        <kbd key={k} className="font-mono text-[11px] text-zinc-200 border border-white/15 border-b-white/25 bg-white/[0.04] px-1.5 py-0.5 min-w-6 text-center">
+          {k}
+        </kbd>
+      ))}
+    </span>
+  );
+}
 
-      <Navbar />
+export default function DocsPage() {
+  return (
+    <PageShell>
+      <PageHeader eyebrow="Docs" title="Kickstart guide" sub="From download to your first agents in a few minutes.">
+        <ActionLink href="/download" icon={<Download size={16} />}>
+          Download free
+        </ActionLink>
+      </PageHeader>
 
-      <main className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-36 sm:pt-44 pb-24 flex-1">
-        {/* Page Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h1 className="text-4xl sm:text-6xl font-medium tracking-[-0.03em] text-white leading-tight mb-6">
-            Hiveory docs
-          </h1>
+      {/* Start here: four numbered steps */}
+      <section className="mb-20 sm:mb-24">
+        <SectionLabel>Start here</SectionLabel>
+        <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {START.map((s, i) => (
+            <li key={s.title} className="relative border-t-2 border-white/15 pt-6">
+              <span aria-hidden="true" className="absolute -top-px left-0 w-10 h-0.5 bg-amber-400" />
+              <span className="font-mono text-xs text-amber-400">0{i + 1}</span>
+              <h3 className="mt-2 text-lg font-medium text-white">{s.title}</h3>
+              <p className="mt-1.5 text-sm text-zinc-400">{s.body}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
 
-          <p className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-            Install, build and learn the app.
-          </p>
-        </div>
+      {/* Shortcuts + build from source, side by side */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-20 sm:mb-24">
+        <Panel className="p-6 sm:p-7">
+          <h2 className="text-lg font-medium text-white mb-1">Keyboard shortcuts</h2>
+          <p className="text-sm text-zinc-500 mb-5">Change any of them in Settings › Keyboard.</p>
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-left font-mono text-[11px] uppercase tracking-[0.12em] text-zinc-500">
+                <th className="font-normal pb-3">Action</th>
+                <th className="font-normal pb-3">Windows · Linux</th>
+                <th className="font-normal pb-3 hidden sm:table-cell">macOS</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/[0.06]">
+              {SHORTCUTS.map((s) => (
+                <tr key={s.action}>
+                  <td className="py-2.5 pr-3 text-zinc-300">{s.action}</td>
+                  <td className="py-2.5 pr-3">
+                    <Keys keys={s.win} />
+                  </td>
+                  <td className="py-2.5 hidden sm:table-cell">
+                    <Keys keys={s.mac} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Panel>
 
-        {/* Quickstart Code Block */}
-        <div className="relative max-w-3xl mx-auto mb-20 rounded-none border border-white/10 bg-[#09090d] p-4 sm:p-6 shadow-2xl">
-          {/* Corner Brackets - Sitting directly on the boundary */}
-          <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 pointer-events-none" />
-          <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 pointer-events-none" />
-          <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 pointer-events-none" />
-          <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-white/50 pointer-events-none" />
-
-          <div className="flex items-center justify-between border-b border-white/[0.06] pb-3 mb-4 text-xs font-mono text-zinc-400 gap-2">
-            <span className="text-zinc-300 truncate">Build from source</span>
-            <span className="text-zinc-500 shrink-0">Node.js 24 · pnpm 11 · Git</span>
-          </div>
-          <pre className="font-mono text-sm text-zinc-300 leading-relaxed overflow-x-auto">
+        <Panel className="p-6 sm:p-7 flex flex-col">
+          <h2 className="text-lg font-medium text-white mb-1">Build from source</h2>
+          <p className="text-sm text-zinc-500 mb-5">Needs Node.js 24, pnpm 11 and Git.</p>
+          <pre className="flex-1 font-mono text-[13px] leading-7 text-zinc-300 bg-black/40 border border-white/[0.08] p-5 overflow-x-auto">
             <code>
-              <span className="text-zinc-500"># 1. Clone the repository</span>
-              {"\n"}git clone {GITHUB_URL}.git{"\n"}cd hiveory{"\n\n"}
-              <span className="text-zinc-500"># 2. Install dependencies</span>
-              {"\n"}pnpm install{"\n\n"}
-              <span className="text-zinc-500"># 3. Run the app with hot reload</span>
-              {"\n"}pnpm dev
+              <span className="text-zinc-600">$ </span>git clone {GITHUB_URL}.git{"\n"}
+              <span className="text-zinc-600">$ </span>cd hiveory{"\n"}
+              <span className="text-zinc-600">$ </span>pnpm install{"\n"}
+              <span className="text-zinc-600">$ </span>pnpm dev
             </code>
           </pre>
-        </div>
-
-        {/* Documentation Sections */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-          {sections.map((sec) => (
-            <div key={sec.category} className="flex flex-col gap-4">
-              <h2 className="text-sm font-semibold uppercase tracking-wider font-mono text-zinc-400 border-b border-white/[0.08] pb-2">
-                {sec.category}
-              </h2>
-              <div className="space-y-3">
-                {sec.items.map((item) => (
-                  <a
-                    key={item.title}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block relative rounded-none border border-white/[0.08] bg-[#0c0c10]/80 p-5 hover:border-white/25 hover:bg-[#121217] transition-all group shadow-sm"
-                  >
-                    {/* Corner Brackets - Sitting directly on the boundary */}
-                    <div className="absolute -top-[1px] -left-[1px] w-3 h-3 border-t-2 border-l-2 border-white/40 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-                    <div className="absolute -top-[1px] -right-[1px] w-3 h-3 border-t-2 border-r-2 border-white/40 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-                    <div className="absolute -bottom-[1px] -left-[1px] w-3 h-3 border-b-2 border-l-2 border-white/40 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-                    <div className="absolute -bottom-[1px] -right-[1px] w-3 h-3 border-b-2 border-r-2 border-white/40 group-hover:border-white transition-colors duration-300 pointer-events-none" />
-
-                    <h3 className="text-base font-semibold text-white group-hover:text-zinc-200 transition-colors mb-1.5 flex items-center justify-between gap-2">
-                      <span>{item.title}</span>
-                      <span className="text-zinc-500 text-xs group-hover:translate-x-0.5 transition-transform" aria-hidden="true">
-                        ↗
-                      </span>
-                    </h3>
-                    <p className="text-xs text-zinc-400 leading-relaxed">
-                      {item.desc}
-                    </p>
-                  </a>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Help / GitHub Anchor */}
-        <div className="text-center">
-          <p className="text-sm text-zinc-400 mb-4">
-            Something missing or unclear?
-          </p>
           <a
-            href={`${GITHUB_URL}/issues/new`}
+            href={`${GITHUB_URL}#build-from-source`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-white font-medium hover:text-zinc-300 underline underline-offset-4"
+            className="mt-5 text-sm text-zinc-400 hover:text-white underline underline-offset-4 self-start"
           >
-            Tell us on GitHub →
+            More build commands ↗
           </a>
-        </div>
-      </main>
+        </Panel>
+      </div>
 
-      {/* Bottom Footer */}
-      <HoverFooter />
-    </div>
+      {/* Guides */}
+      <section>
+        <SectionLabel>Guides</SectionLabel>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {GUIDES.map((g) => (
+            <a key={g.title} href={g.href} target="_blank" rel="noopener noreferrer" className="block">
+              <Panel className="p-6 h-full">
+                <div className="flex items-start justify-between">
+                  <IconTile>{g.icon}</IconTile>
+                  <span aria-hidden="true" className="text-zinc-500 group-hover:text-white group-hover:translate-x-0.5 transition-all">
+                    ↗
+                  </span>
+                </div>
+                <h3 className="mt-5 text-lg font-medium text-white">{g.title}</h3>
+                <p className="mt-1.5 text-sm text-zinc-400">{g.body}</p>
+              </Panel>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <p className="text-center text-sm text-zinc-500 mt-16 flex items-center justify-center gap-2">
+        <BookOpen size={14} aria-hidden="true" />
+        Something missing?{" "}
+        <a href={`${GITHUB_URL}/issues/new`} target="_blank" rel="noopener noreferrer" className="text-zinc-300 underline underline-offset-4 hover:text-white">
+          Tell us on GitHub
+        </a>
+      </p>
+    </PageShell>
   );
 }

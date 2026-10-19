@@ -5,7 +5,11 @@ import HeroFlowLines from "@/components/HeroFlowLines";
 import ProductCardStack from "@/components/ProductCardStack";
 import CapabilitiesCardStack from "@/components/CapabilitiesCardStack";
 import HoverFooter from "@/components/ui/hover-footer";
-import { GITHUB_URL, GITHUB_RELEASES_PAGE, OS_LABEL, detectOs, getLatestRelease, getStarCount, triggerLatestDownload, type Os } from "@/lib/download";
+import { GITHUB_URL, OS_LABEL, detectOs, getStarCount, type Os } from "@/lib/download";
+import Link from "next/link";
+import { Check, Smartphone } from "lucide-react";
+import PhoneMockup from "@/components/PhoneMockup";
+import { ActionLink } from "@/components/ui/kit";
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState, useSyncExternalStore } from "react";
@@ -119,7 +123,6 @@ export default function Home() {
   const [starCount, setStarCount] = useState<string>("");
   // The visitor's system; "windows" on the server so hydration matches
   const os = useSyncExternalStore<Os>(() => () => {}, detectOs, () => "windows");
-  const [version, setVersion] = useState<string>("");
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
   const [demoTier, setDemoTier] = useState<"custom" | "enterprise">("custom");
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -179,8 +182,6 @@ export default function Home() {
   };
 
   useEffect(() => {
-    // Prewarm the latest release so the download starts at once, and show its version
-    getLatestRelease().then((r) => setVersion(r.version));
     getStarCount().then(setStarCount);
   }, []);
 
@@ -229,8 +230,8 @@ export default function Home() {
           <div className="relative z-10 flex flex-col items-center justify-center w-full sm:w-auto">
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto">
               {/* Primary Download for Windows Button */}
-              <button
-                onClick={() => triggerLatestDownload(os)}
+              <Link
+                href="/download"
                 className="group relative w-full sm:w-auto inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-lg"
               >
                 {/* Outer Boundary Corner L-Brackets */}
@@ -266,7 +267,7 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                   </svg>
                 </span>
-              </button>
+              </Link>
 
               {/* Give us a star Button */}
               <a
@@ -311,17 +312,12 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Reassurance line: price, license, platforms, all downloads */}
+            {/* Reassurance line: price, platforms, all downloads */}
             <p className="text-[12px] text-zinc-500 mt-4">
-              Free &amp; open source · Windows, macOS, Linux &amp; Android{version && ` · ${version}`} ·{" "}
-              <a
-                href={GITHUB_RELEASES_PAGE}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline underline-offset-2 hover:text-zinc-300 transition-colors"
-              >
+              Free &amp; open source · Windows, macOS, Linux &amp; Android ·{" "}
+              <Link href="/download" className="underline underline-offset-2 hover:text-zinc-300 transition-colors">
                 All downloads
-              </a>
+              </Link>
             </p>
           </div>
         </div>
@@ -384,7 +380,6 @@ export default function Home() {
             height={900}
             className="w-full h-full object-contain block rounded-none"
             priority
-            quality={90}
           />
         </motion.div>
       </section>
@@ -399,6 +394,39 @@ export default function Home() {
       <CapabilitiesCardStack />
 
       {/* Section Separator */}
+      <SectionSeparator />
+
+      {/* SECTION: Phone app */}
+      <section id="mobile" className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-32 scroll-mt-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] items-center gap-14 lg:gap-24">
+          <div className="text-center lg:text-left">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-medium tracking-[-0.025em] text-white leading-tight">
+              Your agents, in your pocket
+            </h2>
+            <p className="mt-5 text-base sm:text-lg text-zinc-400 leading-relaxed max-w-md mx-auto lg:mx-0">
+              See who needs you, reply from anywhere, and get a ping when an agent waits.
+            </p>
+            <ul className="mt-8 space-y-3 text-sm text-zinc-300 inline-block text-left">
+              {["Inbox of agents that need you", "Type into real terminals", "Only talks to your own computers"].map((t) => (
+                <li key={t} className="flex items-center gap-2.5">
+                  <Check size={16} className="text-white shrink-0" aria-hidden="true" />
+                  {t}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-9 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
+              <ActionLink href="/download#android" icon={<Smartphone size={16} />}>
+                Get the Android app
+              </ActionLink>
+              <Link href="/mobile" className="text-sm text-zinc-400 hover:text-white underline underline-offset-4 px-3 py-2">
+                About the phone app
+              </Link>
+            </div>
+          </div>
+          <PhoneMockup className="mx-auto" />
+        </div>
+      </section>
+
       <SectionSeparator />
 
       {/* SECTION: Pricing Section */}
@@ -472,9 +500,8 @@ export default function Home() {
               </ul>
             </div>
 
-            <button
-              type="button"
-              onClick={() => triggerLatestDownload(os)}
+            <Link
+              href="/download"
               className="group/btn relative w-full inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98]"
             >
               {/* Outer Boundary Corner L-Brackets */}
@@ -500,7 +527,7 @@ export default function Home() {
               <span className="relative z-10 text-white/50 group-hover/btn:text-black group-hover/btn:translate-x-1 transition-all duration-300">
                 →
               </span>
-            </button>
+            </Link>
           </div>
 
           {/* Custom Tier */}
@@ -823,8 +850,8 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={() => triggerLatestDownload(os)}
+            <Link
+              href="/download"
               className="group/btn relative w-full sm:w-auto inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-lg"
             >
               <span className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t-2 border-l-2 border-white/50 group-hover/btn:border-white transition-colors duration-300 pointer-events-none" />
@@ -856,7 +883,7 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                 </svg>
               </span>
-            </button>
+            </Link>
 
             {/* Give us a star Button (Identical to Hero Page) */}
             <a

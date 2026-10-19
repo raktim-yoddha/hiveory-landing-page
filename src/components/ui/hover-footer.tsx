@@ -280,14 +280,14 @@ export function HoverFooter() {
         { label: "Work", href: "/product#work" },
         { label: "Bots", href: "/product#bots" },
         { label: "Chat", href: "/product#chat" },
-        { label: "All features", href: "/capabilities" },
+        { label: "Phone app", href: "/mobile" },
       ],
     },
     {
       title: "Resources",
       links: [
         { label: "Docs", href: "/docs" },
-        { label: "Download", href: "https://github.com/raktim-yoddha/hiveory/releases/latest" },
+        { label: "Download", href: "/download" },
         { label: "Changelog", href: "https://github.com/raktim-yoddha/hiveory/blob/main/CHANGELOG.md" },
         {
           label: "Community",

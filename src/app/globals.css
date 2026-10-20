@@ -54,9 +54,13 @@ p {
     inset 0 1px 0 rgba(255, 255, 255, 0.09),
     inset 0 -1px 0 rgba(0, 0, 0, 0.6),
     0 30px 80px -28px rgba(0, 0, 0, 0.95);
-  transition-property: border-color, box-shadow, background-image;
-  transition-duration: 300ms;
+  /* `scale` (not transform) so the hover grow never fights GSAP's reveal transforms;
+     !important because cards also carry Tailwind transition-colors */
+  transition-property: border-color, box-shadow, background-image, scale !important;
+  transition-duration: 350ms !important;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
   &:hover {
+    scale: 1.03;
     background-image:
       radial-gradient(120% 70% at 50% 0%, rgba(255, 255, 255, 0.08), transparent 60%),
       linear-gradient(180deg, #19191f 0%, #0e0e12 42%, #09090c 100%);
@@ -64,6 +68,19 @@ p {
       inset 0 1px 0 rgba(255, 255, 255, 0.13),
       inset 0 -1px 0 rgba(0, 0, 0, 0.6),
       0 36px 90px -26px rgba(0, 0, 0, 1);
+  }
+  /* Big panels (footer, sticky feature cards, dialog) keep their size */
+  &.card-still:hover {
+    scale: none;
+  }
+  /* A growing card sits above its neighbours */
+  &:not(.card-still):hover {
+    z-index: 1;
+  }
+  @media (prefers-reduced-motion: reduce), (hover: none) {
+    &:hover {
+      scale: none;
+    }
   }
 }
 

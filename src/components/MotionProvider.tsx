@@ -28,6 +28,9 @@ gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
 const EASE = "expo.out";
 const REDUCED = "(prefers-reduced-motion: reduce)";
+// Cleared when a reveal ends: GSAP writes inline transform/translate/rotate/scale while it
+// animates, and leftovers would override CSS hover effects (e.g. cards growing on hover)
+const DONE = "transform,translate,rotate,scale";
 
 export default function MotionProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -71,7 +74,7 @@ export default function MotionProvider({ children }: { children: React.ReactNode
               const split = SplitText.create(el, { type: "words", mask: "words" });
               tl.set(el, { autoAlpha: 1 }, at).from(split.words, { yPercent: 110, duration: 1.2, stagger: 0.06 }, "<");
             } else {
-              tl.fromTo(el, { autoAlpha: 0, y: 28 }, { autoAlpha: 1, y: 0 }, at);
+              tl.fromTo(el, { autoAlpha: 0, y: 28 }, { autoAlpha: 1, y: 0, clearProps: DONE }, at);
             }
           });
         }
@@ -101,7 +104,7 @@ export default function MotionProvider({ children }: { children: React.ReactNode
         ScrollTrigger.batch("[data-reveal]", {
           start: "top 90%",
           once: true,
-          onEnter: (els) => gsap.to(els, { autoAlpha: 1, y: 0, duration: 1.1, ease: EASE, stagger: 0.09 }),
+          onEnter: (els) => gsap.to(els, { autoAlpha: 1, y: 0, duration: 1.1, ease: EASE, stagger: 0.09, clearProps: DONE }),
         });
 
         // Grids and lists: children one after another ("fade" keeps them in place,
@@ -116,6 +119,7 @@ export default function MotionProvider({ children }: { children: React.ReactNode
               duration: 1.1,
               ease: EASE,
               stagger: 0.08,
+              clearProps: DONE,
               scrollTrigger: { trigger: group, start: "top 88%", once: true },
             },
           );

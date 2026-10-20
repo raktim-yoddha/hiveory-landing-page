@@ -959,7 +959,7 @@ export default function Home() {
               role="dialog"
               aria-modal="true"
               aria-labelledby="contact-title"
-              className="relative w-full max-w-lg rounded-none border border-white/15 card-surface p-5 sm:p-8 z-10 max-h-[90vh] overflow-y-auto"
+              className="relative w-full max-w-lg rounded-none border border-white/15 card-surface card-still p-5 sm:p-8 z-10 max-h-[90vh] overflow-y-auto"
             >
               {/* Corner Brackets */}
               <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 pointer-events-none" />

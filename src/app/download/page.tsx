@@ -38,10 +38,12 @@ export default async function DownloadPage() {
         </Panel>
       ) : (
         <>
+          <div data-hero="3">
           <RecommendedDownload files={release.files} version={release.version} />
+          </div>
 
           <SectionLabel>All downloads</SectionLabel>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+          <div data-reveal-stagger className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
             {PLATFORMS.map(({ os, icon, note }) => (
               <Panel key={os} id={os} className="p-6 sm:p-7 flex flex-col scroll-mt-28">
                 <div className="flex items-center gap-3 mb-1">
@@ -83,7 +85,7 @@ export default async function DownloadPage() {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div data-reveal-stagger className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { step: "01", title: "Install", body: "Run the file you downloaded." },
               { step: "02", title: "Add an agent CLI", body: "Claude Code, Codex or Gemini CLI. Hiveory finds it." },
@@ -97,7 +99,7 @@ export default async function DownloadPage() {
             ))}
           </div>
 
-          <p className="text-center text-sm text-zinc-500 mt-16">
+          <p data-reveal className="text-center text-sm text-zinc-500 mt-16">
             Older versions and release notes are on{" "}
             <a href={release.pageUrl} target="_blank" rel="noopener noreferrer" className="text-zinc-300 underline underline-offset-4 hover:text-white">
               GitHub

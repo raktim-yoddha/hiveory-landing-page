@@ -142,7 +142,7 @@ export default function CapabilitiesCardStack() {
   // Synchronized animation clock for the pipeline stream
   const streamTime = useTime();
   const reduceMotion = useReducedMotion();
-  const streamY = useTransform(streamTime, (t) => (reduceMotion ? -160 : -320 + ((t % 14000) / 14000) * 320));
+  const streamY = useTransform(streamTime, (t) => (reduceMotion ? -320 : -320 + ((t % 14000) / 14000) * 320));
 
   useEffect(() => {
     const updateDimensions = () => {
@@ -257,10 +257,10 @@ export default function CapabilitiesCardStack() {
 
       {/* Section Header (In normal document flow) */}
       <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-2 sm:pb-4 text-center">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-medium tracking-[-0.025em] text-white leading-tight mb-3">
+        <h2 data-split className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-medium tracking-[-0.025em] text-white leading-tight mb-3">
           Built for many agents
         </h2>
-        <p className="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+        <p data-reveal className="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
           Five agents should feel as calm as one.
         </p>
       </div>

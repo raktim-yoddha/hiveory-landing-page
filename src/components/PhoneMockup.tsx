@@ -28,9 +28,13 @@ function Row({ a, waiting }: { a: (typeof WORKING)[number]; waiting: boolean }) 
   );
 }
 
-export default function PhoneMockup({ className }: { className?: string }) {
+/** `parallax`: drifts against the scroll (Locomotive Scroll data-scroll-speed). */
+export default function PhoneMockup({ className, parallax = false }: { className?: string; parallax?: boolean }) {
   return (
-    <figure className={cn("relative w-[280px] shrink-0", className)}>
+    <figure
+      className={cn("relative w-[280px] shrink-0", className)}
+      {...(parallax ? { "data-scroll": "", "data-scroll-speed": "0.08" } : {})}
+    >
       <div aria-hidden="true" className="relative rounded-[2.6rem] border border-white/15 bg-[#0b0b0e] p-2.5 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.9)]">
         <div className="relative rounded-[2.1rem] overflow-hidden bg-[#0f0f12] h-[560px] flex flex-col">
           <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-20 h-5 rounded-full bg-black" />

@@ -59,7 +59,7 @@ export default function DocsPage() {
       {/* Start here: four numbered steps */}
       <section className="mb-20 sm:mb-24">
         <SectionLabel>Start here</SectionLabel>
-        <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <ol data-reveal-stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {START.map((s, i) => (
             <li key={s.title}>
               <Tag>0{i + 1}</Tag>
@@ -71,7 +71,7 @@ export default function DocsPage() {
       </section>
 
       {/* Shortcuts + build from source, side by side */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-20 sm:mb-24">
+      <div data-reveal-stagger className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-20 sm:mb-24">
         <Panel className="p-6 sm:p-7">
           <h2 className="text-lg font-medium text-white mb-1">Keyboard shortcuts</h2>
           <p className="text-sm text-zinc-500 mb-5">Change any of them in Settings › Keyboard.</p>
@@ -124,7 +124,7 @@ export default function DocsPage() {
       {/* Guides */}
       <section>
         <SectionLabel>Guides</SectionLabel>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div data-reveal-stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {GUIDES.map((g) => (
             <a key={g.title} href={g.href} target="_blank" rel="noopener noreferrer" className="block">
               <Panel className="p-6 h-full">
@@ -142,7 +142,7 @@ export default function DocsPage() {
         </div>
       </section>
 
-      <p className="text-center text-sm text-zinc-500 mt-16 flex items-center justify-center gap-2">
+      <p data-reveal className="text-center text-sm text-zinc-500 mt-16 flex items-center justify-center gap-2">
         <BookOpen size={14} aria-hidden="true" />
         Something missing?{" "}
         <a href={`${GITHUB_URL}/issues/new`} target="_blank" rel="noopener noreferrer" className="text-zinc-300 underline underline-offset-4 hover:text-white">

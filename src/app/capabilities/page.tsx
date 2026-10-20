@@ -48,7 +48,7 @@ export default function FeaturesPage() {
       <PageHeader title="Everything Hiveory does" sub="The whole app, at a glance." />
 
       {/* Stats strip: four equal cells */}
-      <dl className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.1] border border-white/[0.12] mb-20 sm:mb-24">
+      <dl data-reveal-stagger className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.1] border border-white/[0.12] mb-20 sm:mb-24">
         {STATS.map((s) => (
           <div key={s.label} className="card-surface p-6 text-center flex flex-col-reverse">
             <dt className="mt-1 text-sm text-zinc-500">{s.label}</dt>
@@ -60,7 +60,7 @@ export default function FeaturesPage() {
       {GROUPS.map((g) => (
         <section key={g.label} className="mb-14 sm:mb-16">
           <SectionLabel>{g.label}</SectionLabel>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div data-reveal-stagger className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {g.items.map((f) => (
               <Panel key={f.title} className="p-6">
                 <IconTile>{f.icon}</IconTile>
@@ -72,6 +72,7 @@ export default function FeaturesPage() {
         </section>
       ))}
 
+      <div data-reveal>
       <Panel className="mt-20 p-8 sm:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div>
           <h2 className="text-2xl font-medium text-white">Try it on your next task</h2>
@@ -81,6 +82,7 @@ export default function FeaturesPage() {
           Download free
         </ActionLink>
       </Panel>
+      </div>
     </PageShell>
   );
 }

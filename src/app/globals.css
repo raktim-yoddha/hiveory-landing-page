@@ -151,6 +151,23 @@ html {
   }
 }
 
+/* Scroll reveals (MotionProvider). `html.motion` is set before paint when motion is allowed,
+   so these start hidden instead of flashing. If the script never runs, the fallback
+   makes them visible after a moment. */
+html.motion [data-hero],
+html.motion [data-split],
+html.motion [data-reveal],
+html.motion [data-reveal-stagger] > *,
+html.motion [data-reveal-line] {
+  visibility: hidden;
+  animation: motion-fallback 0s 3.5s forwards;
+}
+@keyframes motion-fallback {
+  to {
+    visibility: visible;
+  }
+}
+
 /* Reduced motion: stop every looping decoration; content stays fully visible */
 @media (prefers-reduced-motion: reduce) {
   *,

@@ -170,10 +170,10 @@ export default function ProductCardStack() {
 
       {/* SECTION HEADER */}
       <div className="relative z-10 w-full max-w-4xl mx-auto text-center mb-12 sm:mb-16">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-medium tracking-[-0.025em] text-white leading-tight mb-3">
+        <h2 data-split className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-medium tracking-[-0.025em] text-white leading-tight mb-3">
           One app, three modes
         </h2>
-        <p className="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+        <p data-reveal className="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
           Switch with Ctrl 1, 2, 3. Everything keeps running.
         </p>
       </div>
@@ -270,7 +270,7 @@ export default function ProductCardStack() {
         {/* ===================================================================== */}
         {/* 3. THE 3 SMALL MODE CARDS (No buttons, separator after description)   */}
         {/* ===================================================================== */}
-        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch mb-12 sm:mb-16 mt-0">
+        <div data-reveal-stagger="fade" className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch mb-12 sm:mb-16 mt-0">
           {modesData.map((mode, index) => {
             const isHovered = hoveredCard === index;
             const cardRef =
@@ -282,7 +282,7 @@ export default function ProductCardStack() {
                 ref={cardRef}
                 onMouseEnter={() => setHoveredCard(index)}
                 onMouseLeave={() => setHoveredCard(null)}
-                className={`group relative rounded-none border transition-all duration-300 card-surface flex flex-col p-6 sm:p-7 ${
+                className={`group relative rounded-none border transition-colors duration-300 card-surface flex flex-col p-6 sm:p-7 ${
                   isHovered
                     ? "border-white/40"
                     : "border-white/[0.12] hover:border-white/30"
@@ -370,7 +370,7 @@ export default function ProductCardStack() {
         {/* ===================================================================== */}
         {/* 4. SEE MORE DETAILS BUTTON                                            */}
         {/* ===================================================================== */}
-        <div className="z-20 flex items-center justify-center">
+        <div data-reveal className="z-20 flex items-center justify-center">
           <Link
             href="/product"
             className="group/btn relative inline-flex items-center justify-between p-1 pr-4 rounded-none bg-[#0c0c10] border border-white/20 hover:border-white text-white transition-all duration-300 cursor-pointer active:scale-[0.98] shadow-lg"

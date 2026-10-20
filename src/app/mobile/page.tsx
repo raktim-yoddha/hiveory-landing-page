@@ -28,15 +28,15 @@ export default function MobilePage() {
       {/* Hero: copy left, phone right */}
       <section className="grid grid-cols-1 lg:grid-cols-[1fr_auto] items-center gap-14 lg:gap-20 mb-24 sm:mb-32">
         <div className="text-center lg:text-left">
-          <h1 className="text-4xl sm:text-6xl font-medium tracking-[-0.03em] text-white leading-[1.05]">
+          <h1 data-hero="1" data-hero-split className="text-4xl sm:text-6xl font-medium tracking-[-0.03em] text-white leading-[1.05]">
             Your agents,
             <br />
             in your pocket
           </h1>
-          <p className="mt-5 text-base sm:text-lg text-zinc-400 leading-relaxed max-w-md mx-auto lg:mx-0">
+          <p data-hero="2" className="mt-5 text-base sm:text-lg text-zinc-400 leading-relaxed max-w-md mx-auto lg:mx-0">
             See who needs you and answer from anywhere. It talks only to your own computers.
           </p>
-          <div className="mt-9 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
+          <div data-hero="3" className="mt-9 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
             <ActionLink href="/download#android" icon={<Download size={16} />}>
               Download the APK
             </ActionLink>
@@ -45,12 +45,14 @@ export default function MobilePage() {
             </a>
           </div>
         </div>
-        <PhoneMockup className="mx-auto" />
+        <div data-hero="4">
+          <PhoneMockup className="mx-auto" parallax />
+        </div>
       </section>
 
       {/* What it does: six equal cards */}
       <SectionLabel>What you can do</SectionLabel>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-24 sm:mb-32">
+      <div data-reveal-stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-24 sm:mb-32">
         {FEATURES.map((f) => (
           <Panel key={f.title} className="p-6">
             <IconTile>{f.icon}</IconTile>
@@ -63,7 +65,7 @@ export default function MobilePage() {
       {/* Pairing */}
       <section id="pair" className="scroll-mt-28 mb-24 sm:mb-32">
         <SectionLabel>Pair in three steps</SectionLabel>
-        <ol className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <ol data-reveal-stagger className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {STEPS.map((s, i) => (
             <li key={s.title}>
               <Tag>0{i + 1}</Tag>
@@ -75,6 +77,7 @@ export default function MobilePage() {
       </section>
 
       {/* Privacy + CTA */}
+      <div data-reveal>
       <Panel className="p-8 sm:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
         <div className="flex items-start gap-4">
           <IconTile>
@@ -92,7 +95,8 @@ export default function MobilePage() {
           Get the app
         </ActionLink>
       </Panel>
-      <p className="text-center text-xs text-zinc-500 mt-6">iPhone: no store build yet. Developers can build it from source.</p>
+      </div>
+      <p data-reveal className="text-center text-xs text-zinc-500 mt-6">iPhone: no store build yet. Developers can build it from source.</p>
     </PageShell>
   );
 }

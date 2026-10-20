@@ -64,10 +64,12 @@ export default function ProductPage() {
       </PageHeader>
 
       <div className="mb-20 sm:mb-28">
+        <div data-scale-in>
         <Screen src="/work.webp" alt="Hiveory's Work view with agents side by side and the status board" />
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-20 sm:mb-28">
+      <div data-reveal-stagger className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-20 sm:mb-28">
         {MODES.map((m) => (
           <Panel key={m.title} id={m.title.toLowerCase()} className="p-7 flex flex-col scroll-mt-28">
             <div className="flex items-center justify-between">
@@ -92,7 +94,7 @@ export default function ProductPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-        <div>
+        <div data-reveal>
           <Tag>Chat</Tag>
           <h2 className="mt-4 text-3xl sm:text-4xl font-medium text-white tracking-tight">Any CLI, any model</h2>
           <p className="mt-4 text-zinc-400 leading-relaxed max-w-md">
@@ -104,7 +106,9 @@ export default function ProductPage() {
             </ActionLink>
           </div>
         </div>
+        <div data-scale-in>
         <Screen src="/chat.webp" alt="Hiveory's Chat view with Codex and its model and effort pickers" />
+        </div>
       </div>
     </PageShell>
   );

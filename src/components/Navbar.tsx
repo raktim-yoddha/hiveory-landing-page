@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { GITHUB_URL, getStarCount } from "@/lib/download";
+import { scrollToTarget } from "@/lib/smooth-scroll";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -68,9 +69,7 @@ export default function Navbar() {
     if (href.startsWith("/#") && pathname === "/") {
       const id = href.replace("/#", "");
       const elem = document.getElementById(id);
-      if (elem) {
-        elem.scrollIntoView({ behavior: "smooth" });
-      }
+      if (elem) scrollToTarget(elem);
     }
   };
 
@@ -135,7 +134,7 @@ export default function Navbar() {
               setIsMobileMenuOpen(false);
               if (pathname === "/") {
                 e.preventDefault();
-                window.scrollTo({ top: 0, behavior: "smooth" });
+                scrollToTarget(0, 0);
               }
             }}
             className="flex items-center gap-2 sm:gap-2.5 cursor-pointer group shrink-0"

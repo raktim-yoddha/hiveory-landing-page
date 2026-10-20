@@ -123,14 +123,14 @@ export function PageShell({ children }: { children: React.ReactNode }) {
 export function PageHeader({ title, sub, children }: { title: React.ReactNode; sub: React.ReactNode; children?: React.ReactNode }) {
   return (
     <header className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-      <h1 className="text-4xl sm:text-6xl font-medium tracking-[-0.03em] text-white leading-[1.05]">{title}</h1>
-      <p className="mt-5 text-base sm:text-lg text-zinc-400 leading-relaxed">{sub}</p>
-      {children && <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">{children}</div>}
+      <h1 data-hero="1" data-hero-split className="text-4xl sm:text-6xl font-medium tracking-[-0.03em] text-white leading-[1.05]">{title}</h1>
+      <p data-hero="2" className="mt-5 text-base sm:text-lg text-zinc-400 leading-relaxed">{sub}</p>
+      {children && <div data-hero="3" className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">{children}</div>}
     </header>
   );
 }
 
 /** Section heading inside a page. */
 export function SectionLabel({ children }: { children: React.ReactNode }) {
-  return <h2 className="text-2xl sm:text-3xl font-medium tracking-[-0.02em] text-white mb-8">{children}</h2>;
+  return <h2 data-split className="text-2xl sm:text-3xl font-medium tracking-[-0.02em] text-white mb-8">{children}</h2>;
 }

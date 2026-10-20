@@ -10,6 +10,7 @@ import Link from "next/link";
 import { Check, Smartphone } from "lucide-react";
 import PhoneMockup from "@/components/PhoneMockup";
 import { ActionLink } from "@/components/ui/kit";
+import { setScrollLocked } from "@/lib/smooth-scroll";
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState, useSyncExternalStore } from "react";
@@ -96,7 +97,7 @@ function CommunityCard({
   );
 
   const cardClasses =
-    "community-card-mobile-static group relative rounded-none border border-white/[0.12] sm:hover:border-white/30 card-surface p-6 sm:p-8 flex flex-col justify-between sm:transition-all sm:duration-300 max-lg:![transform:none] max-lg:![opacity:1] max-lg:![transition:none] portrait:![transform:none] portrait:![opacity:1] portrait:![transition:none]";
+    "community-card-mobile-static group relative rounded-none border border-white/[0.12] sm:hover:border-white/30 card-surface p-6 sm:p-8 flex flex-col justify-between sm:transition-colors sm:duration-300 max-lg:![transform:none] max-lg:![opacity:1] max-lg:![transition:none] portrait:![transform:none] portrait:![opacity:1] portrait:![transition:none]";
 
   if (isMobile) {
     return (
@@ -194,7 +195,12 @@ export default function Home() {
     if (isDemoModalOpen) {
       window.addEventListener("keydown", handleKeyDown);
     }
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    // The page behind the dialog stays put while it is open
+    setScrollLocked(isDemoModalOpen);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      setScrollLocked(false);
+    };
   }, [isDemoModalOpen]);
 
   return (
@@ -215,19 +221,19 @@ export default function Home() {
 
           {/* Strictly Two-Line High-Impact Display Headline */}
           <h1 className="relative z-10 w-full text-center text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-[56px] xl:text-[62px] font-medium tracking-[-0.03em] text-white leading-[1.15] sm:leading-[1.08] mb-6 mx-auto">
-            <span className="block sm:whitespace-nowrap">Code, automate and chat</span>
-            <span className="text-zinc-400 font-normal block mt-2 sm:mt-3 text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-[38px] xl:text-[44px] tracking-[-0.02em]">
+            <span data-hero="1" data-hero-split className="block sm:whitespace-nowrap">Code, automate and chat</span>
+            <span data-hero="2" className="text-zinc-400 font-normal block mt-2 sm:mt-3 text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-[38px] xl:text-[44px] tracking-[-0.02em]">
               With every AI agent, in one app
             </span>
           </h1>
 
           {/* Crisp Narrative Subtitle */}
-          <p className="relative z-10 max-w-[760px] mx-auto text-base sm:text-lg text-zinc-400/90 leading-relaxed font-normal mb-10 text-balance">
+          <p data-hero="3" className="relative z-10 max-w-[760px] mx-auto text-base sm:text-lg text-zinc-400/90 leading-relaxed font-normal mb-10 text-balance">
             Coding agents side by side. Bots that run on their own. Chat with any model.
           </p>
 
           {/* Call to Action Buttons */}
-          <div className="relative z-10 flex flex-col items-center justify-center w-full sm:w-auto">
+          <div data-hero="4" className="relative z-10 flex flex-col items-center justify-center w-full sm:w-auto">
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto">
               {/* Primary Download for Windows Button */}
               <Link
@@ -313,7 +319,7 @@ export default function Home() {
             </div>
 
             {/* Reassurance line: price, platforms, all downloads */}
-            <p className="text-[12px] text-zinc-500 mt-4">
+            <p data-hero="5" className="text-[12px] text-zinc-500 mt-4">
               Free &amp; open source · Windows, macOS, Linux &amp; Android ·{" "}
               <Link href="/download" className="underline underline-offset-2 hover:text-zinc-300 transition-colors">
                 All downloads
@@ -325,7 +331,7 @@ export default function Home() {
 
       {/* SECTION: Hiveory Desktop App Image (Smooth scroll expansion on desktop, static responsive frame on mobile) */}
       <section
-        id="ade-preview"
+        id="ade-preview" data-hero="6"
         className="relative w-full flex flex-col items-center justify-center px-4 sm:px-6 pt-6 sm:pt-10 pb-16 sm:pb-28 z-20 overflow-visible"
       >
         {/* Ambient back-glow that gently brightens */}
@@ -400,13 +406,13 @@ export default function Home() {
       <section id="mobile" className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-32 scroll-mt-20">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] items-center gap-14 lg:gap-24">
           <div className="text-center lg:text-left">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-medium tracking-[-0.025em] text-white leading-tight">
+            <h2 data-split className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-medium tracking-[-0.025em] text-white leading-tight">
               Your agents, in your pocket
             </h2>
-            <p className="mt-5 text-base sm:text-lg text-zinc-400 leading-relaxed max-w-md mx-auto lg:mx-0">
+            <p data-reveal className="mt-5 text-base sm:text-lg text-zinc-400 leading-relaxed max-w-md mx-auto lg:mx-0">
               See who needs you, reply from anywhere, and get a ping when an agent waits.
             </p>
-            <ul className="mt-8 space-y-3 text-sm text-zinc-300 inline-block text-left">
+            <ul data-reveal className="mt-8 space-y-3 text-sm text-zinc-300 inline-block text-left">
               {["Inbox of agents that need you", "Type into real terminals", "Only talks to your own computers"].map((t) => (
                 <li key={t} className="flex items-center gap-2.5">
                   <Check size={16} className="text-white shrink-0" aria-hidden="true" />
@@ -414,7 +420,7 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-            <div className="mt-9 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
+            <div data-reveal className="mt-9 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
               <ActionLink href="/download#android" icon={<Smartphone size={16} />}>
                 Get the Android app
               </ActionLink>
@@ -423,7 +429,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <PhoneMockup className="mx-auto" />
+          <PhoneMockup className="mx-auto" parallax />
         </div>
       </section>
 
@@ -432,18 +438,18 @@ export default function Home() {
       {/* SECTION: Pricing Section */}
       <section id="pricing" className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 py-24 sm:py-32 scroll-mt-20">
         <div className="text-center max-w-4xl mx-auto mb-16 sm:mb-20">
-          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-6xl font-medium tracking-[-0.025em] text-white leading-tight mb-4 sm:mb-6 sm:whitespace-nowrap">
+          <h2 data-split className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-6xl font-medium tracking-[-0.025em] text-white leading-tight mb-4 sm:mb-6 sm:whitespace-nowrap">
             Simple pricing
           </h2>
-          <p className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto">
+          <p data-reveal className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto">
             The app is free. Pay only if you want our help.
           </p>
         </div>
 
         {/* Tier Cards Grid - 3 Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-16 sm:mb-20">
+        <div data-reveal-stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-16 sm:mb-20">
           {/* Open Source Tier */}
-          <div className="group relative rounded-none border border-white/10 hover:border-white/30 card-surface p-8 sm:p-10 flex flex-col justify-between transition-all duration-300">
+          <div className="group relative rounded-none border border-white/10 hover:border-white/30 card-surface p-8 sm:p-10 flex flex-col justify-between transition-colors duration-300">
             <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
             <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
             <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -531,7 +537,7 @@ export default function Home() {
           </div>
 
           {/* Custom Tier */}
-          <div className="group relative rounded-none border border-white/10 hover:border-white/30 card-surface p-8 sm:p-10 flex flex-col justify-between transition-all duration-300">
+          <div className="group relative rounded-none border border-white/10 hover:border-white/30 card-surface p-8 sm:p-10 flex flex-col justify-between transition-colors duration-300">
             <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
             <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
             <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -620,7 +626,7 @@ export default function Home() {
           </div>
 
           {/* Enterprise Tier - Clean Matte Yellow Theme without glossy ambient blur */}
-          <div className="group relative rounded-none border border-amber-400/40 hover:border-amber-400 card-surface p-8 sm:p-10 flex flex-col justify-between transition-all duration-300">
+          <div className="group relative rounded-none border border-amber-400/40 hover:border-amber-400 card-surface p-8 sm:p-10 flex flex-col justify-between transition-colors duration-300">
             {/* Matte Yellow Corner Brackets */}
             <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-amber-400 pointer-events-none" />
             <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-amber-400 pointer-events-none" />
@@ -711,7 +717,7 @@ export default function Home() {
         </div>
 
         {/* Security & Compliance Callout */}
-        <div className="group relative rounded-none border border-white/10 hover:border-white/30 card-surface p-8 sm:p-10 max-w-7xl mx-auto transition-all duration-300">
+        <div data-reveal className="group relative rounded-none border border-white/10 hover:border-white/30 card-surface p-8 sm:p-10 max-w-7xl mx-auto transition-colors duration-300">
           <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
           <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
           <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -746,10 +752,10 @@ export default function Home() {
       {/* SECTION: Communities Section (Exactly same as Community Page) */}
       <section id="community" className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-14 pb-20 scroll-mt-20 overflow-hidden">
         <div className="text-center max-w-4xl mx-auto mb-14 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-medium tracking-[-0.025em] text-white leading-tight mb-6 sm:whitespace-nowrap">
+          <h2 data-split className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-medium tracking-[-0.025em] text-white leading-tight mb-6 sm:whitespace-nowrap">
             Build it with us
           </h2>
-          <p className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto">
+          <p data-reveal className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto">
             New releases every few days, shaped by you.
           </p>
         </div>
@@ -834,7 +840,7 @@ export default function Home() {
 
       {/* SECTION: Final CTA Card (Matching User's Design) */}
       <section className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 my-16 sm:my-24">
-        <div className="group relative rounded-none border border-white/10 hover:border-white/30 card-surface p-8 sm:p-14 text-center overflow-hidden transition-all duration-300">
+        <div data-reveal className="group relative rounded-none border border-white/10 hover:border-white/30 card-surface p-8 sm:p-14 text-center overflow-hidden transition-colors duration-300">
           {/* Corner Brackets */}
           <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
           <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-white/50 group-hover:border-white transition-colors duration-300 pointer-events-none" />
@@ -949,6 +955,7 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.2 }}
+              data-lenis-prevent
               role="dialog"
               aria-modal="true"
               aria-labelledby="contact-title"
@@ -1037,7 +1044,7 @@ export default function Home() {
 function SectionSeparator() {
   return (
     <div className="relative w-full flex items-center justify-center my-0 pointer-events-none z-10">
-      <div className="w-full border-t border-white/[0.08]" />
+      <div data-reveal-line className="w-full border-t border-white/[0.08]" />
       <div className="absolute text-white/30 font-mono text-xs select-none bg-[#060608] px-3">
         +
       </div>
